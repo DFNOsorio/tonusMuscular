@@ -1,0 +1,175 @@
+Channel description
+
+1 - Rectus Abdominis Left   (RA_L)  |   5 - Iliacus? Left      (I_L)
+
+2 - Rectus Abdominis Right  (RA_R)  |   6 - Iliacus? Right     (I_R)
+
+3 - Obliquus Externus Left  (O_L)   |   7 - Multifidus Left    (M_L)
+
+4 - Obliquus Externus Right (O_R)   |   8 - Multifidus Right   (M_R)
+
+
+--------------------------------------------------------------------
+
+---------
+Patient 1
+---------
+
+M.J, Female, 54 years, Lupus
+
+Rest    -> Data starts @ 4 seconds
+
+MVC     -> Data starts @ 1 seconds
+
+Discard first file where a sync atempt was made (more than 1 mac address. Check .txt file header or .h5 tabels)
+
+-- Second file --
+
+Arms Extension  -> Data starts @ 1:10 minutes (15s)
+
+-- New file --
+
+2 Feet Eyes Open        -> Data starts @ begining of file (30s)
+
+2 Feet Eyes Closed      -> Data starts @ 0:37 minutes (30s)
+
+Right Foot Eyes Open    -> Data starts @ 1:27 minutes (30s)
+
+Right Foot Eyes Closed  -> Data starts @ 2:41 minutes (30s)
+
+Left Foot Eyes Open     -> Data starts @ 2:57 minutes (30s)
+
+-- New file --
+
+Left Foot Eyes Closed   -> Data starts @ 0:12 minutes (incomplete)
+                        -> Data starts @ 0:19 minutes (incomplete)
+                        
+Reach Right             -> Data starts @ 1:05 minutes (+- 3-6s ?)
+Reach Left              -> Data starts @ 1:20 minutes (+- 3-6s ?)
+Reach Center            -> Data starts @ 1:30 minutes (+- 3-6s ?)
+
+-- New file --
+
+Reach Floor             -> Data starts @ 0:06 minutes (+- 3-6s ?)
+
+---------
+Patient 2
+---------
+
+F., Female, 59 years, Spondilitis
+
+Rest    -> Data starts @ 0 seconds
+
+MVC     -> Data starts @ 5  seconds
+        -> Data starts @ 20 seconds
+
+Discard any file where a sync atempt was made 
+
+Arms Extension          -> No record
+
+2 Feet Eyes Open        -> Data starts @ 0:30 minutes (30s)
+
+2 Feet Eyes Closed      -> Data starts @ 1:09 minutes (30s)
+
+Right Foot Eyes Open    -> Data starts @ 2:10 minutes (30s)
+
+Right Foot Eyes Closed  -> Data starts @ 3:07 minutes (incomplete)
+                        -> Data starts @ 3:20 minutes (incomplete?) / Try 20 seconds instead of 30
+
+Left Foot Eyes Open     -> Data starts @ 3:46 minutes (30s)
+
+Left Foot Eyes Closed   -> Data starts @ 4:48 minutes (1s)
+                        
+Reach Right             -> Data starts @ 5:21 minutes (+- 3-6s ?)
+
+-- New file --
+
+Reach Center            -> Data starts @ 0:18 minutes (+- 3-6s ?)
+
+-- New file --
+
+Reach Left              -> Data starts @ 0:06 minutes (+- 3-6s ?)
+
+Reach Floor             -> Data starts @ 0:36 minutes (+- 3-6s ?)
+
+Place on Floor          -> Data starts @ 0:45 minutes (+- 3-6s ?)
+
+---------
+Patient 3
+---------
+
+F. A., Male, 31 years, Spondilitis
+
+Rest    -> Data starts @ 0 seconds
+
+MVC     -> Data starts @ 8  seconds
+        -> Data starts @ 18 seconds
+
+Discard any file where a sync atempt was made 
+
+Arms Extension          -> Data starts @ 0:15 minutes (15s)
+
+2 Feet Eyes Open        -> Data starts @ 0:36 minutes (30s) -> Possible electrode disconection (RA_R)
+
+-- New file --
+
+2 Feet Eyes Closed      -> Data starts @ 0:00 minutes (30s)
+
+-- New file --
+
+Right Foot Eyes Open    -> Data starts @ 0:00 minutes (30s)
+
+Right Foot Eyes Closed  -> Data starts @ 0:49 minutes (30s)
+
+Left Foot Eyes Open     -> Data starts @ 1:45 minutes (30s)
+
+Left Foot Eyes Closed   -> Data starts @ 2:16 minutes (Incomplete)
+                        -> Data starts @ 2:34 minutes (30s)
+                        
+-- New file --
+                        
+Reach Right             -> Data starts @ 0:00 minutes (+- 3-6s ?)
+
+Reach Center            -> Data starts @ 0:10 minutes (+- 3-6s ?)
+
+Reach Left              -> Data starts @ 0:30 minutes (+- 3-6s ?)
+
+Reach Floor             -> No record
+
+---------
+Patient 4
+---------
+
+F., Female, 75 years, Rheumatism Arthritis
+
+Rest    -> Data starts @ 0 seconds
+
+MVC     -> Data starts @ 10 seconds ?
+        -> Data starts @ 20 seconds ?
+
+Discard any file where a sync atempt was made 
+
+Arms Extension          -> Data starts @ 0:16 minutes (15s)
+
+2 Feet Eyes Open        -> Data starts @ 0:41 minutes (30s)
+
+-- New file --
+
+2 Feet Eyes Closed      -> Data starts @ 0:00 minutes (28s)
+
+Right Foot Eyes Open    -> No data
+
+Right Foot Eyes Closed  -> No data
+
+Left Foot Eyes Open     -> Data starts @ 1:17 minutes (Incomplete)
+
+Left Foot Eyes Closed   -> No data
+                                                
+Reach Right             -> Data starts @ 2:19 minutes (+- 3-6s ?)
+
+Reach Left              -> Data starts @ 2:30 minutes (+- 3-6s ?)
+
+Reach Center            -> Data starts @ 2:40 minutes (+- 3-6s ?)
+
+Reach Floor             -> Data starts @ 2:57 minutes (+- 3-6s ?) -> Bent knees
+                        -> Data starts @ 3:14 minutes (+- 3-6s ?) -> Bent knees
