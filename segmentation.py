@@ -4,8 +4,8 @@ import copy
 import matplotlib.pyplot as plt
 
 
-filename = 'patient_1_repouso_0007803B4638_2016-11-28_12-27-00.h5'
-filename_w='Paciente1_MJ_Lupus.h5'
+filename = 'Testes_Egas_Moniz/patient_1_repouso_0007803B4638_2016-11-28_12-27-00.h5'
+filename_w='Egas_Moniz_Segments/Paciente1_MJ_Lupus.h5'
 
 f = h5py.File(filename, 'r')
 
@@ -59,28 +59,41 @@ group24 = f_new.create_group('Reach/Reach_L')
 group25 = f_new.create_group('Reach/Reach_C')
 
 slice1=4
-slice2=EMG_time[len(EMG_time)-1]
+slice2=EMG_time[len(EMG_time)-3]
+
 
 for idx,t in enumerate(EMG_time):
     if t==slice1:
         s=idx
 
+
+
 for idx2, t2 in enumerate(EMG_time):
     if t2 == slice2:
         d=idx2
+
+
 
 for index, value in enumerate(EMG_data):
     if index >= s and index <= d:
         EMG_data_seg=EMG_data[s:d,:]
 
 
-for index_t, value_t in enumerate(EMG_time):
-    if index_t >= s and index_t <= d:
-        EMG_time_seg=EMG_time[s:d]
+def segmentation(EMG_data_seg):
+    global data_set
+    for x, y in enumerate(EMG_data_seg):
+        if x<=7:
+            channel=x+1
+            data_set=f_new.create_dataset('MVC2/channel'+ str(channel), data=EMG_data_seg[:, x])
+            x += 1
+    return data_set
 
-for x, y in enumerate(EMG_data_seg):
-    if x<=7:
-        chanel=x+1
-        f_new.create_dataset('Relax/chanel'+'%d'%chanel, data=EMG_data_seg[:, x])
-        x += 1
+print(d)
+print(s)
+print(EMG_data[:,1])
+print(EMG_data_seg[:,1])
+segmentation(EMG_data_seg)
+
+
+
 
