@@ -32,31 +32,36 @@ atrib2 = f_new.attrs['Gender'] = 'F'
 atrib3 = f_new.attrs['Age'] = 54
 atrib4 = f_new.attrs['Condition'] = 'Lupus'
 
-group1 = f_new.create_group('MVC1')
-group2 = f_new.create_group('MVC2')
-group3 = f_new.create_group('Relax')
-group4 = f_new.create_group('Arms_extension')
-group5 = f_new.create_group('Standing_EO')
-group6 = f_new.create_group('Standing_EC')
-group7 = f_new.create_group('OneFootStanding_R_EO')
-group8 = f_new.create_group('OneFootStanding_R_EC')
-group9 = f_new.create_group('OneFootStanding_L_EO')
-group10 = f_new.create_group('OneFootStanding_L_EC')
-group11 = f_new.create_group('Reach')
-group12 = f_new.create_group('Reach_Ground')
-group13 = f_new.create_group('Platform')
-group14 = f_new.create_group('Platform/Arms_Extension')
-group15 = f_new.create_group('Platform/Standing_EO')
-group16 = f_new.create_group('Platform/Standing_EC')
-group17 = f_new.create_group('Platform/OneFootStanding_R_EO')
-group18 = f_new.create_group('Platform/OneFootStanding_R_EC')
-group19 = f_new.create_group('Platform/OneFootStanding_L_EO')
-group20 = f_new.create_group('Platform/OneFootStanding_L_EC')
-group21 = f_new.create_group('Platform/Reach_Forward')
-group22 = f_new.create_group('Platform/Reach_Ground')
-group23 = f_new.create_group('Reach/Reach_R')
-group24 = f_new.create_group('Reach/Reach_L')
-group25 = f_new.create_group('Reach/Reach_C')
+
+f_new.create_group('Static/MVC1')
+f_new.create_group('Static/MVC2')
+f_new.create_group('Static/Relax')
+
+f_new.create_group('ECG/Arms_extension')
+f_new.create_group('ECG/Standing_EO')
+f_new.create_group('ECG/Standing_EC')
+f_new.create_group('ECG/OneFootStanding_R_EO')
+f_new.create_group('ECG/OneFootStanding_R_EC')
+f_new.create_group('ECG/OneFootStanding_L_EO')
+f_new.create_group('ECG/OneFootStanding_L_EC')
+f_new.create_group('ECG/Reach_R')
+f_new.create_group('ECG/Reach_L')
+f_new.create_group('ECG/Reach_C')
+f_new.create_group('ECG/Reach_Forward')
+f_new.create_group('ECG/Reach_Ground')
+
+f_new.create_group('Platform/Arms_extension')
+f_new.create_group('Platform/Standing_EO')
+f_new.create_group('Platform/Standing_EC')
+f_new.create_group('Platform/OneFootStanding_R_EO')
+f_new.create_group('Platform/OneFootStanding_R_EC')
+f_new.create_group('Platform/OneFootStanding_L_EO')
+f_new.create_group('Platform/OneFootStanding_L_EC')
+f_new.create_group('Platform/Reach_R')
+f_new.create_group('Platform/Reach_L')
+f_new.create_group('Platform/Reach_C')
+f_new.create_group('Platform/Reach_Forward')
+f_new.create_group('Platform/Reach_Ground')
 
 slice1=4
 slice2=EMG_time[len(EMG_time)-3]
@@ -79,12 +84,13 @@ for index, value in enumerate(EMG_data):
         EMG_data_seg=EMG_data[s:d,:]
 
 
-def segmentation(EMG_data_seg):
+def segmentation(EMG_data_seg, segment):
     global data_set
     for x, y in enumerate(EMG_data_seg):
         if x<=7:
             channel=x+1
-            data_set=f_new.create_dataset('MVC1/channel'+ str(channel), data=EMG_data_seg[:, x])
+            ## f_new["Static/MVC1"] chama este grupo ou nao fazes o create antes e fazes so f_new.create_dataset("Static/MVC1/channel"+ str(channel), data=EMG_data_seg[:, x]) que criate tudo.
+            data_set=f_new[segment].create_dataset('channel'+ str(channel), data=EMG_data_seg[:, x])
             x += 1
     return data_set
 
@@ -92,7 +98,9 @@ print(d)
 print(s)
 print(EMG_data[:,1])
 print(EMG_data_seg[:,1])
-segmentation(EMG_data_seg)
+segmentation(EMG_data_seg, "Static/MVC1")
+## segmentation(EMG_data_seg, "ECG/Arms_extension")
+## segmentation(EMG_data_seg, "ECG/Arms_extension")
 
 f_new.close()
 
