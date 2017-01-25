@@ -84,7 +84,7 @@ def segmentation(EMG_data_seg):
     for x, y in enumerate(EMG_data_seg):
         if x<=7:
             channel=x+1
-            data_set=f_new.create_dataset('MVC2/channel'+ str(channel), data=EMG_data_seg[:, x])
+            data_set=f_new.create_dataset('MVC1/channel'+ str(channel), data=EMG_data_seg[:, x])
             x += 1
     return data_set
 
@@ -94,6 +94,6 @@ print(EMG_data[:,1])
 print(EMG_data_seg[:,1])
 segmentation(EMG_data_seg)
 
-
+f_new.close()
 
 
