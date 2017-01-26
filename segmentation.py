@@ -407,7 +407,7 @@ segmentation_AE(EMG_data_AE, "EMG/Arms_extension")
 segmentation_2FS(EMG_data_2FS, "EMG/Standing_EO")
 segmentation_2FS_EC(EMG_data_2FS_EC, "EMG/Standing_EC")
 segmentation_RF_EO(EMG_data_RF_EO, "EMG/OneFootStanding_R_EO")
-segmentation_RF_EC(EMG_data_RF_EC, "EMG/OneFootStanding_R_EC")
+segmentation_RF_EC(EMG_data_RF_EC, "EMG/OneFootStanding_R_EO")
 ## segmentation(EMG_data_seg, "ECG/Arms_extension")
 
 f_new.close()
