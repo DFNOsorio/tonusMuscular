@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import h5py
 import numpy as np
+import matplotlib.pyplot as plt
 
 filename1 = 'Testes_Egas_Moniz/patient_1_mvc_0007803B4638_2016-11-28_12-28-21.h5'
 filename2 = 'Testes_Egas_Moniz/patient_1_mvc_0007803B4638_2016-11-28_12-28-48.h5'
@@ -15,13 +18,13 @@ def load_data_h5(filename, platform = False):
 
     time = []
 
-    file = h5py.File(filename1, 'r')
+    file = h5py.File(filename, 'r')
 
     file_macs = file.keys()
 
-    EMG_mac = "0007803B4638" ##  Este é o mac addresss dos EMGS sempre
+    EMG_mac = '00:07:80:3B:46:38' #  Este e o mac addresss dos EMGS sempre
 
-    if file_macs[0] == "0007803B4638" && platform: ## Se existir plataform e o primeiro mac for o dos EMGs
+    if file_macs[0] == '00:07:80:3B:46:38' and platform: ## Se existir plataform e o primeiro mac for o dos EMGs
 
         platform_mac = file_macs[1]
 
@@ -34,12 +37,16 @@ def load_data_h5(filename, platform = False):
     ## Load EMGs data
     EMG_data_group = file[EMG_mac + "/raw"]
 
-    time = EMG_data_group['nSeq'][:, 0] / definitions[0]
+    time = np.linspace(0, len(EMG_data_group['nSeq'][:, 0])/1000.0, len(EMG_data_group['nSeq'][:, 0]))
+    ## time = EMG_data_group['nSeq'][:, 0] / definitions[0]
+
+    plt.figure()
+    plt.plot(time)
+    plt.show()
 
     EMG_data = np.zeros((file[EMG_mac].attrs["nsamples"], len(EMG_data_group)-1))
 
     EMG_labels = []
-
     for i in range(0, len(EMG_data_group)-1):
         EMG_labels.append(EMG_data_group['channel_' + str(i+1)].attrs['label'])
         EMG_data[:, i] = EMG_data_group['channel_' + str(i+1)][:, 0]
@@ -66,6 +73,9 @@ def load_data_h5(filename, platform = False):
 
 def segments(time, data, start, end):
     segment_data = []
+
+    SUBSTITUIR POR INDEX QUE É MAIS FACIL
+
     for idx,t in enumerate(time):
         if t == start:
             time1=idx
@@ -164,8 +174,8 @@ MVC1_segment = segments(MVC1_time, MVC1_EMG_data, sliceMVC1, slice_2_MVC1)
 MVC2_segment = segments(MVC2_time, MVC2_EMG_data, sliceMVC2, slice_2_MVC2)
 
 AE_segment     = segments(plat1_time, plat1_EMG_data, slice_AE, slice_2_AE)
-2FS_segment    = segments(plat1_time, plat1_EMG_data, slice_2FS, slice_2_2FS)
-2FS_EC_segment = segments(plat1_time, plat1_EMG_data, slice_2FS_EC, slice_2_2FS_EC)
+FS_segment    = segments(plat1_time, plat1_EMG_data, slice_2FS, slice_2_2FS)
+FS_EC_segment = segments(plat1_time, plat1_EMG_data, slice_2FS_EC, slice_2_2FS_EC)
 RF_EO_segment  = segments(plat1_time, plat1_EMG_data, slice_RF_EO, slice_2_RF_EO)
 RF_EC_segment  = segments(plat1_time, plat1_EMG_data, slice_RF_EC, slice_2_RF_EC)
 
@@ -177,8 +187,8 @@ load_data(MVC1_segment, "Static/MVC1")
 load_data(MVC2_segment, "Static/MVC2")
 
 load_data(AE_segment, "EMG/Arms_extension")
-load_data(2FS_segment, "EMG/Standing_EO")
-load_data(2FS_EC_segment, "EMG/Standing_EC")
+load_data(FS_segment, "EMG/Standing_EO")
+load_data(FS_EC_segment, "EMG/Standing_EC")
 load_data(RF_EO_segment, "EMG/OneFootStanding_R_EO")
 load_data(RF_EC_segment, "EMG/OneFootStanding_R_EC")
 
