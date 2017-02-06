@@ -109,7 +109,7 @@ plat4_time, plat4_EMG_data, plat4_EMG_lables, plat4_data, plat4_lables    = load
 plat5_time, plat5_EMG_data, plat5_EMG_lables, plat5_data, plat5_lables    = load_data_h5(filename6)
 plat6_time, plat6_EMG_data, plat6_EMG_lables, plat6_data, plat6_lables    = load_data_h5(filename7)
 
-plt.plot(plat1_EMG_data)
+plt.plot(plat2_EMG_data)
 plt.show()
 
 f_new = h5py.File(filename_w, 'w')
