@@ -9,10 +9,8 @@ filename1 = 'Testes_Egas_Moniz/patient_1_mvc_0007803B4638_2016-11-28_12-28-21.h5
 filename2 = 'Testes_Egas_Moniz/patient_1_plataforma_0007803B4638_2016-11-28_12-37-24.h5'
 filename3 = 'Testes_Egas_Moniz/patient_1_plataforma_0007803B4638_2016-11-28_12-41-14.h5'
 filename4 = 'Testes_Egas_Moniz/patient_1_plataforma_0007803B4638_2016-11-28_12-43-17.h5'
-filename5 = 'Testes_Egas_Moniz/patient_1_plataforma_000780646DDA_0007803B4638_2016-11-28_12-31-22.h5'
-filename6 = 'Testes_Egas_Moniz/patient_1_plataforma_000780646DDA_0007803B4638_2016-11-28_12-33-04.h5'
-filename7 = 'Testes_Egas_Moniz/teste_000780646DDA_0007803B4638_2016-11-28_12-46-36.h5'
-filename8 = 'Testes_Egas_Moniz/patient_1_repouso_0007803B4638_2016-11-28_12-27-00.h5'
+filename5 = 'Testes_Egas_Moniz/patient_1_plataforma_000780646DDA_0007803B4638_2016-11-28_12-33-04.h5'
+filename6 = 'Testes_Egas_Moniz/patient_1_repouso_0007803B4638_2016-11-28_12-27-00.h5'
 
 
 filename_w='Egas_Moniz_Segments/Paciente1_MJ_Lupus.h5'
@@ -98,20 +96,17 @@ def load_data(segment_data, segment):
 
 
 
-rest_time, rest_EMG_data, rest_EMG_lables       = load_data_h5(filename8)
+rest_time, rest_EMG_data, rest_EMG_lables       = load_data_h5(filename6)
 
 MVC1_time, MVC1_EMG_data, MVC1_EMG_lables       = load_data_h5(filename1)
 
 plat1_time, plat1_EMG_data, plat1_EMG_lables    = load_data_h5(filename2)
 plat2_time, plat2_EMG_data, plat2_EMG_lables    = load_data_h5(filename3)
 plat3_time, plat3_EMG_data, plat3_EMG_lables    = load_data_h5(filename4)
-plat4_time, plat4_EMG_data, plat4_EMG_lables, plat4_data, plat4_lables   = load_data_h5(filename5)
-plat5_time, plat5_EMG_data, plat5_EMG_lables, plat5_data, plat5_lables   = load_data_h5(filename6)
-plat6_time, plat6_EMG_data, plat6_EMG_lables, plat6_data, plat6_lables   = load_data_h5(filename7)
+plat4_time, plat4_EMG_data, plat4_EMG_lables    = load_data_h5(filename5)
 
-plt.plot(plat1_EMG_data)
+plt.plot(plat3_EMG_data)
 plt.show()
-
 f_new = h5py.File(filename_w, 'w')
 
 atrib1 = f_new.attrs['Name'] = 'M.J.'
@@ -156,67 +151,69 @@ f_new.create_group('Platform/Reach_L')
 f_new.create_group('Platform/Reach_C')
 f_new.create_group('Platform/Reach_Ground')
 
-sliceMVC1=10.0
-slice_2_MVC1= 19.0
-sliceMVC2=20.0
-slice_2_MVC2= 30.149
+sliceMVC1=1.000
+slice_2_MVC1= 14.399
+#sliceMVC2=20.0
+#slice_2_MVC2= 30.149
 
-slice_AE=16.0
-slice_2_AE=31.0
-slice_2FS=41.0
-slice_2_2FS=71.0
+slice_AE=70.000
+slice_2_AE=85.000
 
-slice_2FS_EC=0
-slice_2_2FS_EC=28.0
-#slice_RF_EO=0.0
-#slice_2_RF_EO=30.0
-#slice_RF_EC=49.0
-#slice_2_RF_EC=79.0
-slice_LF_EO = 77.0
-slice_2_LF_EO= 107.0
-#slice_LF_EC = 136.0
-#slice_LF2_EC = 173
-slice_reach_R = 139.0
-slice_reach2_R = 145.0
-slice_reach_L = 150.0
-slice_reach2_L = 156.0
-slice_reach_C =160
-slice_reach2_C = 166.0
-slice_reach_G = 177.0
-slice_reach2_G = 215.399
+slice_2FS=0.0
+slice_2_2FS=30.0
+slice_2FS_EC=37.0
+slice_2_2FS_EC=67.0
+slice_RF_EO=87.0
+slice_2_RF_EO=117.0
+slice_RF_EC=161.0
+slice_2_RF_EC=191.0
+slice_LF_EO = 177.0
+slice_2_LF_EO= 207.0
 
-slice_repouso=0
-slice_2_repouso = 16.198
+slice_LF_EC = 12.0
+slice_LF2_EC = 60.0
+slice_reach_R = 65.0
+slice_reach2_R = 71.0
+slice_reach_L = 80.0
+slice_reach2_L = 86.0
+slice_reach_C =90
+slice_reach2_C = 96
+
+slice_reach_G = 6.0
+slice_reach2_G = 12.0
+
+slice_repouso=4.0
+slice_2_repouso = 33.149
 
 rest_segment = segments(rest_time, rest_EMG_data, slice_repouso, slice_2_repouso)
 
 MVC1_segment = segments(MVC1_time, MVC1_EMG_data, sliceMVC1, slice_2_MVC1)
-MVC2_segment = segments(MVC1_time, MVC1_EMG_data, sliceMVC2, slice_2_MVC2)
+#MVC2_segment = segments(MVC1_time, MVC1_EMG_data, sliceMVC2, slice_2_MVC2)
 
-AE_segment     = segments(plat1_time, plat1_EMG_data, slice_AE, slice_2_AE)
+AE_segment     = segments(plat4_time, plat4_EMG_data, slice_AE, slice_2_AE)
 FS_segment    = segments(plat1_time, plat1_EMG_data, slice_2FS, slice_2_2FS)
-FS_EC_segment = segments(plat2_time, plat2_EMG_data, slice_2FS_EC, slice_2_2FS_EC)
-#RF_EO_segment  = segments(plat2_time, plat2_EMG_data, slice_RF_EO, slice_2_RF_EO)
-#RF_EC_segment  = segments(plat3_time, plat3_EMG_data, slice_RF_EC, slice_2_RF_EC)
-LF_EO_segment = segments(plat2_time, plat2_EMG_data, slice_LF_EO, slice_2_LF_EO)
-#LF_EC_segment = segments(plat3_time, plat3_EMG_data, slice_LF_EC, slice_LF2_EC)
+FS_EC_segment = segments(plat1_time, plat1_EMG_data, slice_2FS_EC, slice_2_2FS_EC)
+RF_EO_segment  = segments(plat1_time, plat1_EMG_data, slice_RF_EO, slice_2_RF_EO)
+RF_EC_segment  = segments(plat1_time, plat1_EMG_data, slice_RF_EC, slice_2_RF_EC)
+LF_EO_segment = segments(plat1_time, plat1_EMG_data, slice_LF_EO, slice_2_LF_EO)
+LF_EC_segment = segments(plat2_time, plat2_EMG_data, slice_LF_EC, slice_LF2_EC)
 reach_R_segment = segments(plat2_time, plat2_EMG_data, slice_reach_R, slice_reach2_R)
 reach_L_segment = segments(plat2_time, plat2_EMG_data, slice_reach_L, slice_reach2_L)
 reach_C_segment = segments(plat2_time, plat2_EMG_data, slice_reach_C, slice_reach2_C)
-reach_G_segment = segments(plat2_time, plat2_EMG_data, slice_reach_G, slice_reach2_G)
+reach_G_segment = segments(plat3_time, plat3_EMG_data, slice_reach_G, slice_reach2_G)
 
 
 load_data(rest_segment, 'Static/Relax')
 load_data(MVC1_segment, "Static/MVC1")
-load_data(MVC2_segment, "Static/MVC2")
+#load_data(MVC2_segment, "Static/MVC2")
 
 load_data(AE_segment, "EMG/Arms_extension")
 load_data(FS_segment, "EMG/Standing_EO")
 load_data(FS_EC_segment, "EMG/Standing_EC")
-#load_data(RF_EO_segment, "EMG/OneFootStanding_R_EO")
-#load_data(RF_EC_segment, "EMG/OneFootStanding_R_EC")
+load_data(RF_EO_segment, "EMG/OneFootStanding_R_EO")
+load_data(RF_EC_segment, "EMG/OneFootStanding_R_EC")
 load_data(LF_EO_segment, "EMG/OneFootStanding_L_EO")
-#load_data(LF_EC_segment, "EMG/OneFootStanding_L_EC")
+load_data(LF_EC_segment, "EMG/OneFootStanding_L_EC")
 load_data(reach_R_segment, "EMG/Reach_R")
 load_data(reach_L_segment, "EMG/Reach_L")
 load_data(reach_G_segment, "EMG/Reach_Ground")
