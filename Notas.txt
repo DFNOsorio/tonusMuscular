@@ -136,7 +136,6 @@ Reach Left              -> Data starts @ 0:30 minutes (+- 3-6s ?)
 
 Reach Floor             -> No record
 
----------
 Patient 4
 ---------
 
