@@ -111,8 +111,8 @@ MVC1_time, MVC1_EMG_data, MVC1_EMG_lables       = load_data_h5(filename1)
 plat1_time, plat1_EMG_data, plat1_EMG_lables, plat1_data, plat1_lables    = load_data_h5(filename2, platform=True)
 plat2_time, plat2_EMG_data, plat2_EMG_lables, plat2_data, plat2_lables    = load_data_h5(filename3, platform=True)
 
-plt.plot(MVC1_EMG_data)
-plt.show()
+#plt.plot(MVC1_EMG_data)
+#plt.show()
 
 f_new = h5py.File(filename_w, 'w')
 
