@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 def avg_out(test):
 
@@ -55,3 +56,53 @@ def RMS_whole_segment(test, window_size=100, overlap=-1):
             new[i] = []
 
     return new
+
+def normalization (self):
+    max = np.zeros((8, 1))
+    max1 = np.zeros((8, 1))
+    max2 = np.zeros((8, 1))
+
+    if self.static["MVC2"] == []:
+        for i in range(0, len(self.staticRMS["MVC1"][:,0])):
+            max[i] = np.max(self.staticRMS["MVC1"][i,:])
+
+    if self.static["MVC1"] == []:
+        for i in range(0, len(self.staticRMS["MVC2"][:,0])):
+            max[i] = np.max(self.staticRMS["MVC2"][i,:])
+
+    else:
+        for i in range(0, len(self.staticRMS["MVC1"][:,0])):
+            max[i] = np.max(self.staticRMS["MVC1"][i,:])
+
+        for i in range(0, len(self.staticRMS["MVC1"][:,0])):
+            max[i] = np.max(self.staticRMS["MVC1"][i,:])
+
+        for i in range (0, len(max1[:,1])-1):
+            max[i] = (max1[i] + max2 [i]) / 2
+
+    nor_all = {}
+    for i in self.EMG_RMS:
+        try:
+            normalized = np.zeros(np.shape(self.EMG_RMS[i]))
+            for j in range(0, np.shape(self.EMG_RMS[i])[1]):
+                normalized[j,:] = self.EMG_RMS[i][j,:]/ max[j]
+
+            nor_all[i] = normalized
+
+        except IndexError:
+            nor_all[i] = normalized
+
+    return nor_all
+
+def max_normalization (self):
+    values = {}
+    max_values = np.zeros((8,1))
+    for i in self.normalization_EMG:
+        for j in range(0, len(self.normalization_EMG[i])):
+            max_values[j] = np.max(self.normalization_EMG[i][j,:])
+
+        values[i] = max_values
+    return values
+
+
+
