@@ -82,27 +82,34 @@ def normalization (self):
 
     nor_all = {}
     for i in self.EMG_RMS:
-        try:
-            normalized = np.zeros(np.shape(self.EMG_RMS[i]))
-            for j in range(0, np.shape(self.EMG_RMS[i])[1]):
-                normalized[j,:] = self.EMG_RMS[i][j,:]/ max[j]
+        normalized = np.zeros(np.shape(self.EMG_RMS[i]))
+        for j in range(0, len(self.EMG_RMS[i])):
+            normalized[j,:] = (self.EMG_RMS[i][j,:]/ max[j])
 
-            nor_all[i] = normalized
-
-        except IndexError:
-            nor_all[i] = normalized
-
+        nor_all[i] = normalized
     return nor_all
 
 def max_normalization (self):
     values = {}
-    max_values = np.zeros((8,1))
     for i in self.normalization_EMG:
+        max_values = np.zeros((8, 1))
         for j in range(0, len(self.normalization_EMG[i])):
-            max_values[j] = np.max(self.normalization_EMG[i][j,:])
-
+            max_values[j] = np.max(self.normalization_EMG[i][j,:])*100
         values[i] = max_values
     return values
 
-
+#def correlation(self):
+ #   correlation = {}
+  #  for i in self.EMG_RMS:
+   #     print i
+    #    platform_values = np.zeros((4,len(self.platform_RMS[i][1,:])))
+     #   EMG_values = np.zeros((8, len(self.EMG_RMS[i][1, :])))
+      #  correlation_values = []
+       # for j in range(0,len(self.platform_RMS[i])):
+        #    platform_values[j,:] = self.platform[i][j,:]
+         #   for x in range(0,len(self.EMG_RMS[i])):
+          #      EMG_values[x,:] = self.EMG_RMS[i][x,:]
+           #     correlation_values[j,x] = np.correlate(EMG_values,platform_values)
+    #correlation = correlation_values
+    #return correlation
 
