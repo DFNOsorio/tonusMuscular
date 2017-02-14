@@ -11,7 +11,6 @@ def avg_out(test):
             new_new = np.zeros(np.shape(test[i]))
             for j in range(0, np.shape(test[i])[1]):
                 new_new[:, j] = test[i][:, j] - np.mean(test[i][:, j])
-            print np.shape(new_new)
             new[i] = new_new
 
         except IndexError:
@@ -105,17 +104,12 @@ def norm_whole_segment(test, max):
 
     return new_avg, new_max
 
-# def correlation(self):
- #   correlation = {}
-  #  for i in self.EMG_RMS:
-   #     print i
-    #    platform_values = np.zeros((4,len(self.platform_RMS[i][1,:])))
-    #   EMG_values = np.zeros((8, len(self.EMG_RMS[i][1, :])))
-    #  correlation_values = []
-    # for j in range(0,len(self.platform_RMS[i])):
-    #    platform_values[j,:] = self.platform[i][j,:]
-    #   for x in range(0,len(self.EMG_RMS[i])):
-    #      EMG_values[x,:] = self.EMG_RMS[i][x,:]
-    #     correlation_values[j,x] = np.correlate(EMG_values,platform_values)
-    #correlation = correlation_values
-    # return correlation
+def RAW_2_mass(platform_data):
+    mass={}
+    G = (100.0*1000.0+2013.83)/203.83
+    Vi = 1000/G
+    res = 16.0
+    S = (3.0 * Vout_put)/(Vi*200.0)
+    for i in platform_data:
+        new_mass = np.zeros(np.shape(platform_data[i][1]))
+        print new_mass

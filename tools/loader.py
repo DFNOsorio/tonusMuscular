@@ -10,7 +10,7 @@ static_list = ["MVC1", "MVC2", "Relax"]
 
 class Patient:
 
-    def __init__(self, filename, platform = True, verbose = True):
+    def __init__(self, filename, platform = False, verbose = True):
 
         self.filename = filename
 
