@@ -29,7 +29,9 @@ def load_data_h5(filename, platform = False):
 
     elif platform:
 
-        platform_mac =  file_macs[0]
+        platform_mac = file_macs[0]
+
+    # TODO add defintions to segment
 
     definitions = [file[EMG_mac].attrs["sampling rate"]*1.0, file[EMG_mac].attrs["resolution"]*1.0]
 

@@ -5,32 +5,52 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
 
-patient1 = Patient(file, platform = True, verbose = True)
+patient1 = Patient(file, platform=True, verbose=True)
 
-patient1.staticAVR = avg_out(patient1.static)
-patient1.EMG_AVR = avg_out(patient1.EMG)
-patient1.platform_AVR = avg_out(patient1.platform)
-patient1.staticRMS = RMS_whole_segment(patient1.staticAVR)
-patient1.EMG_RMS = RMS_whole_segment(patient1.EMG_AVR)  ##index ao contrario
-patient1.platform_RMS = RMS_whole_segment(patient1.platform_AVR)
-patient1.normalization_EMG = normalization(patient1)    ##index ao contrario
-patient1.max_values = max_normalization(patient1)       ##index ao contrario
-#patient1.correlation = correlation(patient1)
+patient1.static_avg = avg_out(patient1.static)
+patient1.EMG_avg = avg_out(patient1.EMG)
+print '\033[93m' + "AVG_END" + '\033[0m'
+patient1.static_RMS = RMS_whole_segment(patient1.static_avg)
+patient1.EMG_RMS = RMS_whole_segment(patient1.EMG_avg)
+print '\033[93m' + "RMS_END" + '\033[0m'
+patient1.RMS_max = max_mvc(patient1.static_RMS["MVC1"], patient1.static_RMS["MVC2"])
+print '\033[93m' + "MAX_END" + '\033[0m'
+patient1.static_normalization, patient1.static_max_values = norm_whole_segment(patient1.static_RMS, patient1.RMS_max)
+patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.RMS_max)
+print '\033[93m' + "NORM_END" + '\033[0m'
 
-#plt.figure()
-#plt.plot(patient1.EMG_RMS["Reach_L"][0,:])
+
+#patient1.max_values = max_normalization(patient1)       
+# patient1.correlation = correlation(patient1)
+plt.figure()
+plt.plot(patient1.EMG['OneFootStanding_R_EO'][:, 0])
+plt.figure()
+plt.plot(patient1.EMG_avg['OneFootStanding_R_EO'][:, 0])
+plt.show()
+
+plt.figure()
+plt.plot(patient1.EMG_avg['OneFootStanding_R_EO'][:, 0])
+plt.figure()
+plt.plot(patient1.EMG_RMS['OneFootStanding_R_EO'][:, 0])
+plt.show()
+
+plt.figure()
+plt.plot(patient1.EMG_RMS['OneFootStanding_R_EO'][:, 0])
+plt.figure()
+plt.plot(patient1.EMG_normalization['OneFootStanding_R_EO'][:, 0])
+plt.show()
+
 #plt.plot(patient1.normalization_EMG["Reach_L"][0,:], linewidth=2.5)
-#plt.show()
 ## FAZ ISTO PARA OS RESTAnTES INTERVALOS PARA TESTARES
 # patient1.platform
 # patient1.EMG
 
-#plt.figure()
-#plt.plot(patient1.static["MVC2"][:, 0])
-#plt.plot(np.linspace(0, len(patient1.static["MVC2"][:, 0]), len(patient1.staticRMS["MVC2"][:, 0])), patient1.staticRMS["MVC2"][:, 0])
-#plt.show()
+'''plt.figure()
+plt.plot(patient1.static["MVC2"][:, 0])
+plt.plot(np.linspace(0, len(patient1.static["MVC2"][:, 0]), len(patient1.staticRMS["MVC2"][:, 0])), patient1.staticRMS["MVC2"][:, 0])
+plt.show()'''
 
-
+'''
 ## Max Values of normalized RMS
 f=plt.figure()
 values = {}
@@ -109,7 +129,7 @@ for j in range (0,8):
 
 #Mean normalized RMS value for each data set for each muscule
 
-plt.figure()
+plt.figure(1)
 for i in range(0, 8):
     plt.subplot(2,4, i+1)
     y = np.zeros(len(patient1.normalization_EMG))
@@ -181,3 +201,5 @@ for j in range (0,8):
     plt.show()
 
 #f.savefig("foo.pdf", bbox_inches='tight')
+
+'''
