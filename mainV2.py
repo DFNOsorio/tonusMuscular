@@ -33,7 +33,6 @@ fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization)
 
 
 '''
-
 plt.figure()
 plt.plot(patient1.static["MVC2"][:, 0])
 plt.plot(np.linspace(0, len(patient1.static["MVC2"][:, 0]), len(patient1.staticRMS["MVC2"][:, 0])), patient1.staticRMS["MVC2"][:, 0])
