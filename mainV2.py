@@ -33,32 +33,11 @@ fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization)
 
 
 '''
-plt.figure()
-plt.plot(patient1.EMG['OneFootStanding_R_EO'][:, 0])
-plt.figure()
-plt.plot(patient1.EMG_avg['OneFootStanding_R_EO'][:, 0])
-plt.show()
-
-plt.figure()
-plt.plot(patient1.EMG_avg['OneFootStanding_R_EO'][:, 0])
-plt.figure()
-plt.plot(patient1.EMG_RMS['OneFootStanding_R_EO'][:, 0])
-plt.show()
-
-plt.figure()
-plt.plot(patient1.EMG_RMS['OneFootStanding_R_EO'][:, 0])
-plt.figure()
-plt.plot(patient1.EMG_normalization['OneFootStanding_R_EO'][:, 0])
-plt.show()
-
-#plt.plot(patient1.normalization_EMG["Reach_L"][0,:], linewidth=2.5)
-## FAZ ISTO PARA OS RESTAnTES INTERVALOS PARA TESTARES
-# patient1.platform
-# patient1.EMG
-'''
 
 
-'''plt.figure()
+
+
+plt.figure()
 plt.plot(patient1.static["MVC2"][:, 0])
 plt.plot(np.linspace(0, len(patient1.static["MVC2"][:, 0]), len(patient1.staticRMS["MVC2"][:, 0])), patient1.staticRMS["MVC2"][:, 0])
 plt.show()'''
