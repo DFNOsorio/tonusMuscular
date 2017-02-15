@@ -139,9 +139,6 @@ for j in range (0,8):
     plt.show()
 
 
-
-
-
 plt.figure(1)
 for i in range(0, 8):
     plt.subplot(2,4, i+1)
