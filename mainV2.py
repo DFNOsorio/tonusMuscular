@@ -2,6 +2,7 @@ from tools import *
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+import matplotlib.image as mpimg
 
 file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
 
@@ -18,16 +19,22 @@ print '\033[93m' + "MAX_END" + '\033[0m'
 patient1.static_normalization, patient1.static_max_values = norm_whole_segment(patient1.static_RMS, patient1.RMS_max)
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.RMS_max)
 print '\033[93m' + "NORM_END" + '\033[0m'
-patient1.platformdata = RAW_2_mass(patient1.platform)
-patient1.COP_X, patient1.COP_Y = mass_2_COP(patient1.platformdata)
-print np.shape(patient1.COP_Y["Arms_extension"])
-plt.plot(patient1.COP_X["OneFootStanding_R_EO"] ,patient1.COP_Y["OneFootStanding_R_EO"])
+patient1.platform_mass = RAW_2_mass(patient1.platform)
+patient1.platform_data = mass_2_COP(patient1.platform_mass)
+
+# O imread e o imshow servem para leres a imagem do fundo da plataforma para ser mais visual
+plt.figure()
+img = mpimg.imread("tools/forcePlatform.png")
+plt.imshow(img, zorder=0, extent=[-225-12, +225+12, -225-12, +225+12])
+plt.plot(patient1.platform_data["OneFootStanding_R_EO"]["COP_X"], patient1.platform_data["OneFootStanding_R_EO"]["COP_Y"], color='yellow')
+plt.xlim([-225-12, 225+12])
+plt.ylim([-225-12, 225+12])
 plt.show()
 
 
 
 
-
+'''
 plt.figure()
 plt.plot(patient1.EMG['OneFootStanding_R_EO'][:, 0])
 plt.figure()
@@ -45,7 +52,7 @@ plt.plot(patient1.EMG_RMS['OneFootStanding_R_EO'][:, 0])
 plt.figure()
 plt.plot(patient1.EMG_normalization['OneFootStanding_R_EO'][:, 0])
 plt.show()
-
+'''
 #plt.plot(patient1.normalization_EMG["Reach_L"][0,:], linewidth=2.5)
 ## FAZ ISTO PARA OS RESTAnTES INTERVALOS PARA TESTARES
 # patient1.platform
