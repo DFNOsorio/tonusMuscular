@@ -140,7 +140,7 @@ for j in range (0,8):
 
 
 
-#Mean normalized RMS value for each data set for each muscule
+
 
 plt.figure(1)
 for i in range(0, 8):
