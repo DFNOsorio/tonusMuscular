@@ -1,6 +1,7 @@
 from tools import *
 
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
 
 file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
@@ -29,10 +30,17 @@ fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP, platfo
 fig2_RMS = graph_RMS(patient1.EMG_RMS)
 fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization)
 
-
+plt.figure()
+img = mpimg.imread("tools/forcePlatform.png")
+plt.imshow(img, zorder=0, extent=[-225-12, +225+12, -225-12, +225+12])
+plt.plot(patient1.COP["OneFootStanding_R_EO"]["COP_X"], patient1.COP["OneFootStanding_R_EO"]["COP_Y"], color='yellow')
+plt.xlim([-225-12, 225+12])
+plt.ylim([-225-12, 225+12])
+plt.show()
 
 
 '''
+
 plt.figure()
 plt.plot(patient1.static["MVC2"][:, 0])
 plt.plot(np.linspace(0, len(patient1.static["MVC2"][:, 0]), len(patient1.staticRMS["MVC2"][:, 0])), patient1.staticRMS["MVC2"][:, 0])

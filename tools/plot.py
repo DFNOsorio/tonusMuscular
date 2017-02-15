@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.backends.backend_pdf import PdfPages
-import matplotlib.patches as mpatches
-from matplotlib import colors as mcolors
+import matplotlib.image as mpimg
+
 
 def graph_platform(max_values, platform_COP, platform = False):
     ind = np.arange(2)
@@ -28,7 +27,11 @@ def graph_platform(max_values, platform_COP, platform = False):
 
         if platform == True:
             plot3 = plt.subplot2grid((3, 3), (1, 2), colspan=2, rowspan=2)
-            plt.plot(platform_COP[i]["COP_X"],platform_COP[i]["COP_Y"])
+            img = mpimg.imread("tools/forcePlatform.png")
+            plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
+            plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
+            plt.xlim([-225 - 12, 225 + 12])
+            plt.ylim([-225 - 12, 225 + 12])
             plt.xlabel("Trajectory of COP on X axes", fontsize=11)
             plt.ylabel("Trajectory of COP on Y axes", fontsize=11)
             plot3.set_title("COP trajectory", fontsize=15)
