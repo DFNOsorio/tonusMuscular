@@ -18,10 +18,16 @@ print '\033[93m' + "MAX_END" + '\033[0m'
 patient1.static_normalization, patient1.static_max_values = norm_whole_segment(patient1.static_RMS, patient1.RMS_max)
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.RMS_max)
 print '\033[93m' + "NORM_END" + '\033[0m'
+patient1.platformdata = RAW_2_mass(patient1.platform)
+patient1.COP_X, patient1.COP_Y = mass_2_COP(patient1.platformdata)
+print np.shape(patient1.COP_Y["Arms_extension"])
+plt.plot(patient1.COP_X["OneFootStanding_R_EO"] ,patient1.COP_Y["OneFootStanding_R_EO"])
+plt.show()
 
 
-#patient1.max_values = max_normalization(patient1)       
-# patient1.correlation = correlation(patient1)
+
+
+
 plt.figure()
 plt.plot(patient1.EMG['OneFootStanding_R_EO'][:, 0])
 plt.figure()

@@ -107,9 +107,48 @@ def norm_whole_segment(test, max):
 def RAW_2_mass(platform_data):
     mass={}
     G = (100.0*1000.0+2013.83)/203.83
-    Vi = 1000/G
+    Vi = 1000.0/G
     res = 16.0
-    S = (3.0 * Vout_put)/(Vi*200.0)
     for i in platform_data:
-        new_mass = np.zeros(np.shape(platform_data[i][1]))
-        print new_mass
+        new_mass = np.zeros((len(platform_data[i][:,0]), 4))
+        for j in range(0,4):
+            if j == 0:
+                S = (3.0 * 2.00009) / (Vi * 200.0)
+                new_mass[:,j] = (platform_data[i][:,j]*3.0)/(S * np.power(2, (res-1)))
+            if j == 1:
+                S = (3.0 * 2.00002) / (Vi * 200.0)
+                new_mass[:, j] = (platform_data[i][:, j] * 3.0) / (S * np.power(2, (res - 1)))
+            if j == 2:
+                S = (3.0 * 2.00032) / (Vi * 200.0)
+                new_mass[:, j] = (platform_data[i][:, j] * 3.0) / (S * np.power(2, (res - 1)))
+            if j == 3:
+                S = (3.0 * 2.00030) / (Vi * 200.0)
+                new_mass[:, j] = (platform_data[i][:, j] * 3.0) / (S * np.power(2,(res - 1)))
+
+        mass[i] = new_mass
+    return mass
+
+def mass_2_COP(platform_mass):
+    Total_W = {}
+    Cop_x = {}
+    Cop_y = {}
+    W = 225.0 + 12.0
+    H = 225.0 + 12.0
+    for i in platform_mass:
+
+        TL = platform_mass[i][:,0]
+        TR = platform_mass[i][:,1]
+        BR = platform_mass[i][:,2]
+        BL = platform_mass[i][:,3]
+
+        Total_W[i] = TL + TR + BR + BL
+        if Total_W[i].any() >= 0.01:
+            Cop_x[i] = (((TR+BR)-(TL+TR))/(Total_W[i]))*W
+            Cop_y[i] = (((TR+TL)-(BR+BL))/(Total_W[i]))*H
+        else:
+            Cop_x[i] = 0
+            Cop_y[i] = 0
+        print("COP's")
+        print Cop_x
+        print Cop_y
+    return Cop_x, Cop_y
