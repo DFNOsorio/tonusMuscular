@@ -8,7 +8,6 @@ def graph_platform(max_values, platform_COP, platform = False):
     width = 0.5
     error_config = {'ecolor': '0.3', 'capthick': 0.5}
 
-
     for i in max_values:
         fig = plt.figure()
         fig.suptitle(str(i), fontsize=20)
