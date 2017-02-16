@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
 
-file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
+file = "Egas_Moniz_Segments/Paciente1_MJ_Lupus.h5"
 
-patient1 = Patient(file, platform=True, verbose=True)
+patient1 = Patient(file, platform=False, verbose=True)
 
 patient1.static_avg = avg_out(patient1.static)
 patient1.EMG_avg = avg_out(patient1.EMG)
@@ -23,12 +23,13 @@ patient1.static_normalization, patient1.static_max_values = norm_whole_segment(p
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.RMS_max)
 print '\033[93m' + "NORM_END" + '\033[0m'
 
-patient1.platformdata = RAW_2_mass(patient1.platform)
-patient1.COP = mass_2_COP(patient1.platformdata)
+#patient1.platformdata = RAW_2_mass(patient1.platform)
+#patient1.COP = mass_2_COP(patient1.platformdata)
+patient1.COP = []
 
-fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP, platform = True)
-fig2_RMS = graph_RMS(patient1.EMG_RMS)
-fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization)
+#fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"F_Rheumatism_Arthritis", platform = False)
+#fig2_RMS = graph_RMS(patient1.EMG_RMS, "MJ_Lupus")
+#fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization, "MJ_Lupus")
 
 
 '''
