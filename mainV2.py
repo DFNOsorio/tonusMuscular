@@ -30,14 +30,6 @@ fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP, platfo
 fig2_RMS = graph_RMS(patient1.EMG_RMS)
 fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization)
 
-plt.figure()
-img = mpimg.imread("tools/forcePlatform.png")
-plt.imshow(img, zorder=0, extent=[-225-12, +225+12, -225-12, +225+12])
-plt.plot(patient1.COP["OneFootStanding_R_EO"]["COP_X"], patient1.COP["OneFootStanding_R_EO"]["COP_Y"], color='yellow')
-plt.xlim([-225-12, 225+12])
-plt.ylim([-225-12, 225+12])
-plt.show()
-
 
 '''
 
