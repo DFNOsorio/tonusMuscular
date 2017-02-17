@@ -20,15 +20,15 @@ def graph_platform(max_values, platform_COP,description, platform = False):
 
         plot1 = plt.subplot2grid((3, 3), (0, 0))
         plt.bar(ind, [max_values[i][0],max_values[i][2]], width, error_kw=error_config, align= 'center')
-        plt.xticks(ind, ("Rectus_A_L", "Obliques_L"), fontsize=7)
-        plt.ylabel("Percentage from MVC maximum.(%)",fontsize=7)
+        plt.xticks(ind, ("Rectus_A_L", "Obliques_L"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)",fontsize=9)
         plt.ylim([0, 100])
         plot1.set_title("Maximum for for each muscle on the left side\n Front", fontsize=12)
 
         plot2 = plt.subplot2grid((3, 3), (0, 1))
         plt.bar(ind, [max_values[i][1], max_values[i][3]], width, error_kw=error_config, align= 'center')
-        plt.xticks(ind, ("Rectus_A_R", "Obliques_R"), fontsize=7)
-        plt.ylabel("Percentage from MVC maximum.(%)",fontsize=7)
+        plt.xticks(ind, ("Rectus_A_R", "Obliques_R"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)",fontsize=9)
         plt.ylim([0, 100])
         plot2.set_title("Maximum for for each muscle on the right side\n Front", fontsize=12)
 
@@ -45,15 +45,15 @@ def graph_platform(max_values, platform_COP,description, platform = False):
 
         plot4 = plt.subplot2grid((3, 3), (2, 0))
         plt.bar(ind, [max_values[i][4], max_values[i][6]], width, error_kw=error_config, align= 'center')
-        plt.xticks(ind, ("Ilicostalis_L", "Multifundus_L"), fontsize=7)
-        plt.ylabel("Percentage from MVC maximum.(%)", fontsize=7)
+        plt.xticks(ind, ("Ilicostalis_L", "Multifundus_L"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)", fontsize=9)
         plt.ylim([0, 100])
         plot4.set_title("Maximum for for each muscle on the left side\n Back", fontsize=12)
 
         plot5 = plt.subplot2grid((3, 3), (2, 1))
         plt.bar(ind, [max_values[i][5], max_values[i][7]], width, error_kw=error_config, align= 'center')
-        plt.xticks(ind, ("Ilicostalis_R", "Multifundus_R"), fontsize=7)
-        plt.ylabel("Percentage from MVC maximum.(%)", fontsize=7)
+        plt.xticks(ind, ("Ilicostalis_R", "Multifundus_R"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)", fontsize=9)
         plt.ylim([0, 100])
         plot5.set_title("Maximum for for each muscle on the right side\n Back", fontsize=12)
 

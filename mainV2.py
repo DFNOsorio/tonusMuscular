@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
 
-file = "Egas_Moniz_Segments/Paciente2_Emma_Healthy.h5"
+file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -27,7 +27,7 @@ patient1.platformdata = RAW_2_mass(patient1.platform)
 patient1.COP = mass_2_COP(patient1.platformdata)
 #patient1.COP = []
 
-fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"Emma_Healthy", platform = True)
+fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"Ines_Healthy", platform = True)
 #fig2_RMS = graph_RMS(patient1.EMG_RMS, "MJ_Lupus")
 #fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization, "MJ_Lupus")
 
