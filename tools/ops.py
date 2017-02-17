@@ -111,7 +111,7 @@ def RAW_2_mass(platform_data):
     res = 16.0
     for i in platform_data:
         new_mass = np.zeros((len(platform_data[i][:,0]), 4))
-        vOutput = [2.00009, 2.00002, 2.00032, 2.00030]
+        vOutput = [2.00030, 2.00011, 2.00029, 2.00056]
         for j in range(0, 4):
             S = (3.0 * vOutput[j]) / (Vi * 200.0)
             new_mass[:,j] = (platform_data[i][:,j]*3.0)/(S * np.power(2, (res-1)))

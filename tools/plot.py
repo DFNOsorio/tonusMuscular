@@ -4,7 +4,7 @@ import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
 
 
-def graph_platform(max_values, platform_COP,description, platform = False):
+def graph_platform(max_values, platform_COP, description, platform = False):
     ind = np.arange(2)
     margin = 0.01
     width = (1. - 2. * margin) / len(ind)
@@ -33,7 +33,7 @@ def graph_platform(max_values, platform_COP,description, platform = False):
         plot2.set_title("Maximum for for each muscle on the right side\n Front", fontsize=12)
 
         if platform == True:
-            plot3 = plt.subplot2grid((3, 3), (1, 2), colspan=5, rowspan=5)
+            plot3 = plt.subplot2grid((3, 3), (1, 0), colspan=5, rowspan=5)
             img = mpimg.imread("tools/forcePlatform.png")
             plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
             plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
@@ -65,6 +65,7 @@ def graph_platform(max_values, platform_COP,description, platform = False):
         plt.show()
         pp.savefig(fig)
     pp.close()
+
 
 def graph_normalizedRMS (test, description):
     pp = PdfPages('Normalized_RMS_' + str(description) + '.pdf')
