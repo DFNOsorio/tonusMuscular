@@ -1,4 +1,7 @@
 import numpy as np
+import scipy.fftpack as fft
+import matplotlib.pyplot as plt
+
 import copy
 
 
@@ -137,3 +140,73 @@ def mass_2_COP(platform_mass):
 
         new[i] = {"Total_W": Total_W, "COP_X": Cop_x, "COP_Y": Cop_y}
     return new
+
+def fourier(array):
+    FFT = {}
+    freqs = {}
+    IDX = {}
+    time_step = 1.0 / 1000.0
+    for i in array:
+        feq = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
+        fft = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
+        idx = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
+        for j in range(0, np.shape(array[i])[1]):
+            feq[:,j] = np.fft.fftfreq(len(array[i][:,0]), time_step)
+            fft[:,j] = np.abs(np.fft.fft(array[i][:,j]))
+            idx[:,j] = np.argsort(feq[:,j])
+        FFT[i] = fft
+        freqs[i] = feq
+        IDX[i] = idx
+
+    return  freqs, FFT, IDX
+
+def velocity_COP(test_array):
+    velocity_direction = {}
+    velocity = {}
+    mean_trajectory = {}
+    velocity_mean = {}
+    for i in test_array:
+        for j in test_array[i]:
+            if j == "COP_X" or j=="COP_Y":
+                v = np.zeros((len(test_array[i][j])-1))
+                time = len(test_array[i][j])/1000
+                v = (np.abs(np.diff(test_array[i][j])))/0.001
+                mean = np.mean(v)
+                velocity_direction[j] = v
+                mean_trajectory[j] = mean
+        velocity[i] = {"velocity_COPX": velocity_direction["COP_X"], "velocity_COPY": velocity_direction["COP_Y"]}
+        velocity_mean[i] = {"mean_COPX": mean_trajectory["COP_X"], "mean_COPY": mean_trajectory["COP_Y"]}
+        #print "\n"
+        #print i
+        #print velocity_mean
+    return velocity, velocity_mean
+
+def trajectory(test_array):
+    trajectory = {}
+    for i in test_array:
+        x = np.mean(test_array[i]["COP_X"])
+        y = np.mean(test_array[i]["COP_Y"])
+        trajectory[i] = {"X": x, "Y": y}
+    return trajectory
+
+
+
+
+
+
+
+
+
+
+
+def teste():
+    data = np.random.rand(301) - 0.5
+    ps = np.abs(np.fft.fft(data))**2
+    print len(ps)
+    time_step = 1.0 / 30.0
+    freqs = np.fft.fftfreq(data.size, time_step)
+    print len(freqs)
+    idx = np.argsort(freqs)
+    print len(idx)
+    plt.plot(freqs[idx], ps[idx])
+    plt.show()
