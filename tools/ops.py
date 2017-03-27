@@ -141,7 +141,7 @@ def mass_2_COP(platform_mass):
         new[i] = {"Total_W": Total_W, "COP_X": Cop_x, "COP_Y": Cop_y}
     return new
 
-def fourier(array):
+def fourier_EMG(array):
     FFT = {}
     freqs = {}
     IDX = {}
@@ -157,8 +157,26 @@ def fourier(array):
         FFT[i] = fft
         freqs[i] = feq
         IDX[i] = idx
+        #spipy.signal.espectogram
 
     return  freqs, FFT, IDX
+
+def fourier_COP(test_array):
+    FFT_COP = {}
+    freqs_COP = {}
+    fft_COP = {}
+    freqs = {}
+    time_step = 1.0 / 1000.0
+    for i in test_array:
+        for j in test_array[i]:
+            if j != "Total_W":
+                #fft_COP = np.zeros((len(test_array[i][j])))
+                #freqs = np.zeros((len(test_array[i][j])))
+                fft_COP[j] = np.abs(np.fft.fft(test_array[i][j]))
+                freqs[j] = np.fft.fftfreq(len(test_array[i][j]), time_step)
+        FFT_COP[i] = {"FFT_COPX": fft_COP["COP_X"], "FFT_COPY": fft_COP["COP_Y"]}
+        freqs_COP[i] = {"freqs_COPX": freqs["COP_X"], "freqs_COPY": freqs["COP_Y"]}
+    return freqs_COP, FFT_COP
 
 def velocity_COP(test_array):
     velocity_direction = {}

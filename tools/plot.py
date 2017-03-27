@@ -4,6 +4,7 @@ import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
 
 
+
 def graph_platform(max_values, platform_COP,description, platform = False):
     ind = np.arange(2)
     margin = 0.01
@@ -128,3 +129,103 @@ def graph_RMS(test, description):
         plt.show()
         pp.savefig(fig)
     pp.close()
+
+def graph(max_values, platform_COP,description,mean_trajectory, platform = False):
+    ind = np.arange(4)
+    margin = 0.01
+    #width = (1. - 1. * margin) / len(ind)
+    width = 0.5
+    error_config = {'ecolor': '0.5', 'capthick': 0.5}
+    pp = PdfPages('Platform_'+str(description)+'.pdf')
+
+    l = 0
+    for i in max_values:
+        if max_values[i] != []:
+            fig = plt.figure(l)
+            l = l+1
+            fig.suptitle(str(i) + "\n"+ str(description), fontsize=25)
+
+            plot1 = plt.subplot2grid((3, 3), (0, 0))
+            plt.bar(ind, [max_values[i][0],max_values[i][2], max_values[i][4], max_values[i][6]], width, error_kw=error_config, align= 'center')
+            plt.xticks(ind, ("Rectus_A_L", "Obliques_L", "Ilicostalis_L", "Multifundus_L"), fontsize=10)
+            plt.ylabel("Percentage from MVC \n maximum.(%)",fontsize=9)
+            plt.ylim([0, 100])
+            plot1.set_title("Maximum for for each muscle \n on the left side", fontsize=12)
+
+            plot2 = plt.subplot2grid((3, 3), (0, 1))
+            plt.bar(ind, [max_values[i][1], max_values[i][3], max_values[i][5], max_values[i][7]], width, error_kw=error_config, align= 'center')
+            plt.xticks(ind, ("Rectus_A_R", "Obliques_R", "Ilicostalis_R", "Multifundus_R"), fontsize=10)
+            plt.ylabel("Percentage from MVC \n maximum.(%)",fontsize=9)
+            plt.ylim([0, 100])
+            plot2.set_title("Maximum for for each muscle \n on the right side", fontsize=12)
+
+
+            if platform == True:
+                plot3 = plt.subplot2grid((3, 3), (1, 0), colspan= 2, rowspan=2)
+                img = mpimg.imread("tools/forcePlatform.png")
+                plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
+                plt.scatter(mean_trajectory[i]["X"], mean_trajectory[i]["Y"], s=100, color='r')
+                plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
+                plt.xlim([-225 - 12, 225 + 12])
+                plt.ylim([-225 - 12, 225 + 12])
+                plt.xlabel("Trajectory of COP on X axes", fontsize=12)
+                plt.ylabel("Trajectory of COP on Y axes", fontsize=12)
+                plot3.set_title("COP trajectory", fontsize=14)
+
+            plot4 = plt.subplot2grid((3, 3), (0, 2))
+            plt.axis('off')
+            col_labels = ['Left Side', 'Right Side']
+            row_labels = ['Rectus_A', 'Obliques', 'Ilicostalis', 'Multifidus']
+            table_vals = [[max_values[i][0], max_values[i][1]],
+                          [max_values[i][2], max_values[i][3]],
+                          [max_values[i][4], max_values[i][5]],
+                          [max_values[i][6], max_values[i][7]]]
+            the_table = plt.table(cellText=table_vals,
+                                    colWidths=[0.4] * 2,
+                                    rowLabels=row_labels,
+                                    colLabels=col_labels,
+                                    loc='center')
+            the_table.auto_set_font_size(False)
+            the_table.set_fontsize(11)
+            the_table.scale(1.1, 1.1)
+            plot4.set_title("Table 1 - Values of maximum of each muscle in percentage (%)", fontsize=11)
+            plt.text(30, 25, 'Table Title', size=30)
+
+            plot5 = plt.subplot2grid((3, 3), (1, 2))
+            plt.axis('off')
+            col_labels = ['Freq EMG', 'Freq COP']
+            row_labels = ['Fundamental \n Frequency']
+            table_values = [[1,2]]
+            freqs_table = plt.table(cellText=table_values,
+                                  colWidths=[0.4] * 2,
+                                  rowLabels=row_labels,
+                                  colLabels=col_labels,
+                                  loc='upper center')
+            freqs_table.auto_set_font_size(False)
+            freqs_table.set_fontsize(11)
+            freqs_table.scale(1.1, 1.1)
+            plot5.set_title("Table 2 - Fundamental frequency for each signal", fontsize=11)
+            plt.text(30, 25, 'Table Title', size=30)
+
+            plot6 = plt.subplot2grid((3, 3), (2, 2))
+            plt.axis('off')
+            col_labels = ['COP X', 'COP Y']
+            row_labels = ['Velocity', 'Mean Point', 'Area']
+            COP_values = [[1, 2], [2, 3], [5, 8]]
+            COP_table = plt.table(cellText=COP_values,
+                                    colWidths=[0.4] * 2,
+                                    rowLabels=row_labels,
+                                    colLabels=col_labels,
+                                    loc='upper center')
+            COP_table.auto_set_font_size(False)
+            COP_table.set_fontsize(11)
+            COP_table.scale(1.1, 1.1)
+            plot6.set_title("Table 3 - Relevante COP values", fontsize=11)
+            plt.text(30, 25, 'Table Title', size=30)
+
+            if platform == True:
+                plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.35, hspace=0.00)
+            else:
+                plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
+
+            plt.show()
