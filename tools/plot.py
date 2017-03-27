@@ -4,8 +4,12 @@ import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
 
 
+<<<<<<< HEAD
 
 def graph_platform(max_values, platform_COP,description, platform = False):
+=======
+def graph_platform(max_values, platform_COP, description, platform = False):
+>>>>>>> origin/master
     ind = np.arange(2)
     margin = 0.01
     width = (1. - 2. * margin) / len(ind)
@@ -15,10 +19,60 @@ def graph_platform(max_values, platform_COP,description, platform = False):
 
     l = 0
     for i in max_values:
+<<<<<<< HEAD
         if max_values[i] != []:
             fig = plt.figure(l)
             l = l+1
             fig.suptitle(str(i) + "\n"+ str(description), fontsize=25)
+=======
+        fig = plt.figure(l)
+        l = l+1
+        fig.suptitle(str(i) + "\n"+ str(description), fontsize=25)
+
+        plot1 = plt.subplot2grid((3, 3), (0, 0))
+        plt.bar(ind, [max_values[i][0],max_values[i][2]], width, error_kw=error_config, align= 'center')
+        plt.xticks(ind, ("Rectus_A_L", "Obliques_L"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)",fontsize=9)
+        plt.ylim([0, 100])
+        plot1.set_title("Maximum for for each muscle on the left side\n Front", fontsize=12)
+
+        plot2 = plt.subplot2grid((3, 3), (0, 1))
+        plt.bar(ind, [max_values[i][1], max_values[i][3]], width, error_kw=error_config, align= 'center')
+        plt.xticks(ind, ("Rectus_A_R", "Obliques_R"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)",fontsize=9)
+        plt.ylim([0, 100])
+        plot2.set_title("Maximum for for each muscle on the right side\n Front", fontsize=12)
+
+        if platform == True:
+            plot3 = plt.subplot2grid((3, 3), (1, 0), colspan=5, rowspan=5)
+            img = mpimg.imread("tools/forcePlatform.png")
+            plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
+            plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
+            plt.xlim([-225 - 12, 225 + 12])
+            plt.ylim([-225 - 12, 225 + 12])
+            plt.xlabel("Trajectory of COP on X axes", fontsize=12)
+            plt.ylabel("Trajectory of COP on Y axes", fontsize=12)
+            plot3.set_title("COP trajectory", fontsize=14)
+
+        plot4 = plt.subplot2grid((3, 3), (2, 0))
+        plt.bar(ind, [max_values[i][4], max_values[i][6]], width, error_kw=error_config, align= 'center')
+        plt.xticks(ind, ("Ilicostalis_L", "Multifundus_L"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)", fontsize=9)
+        plt.ylim([0, 100])
+        plot4.set_title("Maximum for for each muscle on the left side\n Back", fontsize=12)
+
+        plot5 = plt.subplot2grid((3, 3), (2, 1))
+        plt.bar(ind, [max_values[i][5], max_values[i][7]], width, error_kw=error_config, align= 'center')
+        plt.xticks(ind, ("Ilicostalis_R", "Multifundus_R"), fontsize=10)
+        plt.ylabel("Percentage from MVC maximum.(%)", fontsize=9)
+        plt.ylim([0, 100])
+        plot5.set_title("Maximum for for each muscle on the right side\n Back", fontsize=12)
+
+        if platform == True:
+            plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.35, hspace=0.00)
+        else:
+            plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
+>>>>>>> origin/master
 
             plot1 = plt.subplot2grid((3, 3), (0, 0))
             plt.bar(ind, [max_values[i][0],max_values[i][2]], width, error_kw=error_config, align= 'center')
@@ -67,6 +121,7 @@ def graph_platform(max_values, platform_COP,description, platform = False):
             plt.show()
             pp.savefig(fig)
     pp.close()
+
 
 def graph_normalizedRMS (test, description):
     pp = PdfPages('Normalized_RMS_' + str(description) + '.pdf')
