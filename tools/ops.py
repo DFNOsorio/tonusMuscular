@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.fftpack as fft
 import matplotlib.pyplot as plt
+from scipy import signal
 
 import copy
 
@@ -170,8 +171,6 @@ def fourier_COP(test_array):
     for i in test_array:
         for j in test_array[i]:
             if j != "Total_W":
-                #fft_COP = np.zeros((len(test_array[i][j])))
-                #freqs = np.zeros((len(test_array[i][j])))
                 fft_COP[j] = np.abs(np.fft.fft(test_array[i][j]))
                 freqs[j] = np.fft.fftfreq(len(test_array[i][j]), time_step)
         FFT_COP[i] = {"FFT_COPX": fft_COP["COP_X"], "FFT_COPY": fft_COP["COP_Y"]}
@@ -194,9 +193,6 @@ def velocity_COP(test_array):
                 mean_trajectory[j] = mean
         velocity[i] = {"velocity_COPX": velocity_direction["COP_X"], "velocity_COPY": velocity_direction["COP_Y"]}
         velocity_mean[i] = {"mean_COPX": mean_trajectory["COP_X"], "mean_COPY": mean_trajectory["COP_Y"]}
-        #print "\n"
-        #print i
-        #print velocity_mean
     return velocity, velocity_mean
 
 def trajectory(test_array):
@@ -207,24 +203,102 @@ def trajectory(test_array):
         trajectory[i] = {"X": x, "Y": y}
     return trajectory
 
+def convex_hull(COPx, COPy):
+    """Computes the convex hull of a set of 2D points.
+
+    Input: an iterable sequence of (x, y) pairs representing the points.
+    Output: a list of vertices of the convex hull in counter-clockwise order,
+    starting from the vertex with the lexicographically smallest coordinates.
+    Implements Andrew's monotone chain algorithm. O(n log n) complexity.
+    """
+    points = [(COPx[i], COPy[i]) for i in range(0, len(COPy))]
+
+    # Sort the points lexicographically (tuples are compared lexicographically).
+    # Remove duplicates to detect the case we have just one unique point.
+    points = sorted(set(points))
+
+    # Boring case: no points or a single point, possibly repeated multiple times.
+    if len(points) <= 1:
+        return points
+
+    # 2D cross product of OA and OB vectors, i.e. z-component of their 3D cross product.
+    # Returns a positive value, if OAB makes a counter-clockwise turn,
+    # negative for clockwise turn, and zero if the points are collinear.
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    # Build lower hull
+    lower = []
+    for p in points:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
+            lower.pop()
+        lower.append(p)
+
+    # Build upper hull
+    upper = []
+    for p in reversed(points):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
+            upper.pop()
+        upper.append(p)
+
+    # Concatenation of the lower and upper hulls gives the convex hull.
+    # Last point of each list is omitted because it is repeated at the beginning of the other list.
+    contour = upper[:-1] + lower[:-1] + upper[0:1]
+
+    #hull = [np.array(contour)[:, 0], np.array(contour)[:, 1]]
+
+    return np.array(contour)
+
+
+def area_calc(contour_array):
+
+    """ This function uses the contour path to calculate the area, using Green's theorem.
+
+    Parameters
+    ----------
+    contour_array: array
+    contour path
+
+    Returns
+    -------
+    area: float
+    value for the area within the contour
+    """
+
+    x = contour_array[:, 0]
+    y = contour_array[:, 1]
+    if min(x)<0:
+        x = np.array(x) - min(x)
+    if min(y)<0:
+        y = np.array(y) - min(y)
+
+    area = 0
+    for i in range(1, len(y) - 1):
+        area += (y[i - 1] * x[i] - x[i - 1] * y[i])
+
+    area = abs(area) / 2.0
+    return area
+
+
+def coherence(COP_array, EMG_array):
+    frequency = {}
+    coherence = {}
+    C_COP_EMG = {}
+    count = 0
+    for i in EMG_array:
+        f = np.zeros((513, 8))
+        c = np.zeros((513, 8))
+        for j in ["COP_X", "COP_Y"]:
+            for n in range(0, len(EMG_array[i][1])):
+                f[:,n], c[:,n] =  signal.coherence(EMG_array[i][:,n],COP_array[i][j], 1000, nperseg=1024)
+            print i
+            print np.max(c[:,0])
+            C_COP_EMG[j] = c
+            frequency[j] = f
+        coherence[i] = {"freqs_x":frequency["COP_X"], "freqs_y":frequency["COP_Y"],
+                        "coherency_x":C_COP_EMG["COP_X"], "coherency_y":C_COP_EMG["COP_Y"] }
+    return coherence
 
 
 
 
-
-
-
-
-
-
-def teste():
-    data = np.random.rand(301) - 0.5
-    ps = np.abs(np.fft.fft(data))**2
-    print len(ps)
-    time_step = 1.0 / 30.0
-    freqs = np.fft.fftfreq(data.size, time_step)
-    print len(freqs)
-    idx = np.argsort(freqs)
-    print len(idx)
-    plt.plot(freqs[idx], ps[idx])
-    plt.show()

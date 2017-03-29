@@ -2,14 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
+from tools import *
 
-
-<<<<<<< HEAD
-
-def graph_platform(max_values, platform_COP,description, platform = False):
-=======
 def graph_platform(max_values, platform_COP, description, platform = False):
->>>>>>> origin/master
+
     ind = np.arange(2)
     margin = 0.01
     width = (1. - 2. * margin) / len(ind)
@@ -19,12 +15,12 @@ def graph_platform(max_values, platform_COP, description, platform = False):
 
     l = 0
     for i in max_values:
-<<<<<<< HEAD
+
         if max_values[i] != []:
             fig = plt.figure(l)
             l = l+1
             fig.suptitle(str(i) + "\n"+ str(description), fontsize=25)
-=======
+
         fig = plt.figure(l)
         l = l+1
         fig.suptitle(str(i) + "\n"+ str(description), fontsize=25)
@@ -72,7 +68,7 @@ def graph_platform(max_values, platform_COP, description, platform = False):
             plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.35, hspace=0.00)
         else:
             plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
->>>>>>> origin/master
+
 
             plot1 = plt.subplot2grid((3, 3), (0, 0))
             plt.bar(ind, [max_values[i][0],max_values[i][2]], width, error_kw=error_config, align= 'center')
@@ -185,7 +181,7 @@ def graph_RMS(test, description):
         pp.savefig(fig)
     pp.close()
 
-def graph(max_values, platform_COP,description,mean_trajectory, platform = False):
+def graph(max_values, platform_COP,description,mean_trajectory, coherence, platform = False):
     ind = np.arange(4)
     margin = 0.01
     #width = (1. - 1. * margin) / len(ind)
@@ -219,8 +215,8 @@ def graph(max_values, platform_COP,description,mean_trajectory, platform = False
                 plot3 = plt.subplot2grid((3, 3), (1, 0), colspan= 2, rowspan=2)
                 img = mpimg.imread("tools/forcePlatform.png")
                 plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
-                plt.scatter(mean_trajectory[i]["X"], mean_trajectory[i]["Y"], s=100, color='r')
                 plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
+                plt.scatter(mean_trajectory[i]["X"], mean_trajectory[i]["Y"], s=100, color='r')
                 plt.xlim([-225 - 12, 225 + 12])
                 plt.ylim([-225 - 12, 225 + 12])
                 plt.xlabel("Trajectory of COP on X axes", fontsize=12)
@@ -248,9 +244,18 @@ def graph(max_values, platform_COP,description,mean_trajectory, platform = False
 
             plot5 = plt.subplot2grid((3, 3), (1, 2))
             plt.axis('off')
-            col_labels = ['Freq EMG', 'Freq COP']
-            row_labels = ['Fundamental \n Frequency']
-            table_values = [[1,2]]
+            col_labels = ['COP X', 'COP Y']
+            row_labels = ['Rectus_A_L', 'Obliques_L', 'Ilicostalis_L', 'Multifidus_L',
+                          'Rectus_A_R', 'Obliques_R', 'Ilicostalis_R', 'Multifidus_R']
+            table_values = [[np.max(coherence[i]["coherency_x"][0:40,0]),  np.max(coherence[i]["coherency_y"][0:40, 0])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 2]), np.max(coherence[i]["coherency_y"][0:40, 2])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 4]), np.max(coherence[i]["coherency_y"][0:40, 4])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 6]), np.max(coherence[i]["coherency_y"][0:40, 6])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 1]), np.max(coherence[i]["coherency_y"][0:40, 1])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 3]), np.max(coherence[i]["coherency_y"][0:40, 3])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 5]), np.max(coherence[i]["coherency_y"][0:40, 5])],
+                            [np.max(coherence[i]["coherency_x"][0:40, 7]), np.max(coherence[i]["coherency_y"][0:40, 7])]]
+
             freqs_table = plt.table(cellText=table_values,
                                   colWidths=[0.4] * 2,
                                   rowLabels=row_labels,
@@ -259,7 +264,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, platform = False
             freqs_table.auto_set_font_size(False)
             freqs_table.set_fontsize(11)
             freqs_table.scale(1.1, 1.1)
-            plot5.set_title("Table 2 - Fundamental frequency for each signal", fontsize=11)
+            plot5.set_title("Table 2 - Coherence of frequency signals between frequencys of 0 Hz to 40 Hz", fontsize=11)
             plt.text(30, 25, 'Table Title', size=30)
 
             plot6 = plt.subplot2grid((3, 3), (2, 2))
@@ -271,7 +276,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, platform = False
                                     colWidths=[0.4] * 2,
                                     rowLabels=row_labels,
                                     colLabels=col_labels,
-                                    loc='upper center')
+                                    loc='center')
             COP_table.auto_set_font_size(False)
             COP_table.set_fontsize(11)
             COP_table.scale(1.1, 1.1)
@@ -279,8 +284,9 @@ def graph(max_values, platform_COP,description,mean_trajectory, platform = False
             plt.text(30, 25, 'Table Title', size=30)
 
             if platform == True:
-                plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.35, hspace=0.00)
+                plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.35, hspace=0.48)
             else:
                 plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
 
             plt.show()
+
