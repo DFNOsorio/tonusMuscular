@@ -281,24 +281,27 @@ def area_calc(contour_array):
 
 
 def coherence(COP_array, EMG_array):
-    frequency = {}
+    frequency = dict()
     coherence = {}
-    C_COP_EMG = {}
+    C_COP_EMG = dict()
     count = 0
     for i in EMG_array:
-        f = np.zeros((513, 8))
-        c = np.zeros((513, 8))
+        C_COP_EMG.setdefault(i, {})
+        frequency.setdefault(i, {})
+
         for j in ["COP_X", "COP_Y"]:
+            f = np.zeros((513, 8))
+            c = np.zeros((513, 8))
+
             for n in range(0, len(EMG_array[i][1])):
                 f[:,n], c[:,n] =  signal.coherence(EMG_array[i][:,n],COP_array[i][j], 1000, nperseg=1024)
-            print i
-            print np.max(c[:,0])
-            C_COP_EMG[j] = c
-            frequency[j] = f
-        coherence[i] = {"freqs_x":frequency["COP_X"], "freqs_y":frequency["COP_Y"],
-                        "coherency_x":C_COP_EMG["COP_X"], "coherency_y":C_COP_EMG["COP_Y"] }
+            # print i
+            # print np.max(c[:,0])
+            C_COP_EMG[i][j] = c[:,:]
+            frequency[i][j] = f[:,:]
+            # print(C_COP_EMG)
+        coherence[i] = {"freqs_x":frequency[i]["COP_X"], "freqs_y":frequency[i]["COP_Y"],
+                        "coherency_x":C_COP_EMG[i]["COP_X"], "coherency_y":C_COP_EMG[i]["COP_Y"] }
     return coherence
-
-
 
 

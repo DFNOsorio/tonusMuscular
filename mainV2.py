@@ -1,8 +1,8 @@
 from tools import *
-
-import matplotlib.pyplot as plt
 from scipy import signal
-
+from scipy.signal import butter, lfilter, freqz
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
@@ -28,26 +28,20 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 patient1.platformdata = RAW_2_mass(patient1.platform)
 patient1.COP = mass_2_COP(patient1.platformdata)
 #patient1.COP = []
+print '\033[93m' + "COP_END" + '\033[0m'
 
 velocity, mean = velocity_COP(patient1.COP)
+print '\033[93m' + "VELOCITY_END" + '\033[0m'
 
 trajec = trajectory(patient1.COP)
-
-f, Cxy = signal.coherence(patient1.EMG_normalization["Arms_extension"][:,1], patient1.COP["Standing_EO"]["COP_Y"], 1000, nperseg=1024)
-
-#plt.plot(f, Cxy)
-#plt.xlabel('frequency [Hz]')
-#plt.ylabel('Coherence')
-#plt.show()
+print '\033[93m' + "TRAJ_END" + '\033[0m'
 
 c= coherence(patient1.COP, patient1.EMG_normalization)
+print '\033[93m' + "COHERENCY_END" + '\033[0m'
 
-#plt.plot(c["Arms_extension"]["freqs_y"][:,1], c["Arms_extension"]["coherency_y"][:,1])
-#plt.show()
-fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Emma", trajec, c, platform = True)
+#COP_Muscle(patient1.EMG_normalization, patient1.COP)
 
-
-
+fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Ines", trajec, c, mean, platform = True)
 
 
 

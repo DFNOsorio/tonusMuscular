@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 import numpy as np
 import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
@@ -181,7 +182,7 @@ def graph_RMS(test, description):
         pp.savefig(fig)
     pp.close()
 
-def graph(max_values, platform_COP,description,mean_trajectory, coherence, platform = False):
+def graph(max_values, platform_COP,description,mean_trajectory, coherence, velocity, platform = False):
     ind = np.arange(4)
     margin = 0.01
     #width = (1. - 1. * margin) / len(ind)
@@ -212,18 +213,23 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, platf
 
 
             if platform == True:
-                plot3 = plt.subplot2grid((3, 3), (1, 0), colspan= 2, rowspan=2)
-                img = mpimg.imread("tools/forcePlatform.png")
-                plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
-                plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
-                plt.scatter(mean_trajectory[i]["X"], mean_trajectory[i]["Y"], s=100, color='r')
-                plt.xlim([-225 - 12, 225 + 12])
-                plt.ylim([-225 - 12, 225 + 12])
-                plt.xlabel("Trajectory of COP on X axes", fontsize=12)
-                plt.ylabel("Trajectory of COP on Y axes", fontsize=12)
-                plot3.set_title("COP trajectory", fontsize=14)
+                with sns.axes_style("white"):
+                    area_traj = convex_hull(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"])
+                    area_value = area_calc(area_traj)
+                    plot3 = plt.subplot2grid((3, 3), (0, 2), colspan= 2, rowspan=2)
+                    img = mpimg.imread("tools/forcePlatform.png")
+                    plt.imshow(img, zorder=0, extent=[-225 - 12, +225 + 12, -225 - 12, +225 + 12])
+                    plt.plot(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"], color='yellow')
+                    plt.plot(area_traj[:,0], area_traj[:,1], label = str(area_value) + "\n"+"mm2")
+                    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+                    plt.xlim([-225 - 12, 225 + 12])
+                    plt.ylim([-225 - 12, 225 + 12])
+                    plt.xlabel("Trajectory of COP on X axes", fontsize=12)
+                    plt.ylabel("Trajectory of COP on Y axes", fontsize=12)
+                    plt.scatter(mean_trajectory[i]["X"], mean_trajectory[i]["Y"], s=100, color='r')
+                    plot3.set_title("COP trajectory", fontsize=14)
 
-            plot4 = plt.subplot2grid((3, 3), (0, 2))
+            plot4 = plt.subplot2grid((3, 3), (2, 0))
             plt.axis('off')
             col_labels = ['Left Side', 'Right Side']
             row_labels = ['Rectus_A', 'Obliques', 'Ilicostalis', 'Multifidus']
@@ -242,12 +248,12 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, platf
             plot4.set_title("Table 1 - Values of maximum of each muscle in percentage (%)", fontsize=11)
             plt.text(30, 25, 'Table Title', size=30)
 
-            plot5 = plt.subplot2grid((3, 3), (1, 2))
+            plot5 = plt.subplot2grid((3, 3), (2, 1))
             plt.axis('off')
             col_labels = ['COP X', 'COP Y']
             row_labels = ['Rectus_A_L', 'Obliques_L', 'Ilicostalis_L', 'Multifidus_L',
                           'Rectus_A_R', 'Obliques_R', 'Ilicostalis_R', 'Multifidus_R']
-            table_values = [[np.max(coherence[i]["coherency_x"][0:40,0]),  np.max(coherence[i]["coherency_y"][0:40, 0])],
+            table_values = [[np.max(coherence[i]["coherency_x"][0:40, 0]),  np.max(coherence[i]["coherency_y"][0:40, 0])],
                             [np.max(coherence[i]["coherency_x"][0:40, 2]), np.max(coherence[i]["coherency_y"][0:40, 2])],
                             [np.max(coherence[i]["coherency_x"][0:40, 4]), np.max(coherence[i]["coherency_y"][0:40, 4])],
                             [np.max(coherence[i]["coherency_x"][0:40, 6]), np.max(coherence[i]["coherency_y"][0:40, 6])],
@@ -270,8 +276,8 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, platf
             plot6 = plt.subplot2grid((3, 3), (2, 2))
             plt.axis('off')
             col_labels = ['COP X', 'COP Y']
-            row_labels = ['Velocity', 'Mean Point', 'Area']
-            COP_values = [[1, 2], [2, 3], [5, 8]]
+            row_labels = ['Velocity', 'Mean Point']
+            COP_values = [[velocity[i]["mean_COPX"], velocity[i]["mean_COPY"]], [mean_trajectory[i]["X"], mean_trajectory[i]["Y"]]]
             COP_table = plt.table(cellText=COP_values,
                                     colWidths=[0.4] * 2,
                                     rowLabels=row_labels,
@@ -283,10 +289,103 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, platf
             plot6.set_title("Table 3 - Relevante COP values", fontsize=11)
             plt.text(30, 25, 'Table Title', size=30)
 
+            plot7 = plt.subplot2grid((3, 3), (1, 0))
+            ind1 = [1, 2, 3, 4]
+            plt.plot(ind1, [np.max(coherence[i]["coherency_x"][0:40, 0]),
+                            np.max(coherence[i]["coherency_x"][0:40, 2]),
+                            np.max(coherence[i]["coherency_x"][0:40, 4]),
+                            np.max(coherence[i]["coherency_x"][0:40, 6])],'ro', color = 'blue', label = "COP X")
+            plt.plot(ind1, [np.max(coherence[i]["coherency_y"][0:40, 0]),
+                            np.max(coherence[i]["coherency_y"][0:40, 2]),
+                            np.max(coherence[i]["coherency_y"][0:40, 4]),
+                            np.max(coherence[i]["coherency_y"][0:40, 6])], 'ro', label = "COP Y")
+            plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+            plt.xticks(ind1, ("Rectus_A_L", "Obliques_L", "Ilicostalis_L", "Multifidus_L"), fontsize=10)
+            plt.xlim([0, 5])
+            plt.ylim([0, 0.8])
+            plt.ylabel("Coherence between COP \n and each muscle.", fontsize=9)
+            plot7.set_title("Coherence", fontsize=12)
+
+            plot8 = plt.subplot2grid((3, 3), (1, 1))
+            plt.plot(ind1, [np.max(coherence[i]["coherency_x"][0:40, 1]),
+                            np.max(coherence[i]["coherency_x"][0:40, 3]),
+                            np.max(coherence[i]["coherency_x"][0:40, 5]),
+                            np.max(coherence[i]["coherency_x"][0:40, 7])], 'ro', color='blue')
+            plt.plot(ind1, [np.max(coherence[i]["coherency_y"][0:40, 1]),
+                            np.max(coherence[i]["coherency_y"][0:40, 3]),
+                            np.max(coherence[i]["coherency_y"][0:40, 5]),
+                            np.max(coherence[i]["coherency_y"][0:40, 7])], 'ro')
+            plt.xticks(ind1, ("Rectus_A_R", "Obliques_R", "Ilicostalis_R", "Multifidus_R"), fontsize=10)
+            plt.xlim([0, 5])
+            plt.ylim([0, 0.8])
+            plt.ylabel("Coherence between COP \n and each muscle.", fontsize=9)
+            plot8.set_title("Coherence", fontsize=12)
+
+
             if platform == True:
-                plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.35, hspace=0.48)
+                plt.subplots_adjust(top = 0.76, bottom = 0.08, left = 0.05,right=0.93, wspace=0.43, hspace=0.62)
             else:
                 plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
 
             plt.show()
+
+
+def COP_Muscle (EMG_array, COP_array):
+    l = 0
+    for i in EMG_array:
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle(str(i), fontsize=25)
+        plot1 = plt.subplot2grid((4, 2), (0, 0))
+        plt.plot((EMG_array[i][:,0])*5.0+5.0, label = "Rectus_A_L")
+        plt.plot(COP_array[i]["COP_X"]/15.0, label = "COP X")
+        plt.plot((EMG_array[i][:,1])*5.0-5.0, label = "Rectus_A_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot2 = plt.subplot2grid((4, 2), (0, 1))
+        plt.plot((EMG_array[i][:, 0]) * 5.0 + 5.0, label = "Rectus_A_L")
+        plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP_Y")
+        plt.plot((EMG_array[i][:, 1]) * 5.0 - 5.0, label = "Rectus_A_L")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot3 = plt.subplot2grid((4, 2), (1, 0))
+        plt.plot((EMG_array[i][:, 2]) * 5.0 + 5.0, label = "Obliques_L")
+        plt.plot(COP_array[i]["COP_X"] / 15.0, label = "COP X")
+        plt.plot((EMG_array[i][:, 3]) * 5.0 - 5.0, label = "Obliques_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot4 = plt.subplot2grid((4, 2), (1, 1))
+        plt.plot((EMG_array[i][:, 2]) * 5.0 + 5.0, label = "Obliques_L")
+        plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP_Y")
+        plt.plot((EMG_array[i][:, 3]) * 5.0 - 5.0, label = "Obliques_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot5 = plt.subplot2grid((4, 2), (2, 0))
+        plt.plot((EMG_array[i][:, 4]) * 5.0 + 5.0, label = "Ilicostalis_L")
+        plt.plot(COP_array[i]["COP_X"] / 15.0, label = "COP X")
+        plt.plot((EMG_array[i][:, 5]) * 5.0 - 5.0, label = "Ilicostalis_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot6 = plt.subplot2grid((4, 2), (2, 1))
+        plt.plot((EMG_array[i][:, 4]) * 5.0 + 5.0, label = "Ilicostalis_L")
+        plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP Y")
+        plt.plot((EMG_array[i][:, 5]) * 5.0 - 5.0, label = "Ilicostalis_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot7 = plt.subplot2grid((4, 2), (3, 0))
+        plt.plot((EMG_array[i][:, 6]) * 5.0 + 5.0, label = "Multifidus_L")
+        plt.plot(COP_array[i]["COP_X"] / 15.0, label = "COP X")
+        plt.plot((EMG_array[i][:, 7]) * 5.0 - 5.0, label = "Multifidus_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot8 = plt.subplot2grid((4, 2), (3, 1))
+        plt.plot((EMG_array[i][:, 6]) * 5.0 + 5.0, label = "Multifidus_L")
+        plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP Y")
+        plt.plot((EMG_array[i][:, 7]) * 5.0 - 5.0, label = "Multifidus_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plt.show()
+
+
+
 
