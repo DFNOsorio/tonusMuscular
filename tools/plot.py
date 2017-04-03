@@ -276,8 +276,8 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
             plot6 = plt.subplot2grid((3, 3), (2, 2))
             plt.axis('off')
             col_labels = ['COP X', 'COP Y']
-            row_labels = ['Velocity', 'Mean Point']
-            COP_values = [[velocity[i]["mean_COPX"], velocity[i]["mean_COPY"]], [mean_trajectory[i]["X"], mean_trajectory[i]["Y"]]]
+            row_labels = ['Velocity (mm/s)', 'Mean Point(mm)']
+            COP_values = [[velocity[i]["COP_X"], velocity[i]["COP_Y"]], [mean_trajectory[i]["X"], mean_trajectory[i]["Y"]]]
             COP_table = plt.table(cellText=COP_values,
                                     colWidths=[0.4] * 2,
                                     rowLabels=row_labels,
@@ -286,7 +286,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
             COP_table.auto_set_font_size(False)
             COP_table.set_fontsize(11)
             COP_table.scale(1.1, 1.1)
-            plot6.set_title("Table 3 - Relevante COP values", fontsize=11)
+            plot6.set_title("Table 3 - Relevant COP values", fontsize=11)
             plt.text(30, 25, 'Table Title', size=30)
 
             plot7 = plt.subplot2grid((3, 3), (1, 0))
@@ -337,55 +337,114 @@ def COP_Muscle (EMG_array, COP_array):
         l = l + 1
         fig.suptitle(str(i), fontsize=25)
         plot1 = plt.subplot2grid((4, 2), (0, 0))
-        plt.plot((EMG_array[i][:,0])*5.0+5.0, label = "Rectus_A_L")
+        plt.plot((EMG_array[i][:,0])*10.0+5.0, label = "Rectus_A_L")
         plt.plot(COP_array[i]["COP_X"]/15.0, label = "COP X")
-        plt.plot((EMG_array[i][:,1])*5.0-5.0, label = "Rectus_A_R")
+        plt.plot((EMG_array[i][:,1])*10.0-5.0, label = "Rectus_A_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot2 = plt.subplot2grid((4, 2), (0, 1))
-        plt.plot((EMG_array[i][:, 0]) * 5.0 + 5.0, label = "Rectus_A_L")
+        plt.plot((EMG_array[i][:, 0]) * 10.0 + 5.0, label = "Rectus_A_L")
         plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP_Y")
-        plt.plot((EMG_array[i][:, 1]) * 5.0 - 5.0, label = "Rectus_A_L")
+        plt.plot((EMG_array[i][:, 1]) * 10.0 - 5.0, label = "Rectus_A_L")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot3 = plt.subplot2grid((4, 2), (1, 0))
-        plt.plot((EMG_array[i][:, 2]) * 5.0 + 5.0, label = "Obliques_L")
+        plt.plot((EMG_array[i][:, 2]) * 10.0 + 5.0, label = "Obliques_L")
         plt.plot(COP_array[i]["COP_X"] / 15.0, label = "COP X")
-        plt.plot((EMG_array[i][:, 3]) * 5.0 - 5.0, label = "Obliques_R")
+        plt.plot((EMG_array[i][:, 3]) * 10.0 - 5.0, label = "Obliques_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot4 = plt.subplot2grid((4, 2), (1, 1))
-        plt.plot((EMG_array[i][:, 2]) * 5.0 + 5.0, label = "Obliques_L")
+        plt.plot((EMG_array[i][:, 2]) * 10.0 + 5.0, label = "Obliques_L")
         plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP_Y")
-        plt.plot((EMG_array[i][:, 3]) * 5.0 - 5.0, label = "Obliques_R")
+        plt.plot((EMG_array[i][:, 3]) * 10.0 - 5.0, label = "Obliques_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot5 = plt.subplot2grid((4, 2), (2, 0))
-        plt.plot((EMG_array[i][:, 4]) * 5.0 + 5.0, label = "Ilicostalis_L")
+        plt.plot((EMG_array[i][:, 4]) * 10.0 + 5.0, label = "Ilicostalis_L")
         plt.plot(COP_array[i]["COP_X"] / 15.0, label = "COP X")
-        plt.plot((EMG_array[i][:, 5]) * 5.0 - 5.0, label = "Ilicostalis_R")
+        plt.plot((EMG_array[i][:, 5]) * 10.0 - 5.0, label = "Ilicostalis_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot6 = plt.subplot2grid((4, 2), (2, 1))
-        plt.plot((EMG_array[i][:, 4]) * 5.0 + 5.0, label = "Ilicostalis_L")
+        plt.plot((EMG_array[i][:, 4]) * 10.0 + 5.0, label = "Ilicostalis_L")
         plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP Y")
-        plt.plot((EMG_array[i][:, 5]) * 5.0 - 5.0, label = "Ilicostalis_R")
+        plt.plot((EMG_array[i][:, 5]) * 10.0 - 5.0, label = "Ilicostalis_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot7 = plt.subplot2grid((4, 2), (3, 0))
-        plt.plot((EMG_array[i][:, 6]) * 5.0 + 5.0, label = "Multifidus_L")
+        plt.plot((EMG_array[i][:, 6]) * 10.0 + 5.0, label = "Multifidus_L")
         plt.plot(COP_array[i]["COP_X"] / 15.0, label = "COP X")
-        plt.plot((EMG_array[i][:, 7]) * 5.0 - 5.0, label = "Multifidus_R")
+        plt.plot((EMG_array[i][:, 7]) * 10.0 - 5.0, label = "Multifidus_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plot8 = plt.subplot2grid((4, 2), (3, 1))
-        plt.plot((EMG_array[i][:, 6]) * 5.0 + 5.0, label = "Multifidus_L")
+        plt.plot((EMG_array[i][:, 6]) * 10.0 + 5.0, label = "Multifidus_L")
         plt.plot(COP_array[i]["COP_Y"] / 15.0, label = "COP Y")
-        plt.plot((EMG_array[i][:, 7]) * 5.0 - 5.0, label = "Multifidus_R")
+        plt.plot((EMG_array[i][:, 7]) * 10.0 - 5.0, label = "Multifidus_R")
         plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
 
         plt.show()
 
+
+def velocity_Muscle (EMG_array, velocity_array):
+    l = 0
+    for i in EMG_array:
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle(str(i), fontsize=25)
+        plot1 = plt.subplot2grid((4, 2), (0, 0))
+        plt.plot((EMG_array[i][:,0])*10.0+10.0, label = "Rectus_A_L")
+        plt.plot(velocity_array[i]["COP_X"] * 10.0 - 5.0, label = "velocity COP X")
+        plt.plot((EMG_array[i][:,1])*10.0-10.0, label = "Rectus_A_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot2 = plt.subplot2grid((4, 2), (0, 1))
+        plt.plot((EMG_array[i][:, 0]) * 10.0 + 10.0, label = "Rectus_A_L")
+        plt.plot(velocity_array[i]["COP_Y"] * 10.0 - 5.0, label = "velocity COP_Y")
+        plt.plot((EMG_array[i][:, 1]) * 10.0 - 10.0, label = "Rectus_A_L")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot3 = plt.subplot2grid((4, 2), (1, 0))
+        plt.plot((EMG_array[i][:, 2]) * 10.0 + 10.0, label = "Obliques_L")
+        plt.plot(velocity_array[i]["COP_X"] * 10.0 - 5.0, label = "velocity COP X")
+        plt.plot((EMG_array[i][:, 3]) * 10.0 - 10.0, label = "Obliques_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot4 = plt.subplot2grid((4, 2), (1, 1))
+        plt.plot((EMG_array[i][:, 2]) * 10.0 + 10.0, label = "Obliques_L")
+        plt.plot(velocity_array[i]["COP_Y"] * 10.0 - 5.0, label = "velocity COP_Y")
+        plt.plot((EMG_array[i][:, 3]) * 10.0 - 10.0, label = "Obliques_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot5 = plt.subplot2grid((4, 2), (2, 0))
+        plt.plot((EMG_array[i][:, 4]) * 10.0 + 10.0, label = "Ilicostalis_L")
+        plt.plot(velocity_array[i]["COP_X"] * 10.0 - 5.0, label = "velocity COP X")
+        plt.plot((EMG_array[i][:, 5]) * 10.0 - 10.0, label = "Ilicostalis_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot6 = plt.subplot2grid((4, 2), (2, 1))
+        plt.plot((EMG_array[i][:, 4]) * 10.0 + 10.0, label = "Ilicostalis_L")
+        plt.plot(velocity_array[i]["COP_Y"] * 10.0 - 5.0, label = "velocity COP Y")
+        plt.plot((EMG_array[i][:, 5]) * 10.0 - 10.0, label = "Ilicostalis_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot7 = plt.subplot2grid((4, 2), (3, 0))
+        plt.plot((EMG_array[i][:, 6]) * 10.0 + 10.0, label = "Multifidus_L")
+        plt.plot(velocity_array[i]["COP_X"] * 10.0 - 5.0, label = "velocity COP X")
+        plt.plot((EMG_array[i][:, 7]) * 10.0 - 10.0, label = "Multifidus_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot8 = plt.subplot2grid((4, 2), (3, 1))
+        plt.plot((EMG_array[i][:, 6]) * 10.0 + 10.0, label = "Multifidus_L")
+        plt.plot(velocity_array[i]["COP_Y"] * 10.0 - 5.0, label = "velocity COP Y")
+        plt.plot((EMG_array[i][:, 7]) * 10.0 - 10.0, label = "Multifidus_R")
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plt.show()
+
+def group_muscle_COP(COP_array, EMG_array):
+    plot1 = plt.subplot2grid((2, 2), ())
 
 
 

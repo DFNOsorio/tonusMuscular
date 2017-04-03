@@ -1,6 +1,5 @@
 from tools import *
 from scipy import signal
-from scipy.signal import butter, lfilter, freqz
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -30,18 +29,27 @@ patient1.COP = mass_2_COP(patient1.platformdata)
 #patient1.COP = []
 print '\033[93m' + "COP_END" + '\033[0m'
 
-velocity, mean = velocity_COP(patient1.COP)
+patient1.velocity, patient1.mean = velocity_COP(patient1.COP)
 print '\033[93m' + "VELOCITY_END" + '\033[0m'
 
-trajec = trajectory(patient1.COP)
+patient1.trajec = trajectory(patient1.COP)
 print '\033[93m' + "TRAJ_END" + '\033[0m'
 
-c= coherence(patient1.COP, patient1.EMG_normalization)
+patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
 print '\033[93m' + "COHERENCY_END" + '\033[0m'
 
+patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
+print '\033[93m' + "V_RMS_END" + '\033[0m'
+
+patient1.v_norm = normalization_velocity(patient1.RMS_velocity)
+print '\033[93m' + "V_NORM_END" + '\033[0m'
+
+
+
+#velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
 
-fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Ines", trajec, c, mean, platform = True)
+fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Ines", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
 
 
