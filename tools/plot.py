@@ -3,6 +3,7 @@ import seaborn as sns
 import numpy as np
 import matplotlib.image as mpimg
 from matplotlib.backends.backend_pdf import PdfPages
+from scipy.stats.stats import pearsonr
 from tools import *
 
 def graph_platform(max_values, platform_COP, description, platform = False):
@@ -328,6 +329,8 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
                 plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
 
             plt.show()
+            #pp.savefig(fig)
+    #pp.close()
 
 
 def COP_Muscle (EMG_array, COP_array):
@@ -443,8 +446,109 @@ def velocity_Muscle (EMG_array, velocity_array):
 
         plt.show()
 
-def group_muscle_COP(COP_array, EMG_array):
-    plot1 = plt.subplot2grid((2, 2), ())
+def group_LR_COP(COP_array, EMG_array, velocity_array, acel_array):
+    l = 0
+    for i in EMG_array:
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle(str(i) + "\n Group of muscle (left + right)", fontsize=25)
+
+        plot1 = plt.subplot2grid((2, 2), (0, 0))
+        array_R = normalization_subEMG((EMG_array[i][:,1])-(EMG_array[i][:,0]))
+        zero_R = np.mean(array_R[0:200])
+        plt.plot(array_R, label = "Rectus_Abdominis")
+        plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
+        plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
+        plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
+        c1, R = pearsonr(array_R, COP_array[i]["COP_X"])
+        plot1.set_title("Person correlation between COPX and muscle:" + str(c1), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot2 = plt.subplot2grid((2, 2), (0, 1))
+        array_O = normalization_subEMG((EMG_array[i][:,3]) - (EMG_array[i][:,2]))
+        zero_O = np.mean(array_O[0:200])
+        plt.plot(array_O, label = "Obliques")
+        plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
+        plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
+        plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
+        c2, O = pearsonr(array_O, COP_array[i]["COP_X"])
+        plot2.set_title("Person correlation between COPX and muscle:" + str(c2), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot3 = plt.subplot2grid((2, 2), (1, 0))
+        array_I = normalization_subEMG((EMG_array[i][:,5]) - (EMG_array[i][:,4]))
+        zero_I = np.mean(array_I[0:200])
+        plt.plot(array_I, label = "Ilicostalis")
+        plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
+        plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
+        plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
+        c3, I = pearsonr(array_I, COP_array[i]["COP_X"])
+        plot3.set_title("Person correlation between COPX and muscle:" + str(c3), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot4 = plt.subplot2grid((2, 2), (1, 1))
+        array_M = normalization_subEMG((EMG_array[i][:,7]) - (EMG_array[i][:,6]))
+        zero_M = np.mean(array_M[0:200])
+        plt.plot(array_M, label = "Multifidus")
+        plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
+        plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
+        plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
+        c4, M = pearsonr(array_M, COP_array[i]["COP_X"])
+        plot4.set_title("Person correlation between COPX and muscle:" + str(c4), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plt.subplots_adjust(top=0.85, bottom=0.10, left=0.12, right=0.90, wspace=0.24, hspace=0.20)
+        plt.show()
+
+def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array):
+    l = 0
+    for i in EMG_array:
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle(str(i) + "\n Group of muscle (Front + Back)", fontsize=25)
+
+        plot1 = plt.subplot2grid((2, 2), (0, 0))
+        array_MR_L = normalization_subEMG((EMG_array[i][:, 0]) - (EMG_array[i][:, 6]))
+        plt.plot(array_MR_L, label="Rectus Abdominis left - Multifidus left")
+        plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
+        plt.plot(velocity_array[i]["COP_Y"] + 1.5, label="COP Y velocity")
+        plt.plot(acel_array[i]["COP_Y"] + 3.0, label = "COP Y acelaration")
+        c1, MR_L = pearsonr(array_MR_L, COP_array[i]["COP_Y"])
+        plot1.set_title("Person correlation between COPY and muscle:" + str(c1), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot2 = plt.subplot2grid((2, 2), (0, 1))
+        array_MR_R = normalization_subEMG((EMG_array[i][:, 1]) - (EMG_array[i][:, 7]))
+        plt.plot(array_MR_R, label="Rectus Abdominis right - Multifidus right")
+        plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
+        plt.plot(velocity_array[i]["COP_Y"] + 1.5, label="COP Y velocity")
+        plt.plot(acel_array[i]["COP_Y"] + 3.0, label="COP Y acelaration")
+        c2, MR_R = pearsonr(array_MR_R, COP_array[i]["COP_Y"])
+        plot2.set_title("Person correlation between COPY and muscle:" + str(c2), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot3 = plt.subplot2grid((2, 2), (1, 0))
+        array_IO_L = normalization_subEMG((EMG_array[i][:, 2]) - (EMG_array[i][:, 4]))
+        plt.plot(array_IO_L, label="Obliques left - Ilicostalis left")
+        plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
+        plt.plot(velocity_array[i]["COP_Y"] + 1.5, label="COP Y velocity")
+        plt.plot(acel_array[i]["COP_Y"] + 3.0, label="COP Y acelaration")
+        c3, IO_L = pearsonr(array_IO_L, COP_array[i]["COP_Y"])
+        plot3.set_title("Person correlation between COPY and muscle:" + str(c3), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plot4 = plt.subplot2grid((2, 2), (1, 1))
+        array_IO_R = normalization_subEMG((EMG_array[i][:, 3]) - (EMG_array[i][:, 5]))
+        plt.plot(array_IO_R, label="Obliques right - Ilicostalis right")
+        plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
+        plt.plot(velocity_array[i]["COP_Y"] + 1.5, label="COP Y velocity")
+        plt.plot(acel_array[i]["COP_Y"] + 3.0, label="COP Y acelaration")
+        c4, IO_R = pearsonr(array_IO_R, COP_array[i]["COP_Y"])
+        plot4.set_title("Person correlation between COPY and muscle:" + str(c4), fontsize=12)
+        plt.legend(bbox_to_anchor=(0, 0), loc=3, borderaxespad=0., fontsize=10)
+
+        plt.subplots_adjust(top=0.85, bottom=0.10, left=0.12, right=0.90, wspace=0.24, hspace=0.20)
+        plt.show()
 
 
 

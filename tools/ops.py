@@ -180,19 +180,24 @@ def fourier_COP(test_array):
 
 def velocity_COP(test_array):
     velocity_direction = {}
+    acelaration_direction = {}
     velocity = {}
     mean_trajectory = {}
     velocity_mean = {}
+    acelaration = {}
     for i in test_array:
         for j in test_array[i]:
             if j == "COP_X" or j=="COP_Y":
                 v = (np.diff(test_array[i][j]))/0.001
+                a = (np.diff(v))/0.001
                 mean = np.mean(v)
                 velocity_direction[j] = v
                 mean_trajectory[j] = mean
+                acelaration_direction[j] = a
         velocity[i] = {"COP_X": velocity_direction["COP_X"], "COP_Y": velocity_direction["COP_Y"]}
         velocity_mean[i] = {"COP_X": mean_trajectory["COP_X"], "COP_Y": mean_trajectory["COP_Y"]}
-    return velocity, velocity_mean
+        acelaration[i] = {"COP_X": acelaration_direction["COP_X"], "COP_Y": acelaration_direction["COP_Y"]}
+    return velocity, velocity_mean, acelaration
 
 def trajectory(test_array):
     trajectory = {}
@@ -294,11 +299,8 @@ def coherence(COP_array, EMG_array):
 
             for n in range(0, len(EMG_array[i][1])):
                 f[:,n], c[:,n] =  signal.coherence(EMG_array[i][:,n],COP_array[i][j], 1000, nperseg=1024)
-            # print i
-            # print np.max(c[:,0])
             C_COP_EMG[i][j] = c[:,:]
             frequency[i][j] = f[:,:]
-            # print(C_COP_EMG)
         coherence[i] = {"freqs_x":frequency[i]["COP_X"], "freqs_y":frequency[i]["COP_Y"],
                         "coherency_x":C_COP_EMG[i]["COP_X"], "coherency_y":C_COP_EMG[i]["COP_Y"] }
     return coherence
@@ -311,20 +313,27 @@ def RMS_velocity_whole_segment(test, window_size=100, overlap=-1):
             new_new = {}
             for j in test[i]:
                 new_new[j] = RMS(test[i][j], window_size=window_size, overlap=overlap)
-            new[i] = {"RMS_v_COPX": new_new["COP_X"], "RMS_v_COPY": new_new["COP_Y"]}
+            new[i] = {"COP_X": new_new["COP_X"], "COP_Y": new_new["COP_Y"]}
         except IndexError:
             new[i] = {}
 
     return new
 
 
-def normalization_velocity(velocity_array):
-    velocity_norm = {}
-    for i in velocity_array:
-        velocity_COP = {}
-        for j in velocity_array[i]:
-            v_max = np.max(velocity_array[i][j])
-            velocity_COP[j] = (velocity_array[i][j])/v_max
-        velocity_norm[i] = {"COP_X": velocity_COP["RMS_v_COPX"], "COP_Y": velocity_COP["RMS_v_COPY"]}
-    return velocity_norm
+def normalization_COP(array):
+    norm = {}
+    for i in array:
+        norm_COP = {}
+        for j in array[i]:
+            max = np.max(array[i][j])
+            min = np.min(array[i][j])
+            norm_COP[j] = ((array[i][j]) - min) / (max - min)
+        norm[i] = {"COP_X": norm_COP["COP_X"], "COP_Y": norm_COP["COP_Y"]}
+    return norm
+
+def normalization_subEMG(EMG_array):
+    max = np.max(EMG_array)
+    min =  np.min(EMG_array)
+    norm_EMG = (EMG_array - min) / (max - min)
+    return norm_EMG
 

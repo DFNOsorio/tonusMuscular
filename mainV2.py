@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
+file = "Egas_Moniz_Segments/Paciente2_Emma_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -29,7 +29,7 @@ patient1.COP = mass_2_COP(patient1.platformdata)
 #patient1.COP = []
 print '\033[93m' + "COP_END" + '\033[0m'
 
-patient1.velocity, patient1.mean = velocity_COP(patient1.COP)
+patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
 print '\033[93m' + "VELOCITY_END" + '\033[0m'
 
 patient1.trajec = trajectory(patient1.COP)
@@ -41,20 +41,30 @@ print '\033[93m' + "COHERENCY_END" + '\033[0m'
 patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
 print '\033[93m' + "V_RMS_END" + '\033[0m'
 
-patient1.v_norm = normalization_velocity(patient1.RMS_velocity)
+patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
+print '\033[93m' + "A_RMS_END" + '\033[0m'
+
+patient1.acel_norm = normalization_COP(patient1.RMS_acel)
+print '\033[93m' + "A_NORM_END" + '\033[0m'
+
+patient1.v_norm = normalization_COP(patient1.RMS_velocity)
 print '\033[93m' + "V_NORM_END" + '\033[0m'
 
+patient1.COP_norm = normalization_COP(patient1.COP)
+print '\033[93m' + "COP_NORM_END" + '\033[0m'
 
 
 #velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
+#group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm)
+group_FB_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm)
 
-fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Ines", patient1.trajec, patient1.c, patient1.mean, platform = True)
-
+#fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient2", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
 
 #fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"patient1_Lupus", platform = False)
 #fig2_RMS = graph_RMS(patient1.EMG_RMS, "MJ_Lupus")
 #fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization, "MJ_Lupus")
+
 
 
