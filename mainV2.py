@@ -56,8 +56,9 @@ print '\033[93m' + "COP_NORM_END" + '\033[0m'
 
 #velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
-#group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm)
-group_FB_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm)
+group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient1 Healthy")
+#group_FB_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient1 Healthy")
+#groupmuscles_COP(patient1.COP_norm, patient1.EMG_normalization, "Patient1 Healthy")
 
 #fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient2", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
