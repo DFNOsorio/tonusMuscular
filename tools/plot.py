@@ -448,14 +448,15 @@ def velocity_Muscle (EMG_array, velocity_array):
 
 def group_LR_COP(COP_array, EMG_array, velocity_array, acel_array, description):
     l = 0
+    pp = PdfPages('Group_of_MusclesR_L_' + str(description) + '.pdf')
     for i in EMG_array:
         fig = plt.figure(l)
         l = l + 1
-        fig.suptitle(str(i) + "\n" + str(description), fontsize=25)
+        fig.suptitle("Same muscle/ Right Left - " + str(i) + "\n" + str(description), fontsize=25)
 
         plot1 = plt.subplot2grid((2, 2), (0, 0))
         plot1.yaxis.set_visible(False)
-        array_R_RMS = RMS((EMG_array[i][:,1])-(EMG_array[i][:,0]))
+        array_R_RMS = ((EMG_array[i][:,1])-(EMG_array[i][:,0]))
         array_R = normalization_subEMG(array_R_RMS)
         plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
         plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
@@ -476,11 +477,11 @@ def group_LR_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plot2 = plt.subplot2grid((2, 2), (0, 1))
         plot2.yaxis.set_visible(False)
-        array_O_RMS = RMS((EMG_array[i][:,3]) - (EMG_array[i][:,2]))
+        array_O_RMS = ((EMG_array[i][:,3]) - (EMG_array[i][:,2]))
         array_O = normalization_subEMG(array_O_RMS)
         plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
         plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
-        plt.plot(array_O, label="Rectus_Abdominis")
+        plt.plot(array_O, label="Obliques")
         plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
         c2, O = pearsonr(array_O, COP_array[i]["COP_X"])
         c2_vel, O = pearsonr(array_O[0:len(array_O) - 1], velocity_array[i]["COP_X"])
@@ -496,16 +497,16 @@ def group_LR_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plot3 = plt.subplot2grid((2, 2), (1, 0))
         plot3.yaxis.set_visible(False)
-        array_I_RMS = RMS((EMG_array[i][:,5]) - (EMG_array[i][:,4]))
+        array_I_RMS = ((EMG_array[i][:,5]) - (EMG_array[i][:,4]))
         array_I = normalization_subEMG(array_I_RMS)
         plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
         plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
-        plt.plot(array_I, label="Rectus_Abdominis")
+        plt.plot(array_I, label="Ilicostalis")
         plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
         c3, I = pearsonr(array_I, COP_array[i]["COP_X"])
         c3_vel, I = pearsonr(array_I[0:len(array_I) - 1], velocity_array[i]["COP_X"])
         c3_acel, I = pearsonr(array_I[0:len(array_I) - 2], acel_array[i]["COP_X"])
-        plot3.set_title("Person correlation between COPX and muscle:" + str(c3), fontsize=12)
+        plot3.set_title("EMG and COP signals", fontsize=12)
         plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=10)
         plt.text(x1, -1,
                  'Pearson coeficient EMG/COPX: ' + '\n' + '%.5f' % c3 +
@@ -516,16 +517,16 @@ def group_LR_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plot4 = plt.subplot2grid((2, 2), (1, 1))
         plot4.yaxis.set_visible(False)
-        array_M_RMS = RMS((EMG_array[i][:,7]) - (EMG_array[i][:,6]))
+        array_M_RMS = ((EMG_array[i][:,7]) - (EMG_array[i][:,6]))
         array_M = normalization_subEMG(array_M_RMS)
         plt.plot(acel_array[i]["COP_X"] + 3.0, label="COP X acelaration")
         plt.plot(velocity_array[i]["COP_X"] + 1.5, label="COP X velocity")
-        plt.plot(array_M, label="Rectus_Abdominis")
+        plt.plot(array_M, label="Multifidus")
         plt.plot(COP_array[i]["COP_X"] - 1.5, label="COP X trajectory")
         c4, M = pearsonr(array_M, COP_array[i]["COP_X"])
         c4_vel, M = pearsonr(array_M[0:len(array_M) - 1], velocity_array[i]["COP_X"])
         c4_acel, M = pearsonr(array_M[0:len(array_M) - 2], acel_array[i]["COP_X"])
-        plot4.set_title("Person correlation between COPX and muscle:" + str(c4), fontsize=12)
+        plot4.set_title("EMG and COP signals", fontsize=12)
         plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=10)
         plt.text(x1, -1,
                  'Pearson coeficient EMG/COPX: ' + '\n' + '%.5f' % c4 +
@@ -536,17 +537,20 @@ def group_LR_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plt.subplots_adjust(top=0.85, bottom=0.10, left=0.04, right=0.85, wspace=0.43, hspace=0.27)
         plt.show()
+        pp.savefig(fig)
+    pp.close()
 
 def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array, description):
     l = 0
+    pp = PdfPages('Group_of_MusclesFB_SameDirection' + str(description) + '.pdf')
     for i in EMG_array:
         fig = plt.figure(l)
         l = l + 1
-        fig.suptitle(str(i) + "\n" + str(description), fontsize=25)
+        fig.suptitle("Front and Back muscle/Same direction - " + str(i) + "\n" + str(description), fontsize=25)
 
         plot1 = plt.subplot2grid((2, 2), (0, 0))
         plot1.yaxis.set_visible(False)
-        array_MR_L_RMS = RMS((EMG_array[i][:, 0]) - (EMG_array[i][:, 6]))
+        array_MR_L_RMS = ((EMG_array[i][:, 0]) - (EMG_array[i][:, 6]))
         array_MR_L = normalization_subEMG(array_MR_L_RMS)
         plt.plot(array_MR_L, label="Rectus L - Multifidus L")
         plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
@@ -567,7 +571,7 @@ def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plot2 = plt.subplot2grid((2, 2), (0, 1))
         plot2.yaxis.set_visible(False)
-        array_MR_R_RMS = RMS((EMG_array[i][:, 1]) - (EMG_array[i][:, 7]))
+        array_MR_R_RMS = ((EMG_array[i][:, 1]) - (EMG_array[i][:, 7]))
         array_MR_R = normalization_subEMG(array_MR_R_RMS)
         plt.plot(array_MR_R, label="Rectus R - Multifidus R")
         plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
@@ -587,7 +591,7 @@ def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plot3 = plt.subplot2grid((2, 2), (1, 0))
         plot3.yaxis.set_visible(False)
-        array_IO_L_RMS = RMS((EMG_array[i][:, 2]) - (EMG_array[i][:, 4]))
+        array_IO_L_RMS = ((EMG_array[i][:, 2]) - (EMG_array[i][:, 4]))
         array_IO_L = normalization_subEMG(array_IO_L_RMS)
         plt.plot(array_IO_L, label="Obliques L - Ilicostalis L")
         plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
@@ -607,7 +611,7 @@ def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plot4 = plt.subplot2grid((2, 2), (1, 1))
         plot4.yaxis.set_visible(False)
-        array_IO_R_RMS = RMS((EMG_array[i][:, 3]) - (EMG_array[i][:, 5]))
+        array_IO_R_RMS = ((EMG_array[i][:, 3]) - (EMG_array[i][:, 5]))
         array_IO_R = normalization_subEMG(array_IO_R_RMS)
         plt.plot(array_IO_R, label="Obliques R - Ilicostalis R")
         plt.plot(COP_array[i]["COP_Y"] - 1.5, label="COP Y trajectory")
@@ -616,7 +620,7 @@ def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array, description):
         c4, IO_R = pearsonr(array_IO_R, COP_array[i]["COP_Y"])
         c4_vel, IO_R = pearsonr(array_IO_R[0:len(array_IO_R) - 1], velocity_array[i]["COP_Y"])
         c4_acel, IO_R = pearsonr(array_IO_R[0:len(array_IO_R) - 2], acel_array[i]["COP_Y"])
-        plot4.set_title("Person correlation between COPY and muscle:" + str(c4), fontsize=12)
+        plot4.set_title("EMG and COP signals", fontsize=12)
         plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., fontsize=10)
         plt.text(x1, -1,
                  'Pearson coeficient EMG/COPY: ' + '\n' + '%.5f' % c4 +
@@ -627,17 +631,20 @@ def group_FB_COP(COP_array, EMG_array, velocity_array, acel_array, description):
 
         plt.subplots_adjust(top=0.85, bottom=0.10, left=0.04, right=0.85, wspace=0.43, hspace=0.27)
         plt.show()
+        pp.savefig(fig)
+    pp.close()
 
 def groupmuscles_COP(COP_array, EMG_array,description):
     l = 0
+    pp = PdfPages('Group_of_MusclesFB_CrossDirection' + str(description) + '.pdf')
     for i in EMG_array:
         fig = plt.figure(l)
         l = l + 1
-        fig.suptitle(str(i) + "\n" + str(description), fontsize=25)
+        fig.suptitle("Front and Back muscle/Cross direction - " + str(i) + "\n" + str(description), fontsize=25)
 
         plot1 = plt.subplot2grid((2, 2), (0, 0))
         plot1.yaxis.set_visible(False)
-        array_MR_LR_RMS = RMS((EMG_array[i][:, 0]) - (EMG_array[i][:, 7]))
+        array_MR_LR_RMS = ((EMG_array[i][:, 0]) - (EMG_array[i][:, 7]))
         array_MR_LR = normalization_subEMG(array_MR_LR_RMS)
         plt.plot(COP_array[i]["COP_X"] + 1.5, label="COP X trajectory")
         plt.plot(array_MR_LR, label="Rectus L - Multifidus R")
@@ -653,7 +660,7 @@ def groupmuscles_COP(COP_array, EMG_array,description):
 
         plot2 = plt.subplot2grid((2, 2), (0, 1))
         plot2.yaxis.set_visible(False)
-        array_MR_RL_RMS = RMS((EMG_array[i][:, 1]) - (EMG_array[i][:, 6]))
+        array_MR_RL_RMS = ((EMG_array[i][:, 1]) - (EMG_array[i][:, 6]))
         array_MR_RL = normalization_subEMG(array_MR_RL_RMS)
         plt.plot(COP_array[i]["COP_X"] + 1.5, label="COP X trajectory")
         plt.plot(array_MR_RL, label="Rectus R - Multifidus L")
@@ -669,7 +676,7 @@ def groupmuscles_COP(COP_array, EMG_array,description):
 
         plot3 = plt.subplot2grid((2, 2), (1, 0))
         plot3.yaxis.set_visible(False)
-        array_IO_LR_RMS = RMS((EMG_array[i][:, 2]) - (EMG_array[i][:, 5]))
+        array_IO_LR_RMS = ((EMG_array[i][:, 2]) - (EMG_array[i][:, 5]))
         array_IO_LR = normalization_subEMG(array_IO_LR_RMS)
         plt.plot(COP_array[i]["COP_X"] + 1.5, label="COP X trajectory")
         plt.plot(array_IO_LR, label="Obliques L - Ilicostalis R")
@@ -685,7 +692,7 @@ def groupmuscles_COP(COP_array, EMG_array,description):
 
         plot4 = plt.subplot2grid((2, 2), (1, 1))
         plot4.yaxis.set_visible(False)
-        array_IO_RL_RMS = RMS((EMG_array[i][:, 3]) - (EMG_array[i][:, 4]))
+        array_IO_RL_RMS = ((EMG_array[i][:, 3]) - (EMG_array[i][:, 4]))
         array_IO_RL = normalization_subEMG(array_IO_RL_RMS)
         plt.plot(COP_array[i]["COP_X"] + 1.5, label="COP X trajectory")
         plt.plot(array_IO_RL, label="Obliques R - Ilicostalis L")
@@ -701,3 +708,5 @@ def groupmuscles_COP(COP_array, EMG_array,description):
 
         plt.subplots_adjust(top=0.85, bottom=0.10, left=0.04, right=0.86, wspace=0.48, hspace=0.27)
         plt.show()
+        pp.savefig(fig)
+    pp.close()

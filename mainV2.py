@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-file = "Egas_Moniz_Segments/Paciente2_Emma_Healthy.h5"
+file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -54,9 +54,12 @@ patient1.COP_norm = normalization_COP(patient1.COP)
 print '\033[93m' + "COP_NORM_END" + '\033[0m'
 
 
+plt.plot(patient1.COP["Arms_extension"]["COP_X"])
+plt.show()
+
 #velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
-group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient1 Healthy")
+#group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient1 Healthy")
 #group_FB_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient1 Healthy")
 #groupmuscles_COP(patient1.COP_norm, patient1.EMG_normalization, "Patient1 Healthy")
 
