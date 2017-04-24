@@ -54,9 +54,6 @@ patient1.COP_norm = normalization_COP(patient1.COP)
 print '\033[93m' + "COP_NORM_END" + '\033[0m'
 
 
-plt.plot(patient1.COP["Arms_extension"]["COP_X"])
-plt.show()
-
 #velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
 #group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient1 Healthy")
@@ -69,6 +66,5 @@ plt.show()
 #fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"patient1_Lupus", platform = False)
 #fig2_RMS = graph_RMS(patient1.EMG_RMS, "MJ_Lupus")
 #fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization, "MJ_Lupus")
-
 
 
