@@ -337,3 +337,10 @@ def normalization_subEMG(EMG_array):
     norm_EMG = (EMG_array - min) / (max - min)
     return norm_EMG
 
+def normalization_subCOP(COP_array):
+    max = np.max(COP_array)
+    min =  np.min(COP_array)
+    norm_COP = (COP_array - min) / (max - min)
+    return norm_COP
+
+

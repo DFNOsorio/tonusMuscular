@@ -53,6 +53,16 @@ print '\033[93m' + "V_NORM_END" + '\033[0m'
 patient1.COP_norm = normalization_COP(patient1.COP)
 print '\033[93m' + "COP_NORM_END" + '\033[0m'
 
+patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+print '\033[93m' + "RLCORR_END" + '\033[0m'
+
+patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+print '\033[93m' + "FBCORR_END" + '\033[0m'
+
+patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
+print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
+
+
 
 #velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
@@ -66,5 +76,4 @@ print '\033[93m' + "COP_NORM_END" + '\033[0m'
 #fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"patient1_Lupus", platform = False)
 #fig2_RMS = graph_RMS(patient1.EMG_RMS, "MJ_Lupus")
 #fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization, "MJ_Lupus")
-
 
