@@ -3,7 +3,6 @@ from scipy import signal
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 file = "Egas_Moniz_Segments/Paciente1_Ines_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
@@ -62,7 +61,12 @@ print '\033[93m' + "FBCORR_END" + '\033[0m'
 patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
 print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
 
+##Creating database
 
+create_database()
+fill_parameters()
+
+##Plot figures
 
 #velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
 #COP_Muscle(patient1.EMG_normalization, patient1.COP)
@@ -73,7 +77,5 @@ print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
 #fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient2", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
 
-#fig1_max_platform = graph_platform(patient1.EMG_max_values, patient1.COP,"patient1_Lupus", platform = False)
-#fig2_RMS = graph_RMS(patient1.EMG_RMS, "MJ_Lupus")
-#fig3_normalization = graph_normalizedRMS(patient1.EMG_normalization, "MJ_Lupus")
+
 

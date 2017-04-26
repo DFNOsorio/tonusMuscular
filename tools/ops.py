@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.signal import butter, lfilter, freqz
 
-import copy
+
 
 
 def avg_out(test):
