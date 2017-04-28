@@ -1,10 +1,11 @@
-from tools import *
-import xlsxwriter
-from openpyxl.styles import Alignment
 import h5py
-from openpyxl.styles import Color, PatternFill, Font, Border
+import xlsxwriter
 from openpyxl import load_workbook
-from xlrd import open_workbook
+from openpyxl.styles import Alignment
+from openpyxl.styles import PatternFill
+import numpy as np
+#from openpyxl.worksheet.table import Table, TableStyleInfo
+
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
@@ -67,9 +68,40 @@ def parameters(EMG_values):
         title = sheet1.cell('B' + str(count))
         title.value = "Max values of each muscle - " + str(i)
         title.font = title.font.copy(bold=True)
-        for n in range(0,8):
+        data = [['Rectus_A', EMG_values[i][0], EMG_values[i][1]],
+                ['Obliques', EMG_values[i][2], EMG_values[i][3]],
+                ['Ilicostalis', EMG_values[i][4], EMG_values[i][5]],
+                ['Multifidus',  EMG_values[i][6], EMG_values[i][7]]
+        ]
+        first_row = sheet1.append([" ", "Left", "Right"])
 
+        for row in data:
+            sheet1.append(row)
 
+        count = count + 13
+    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+
+def coherency(coherency_values):
+    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+    count = 6
+    for i in coherency_values:
+        title = sheet1.cell('H' + str(count))
+        title.value = "Coherency values between each muscle and each COP direction - " + str(i)
+        title.font = title.font.copy(bold=True)
+        data = [['Rectus_A_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Obliques_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Ilicostalis_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Multifidus_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Rectus_A_R', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Obliques_R', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Ilicostalis_R', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                ['Multifidus_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])]
+                ]
+        first_row = sheet1.append([" ", "COP X", "COP Y"])
+
+        for row in data:
+            sheet1.append(row)
         count = count + 13
     wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
 

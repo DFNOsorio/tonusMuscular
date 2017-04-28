@@ -23,19 +23,19 @@ patient1.static_normalization, patient1.static_max_values = norm_whole_segment(p
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.RMS_max)
 print '\033[93m' + "NORM_END" + '\033[0m'
 
-# patient1.platformdata = RAW_2_mass(patient1.platform)
-# patient1.COP = mass_2_COP(patient1.platformdata)
+patient1.platformdata = RAW_2_mass(patient1.platform)
+patient1.COP = mass_2_COP(patient1.platformdata)
 # #patient1.COP = []
-# print '\033[93m' + "COP_END" + '\033[0m'
-#
-# patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
-# print '\033[93m' + "VELOCITY_END" + '\033[0m'
-#
-# patient1.trajec = trajectory(patient1.COP)
-# print '\033[93m' + "TRAJ_END" + '\033[0m'
-#
-# patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
-# print '\033[93m' + "COHERENCY_END" + '\033[0m'
+print '\033[93m' + "COP_END" + '\033[0m'
+
+patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
+print '\033[93m' + "VELOCITY_END" + '\033[0m'
+
+patient1.trajec = trajectory(patient1.COP)
+print '\033[93m' + "TRAJ_END" + '\033[0m'
+
+patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
+print '\033[93m' + "COHERENCY_END" + '\033[0m'
 #
 # patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
 # print '\033[93m' + "V_RMS_END" + '\033[0m'
@@ -66,6 +66,7 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 create_database()
 personal_data(file)
 parameters(patient1.EMG_max_values)
+coherency(patient1.c)
 
 
 
