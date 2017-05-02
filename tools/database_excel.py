@@ -4,6 +4,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 from openpyxl.styles import PatternFill
 import numpy as np
+from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 
@@ -84,26 +85,155 @@ def parameters(EMG_values):
 def coherency(coherency_values):
     wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
     sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+
+    fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
+
     count = 6
+    count1 = 7
+    count2 = 8
+    count_col = 8
     for i in coherency_values:
         title = sheet1.cell('H' + str(count))
         title.value = "Coherency values between each muscle and each COP direction - " + str(i)
         title.font = title.font.copy(bold=True)
-        data = [['Rectus_A_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Obliques_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Ilicostalis_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Multifidus_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Rectus_A_R', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Obliques_R', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Ilicostalis_R', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
-                ['Multifidus_L', np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])]
+
+        first_col = sheet1.cell('H' + str(count1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('I' + str(count1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('J' + str(count1))
+        third_col.value = 'COP Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        first_row = sheet1.cell('H' + str(count1+1))
+        first_row.value = 'Rectus_A_L'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('H' + str(count1 + 2))
+        second_row.value = 'Obliques_L'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('H' + str(count1 + 3))
+        third_row.value = 'Ilicostalis_L'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('H' + str(count1 + 4))
+        fourth_row.value = 'Multifidus_L'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        fifth_row = sheet1.cell('H' + str(count1 + 5))
+        fifth_row.value = 'Rectus_A_R'
+        fifth_row.font = fifth_row.font.copy(bold=True)
+        fifth_row.fill = fill
+
+        sixth_row = sheet1.cell('H' + str(count1 + 6))
+        sixth_row.value = 'Obliques_R'
+        sixth_row.font = sixth_row.font.copy(bold=True)
+        sixth_row.fill = fill
+
+        seventh_row = sheet1.cell('H' + str(count1 + 7))
+        seventh_row.value = 'Ilicostalis_R'
+        seventh_row.font = seventh_row.font.copy(bold=True)
+        seventh_row.fill = fill
+
+        eigth_row = sheet1.cell('H' + str(count1 + 8))
+        eigth_row.value = 'Multifidus_R'
+        eigth_row.font = eigth_row.font.copy(bold=True)
+        eigth_row.fill = fill
+
+
+        data = [[np.max(coherency_values[i]["coherency_x"][0:40, 0]),  np.max(coherency_values[i]["coherency_y"][0:40, 0])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 2]),  np.max(coherency_values[i]["coherency_y"][0:40, 2])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 4]),  np.max(coherency_values[i]["coherency_y"][0:40, 4])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 6]),  np.max(coherency_values[i]["coherency_y"][0:40, 6])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 1]),  np.max(coherency_values[i]["coherency_y"][0:40, 1])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 3]),  np.max(coherency_values[i]["coherency_y"][0:40, 3])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 5]),  np.max(coherency_values[i]["coherency_y"][0:40, 5])],
+                [np.max(coherency_values[i]["coherency_x"][0:40, 7]),  np.max(coherency_values[i]["coherency_y"][0:40, 7])]
                 ]
-        first_row = sheet1.append([" ", "COP X", "COP Y"])
 
         for row in data:
-            sheet1.append(row)
+            sheet1.cell(row= count2, column= count_col + 1, value= row[0])
+            sheet1.cell(row= count2, column= count_col + 2, value= row[1])
+            count2 = count2 + 1
+
         count = count + 13
+        count1 = count1 + 13
+        count2 = (count2-1) + 6
+    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+
+def COP_parameters (mean_velocity, platform_COP):
+    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+
+    fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
+
+    count = 6
+    count1 = 7
+
+    for i in mean_velocity:
+        title = sheet1.cell('P' + str(count))
+        title.value = "COP important values - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('P' + str(count1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('Q' + str(count1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('R' + str(count1))
+        third_col.value = 'COP Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        first_row = sheet1.cell('P' + str(count1 + 1))
+        first_row.value = 'Mean Velocity'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        velocity_x = sheet1.cell('Q' + str(count1+1))
+        velocity_x.value = mean_velocity[i]["COP_X"]
+
+        velocity_y = sheet1.cell('R' + str(count1+1))
+        velocity_y.value = mean_velocity[i]["COP_Y"]
+
+        area_traj = convex_hull(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"])
+        area_value = area_calc(area_traj)
+
+        area = sheet1.cell('P' + str(count1 + 3))
+        area.value = "Area COP"
+        area.font = area.font.copy(bold=True)
+        area.fill = fill
+
+        area_val = sheet1.cell(('Q' + str(count1 + 3)))
+        area_val.value = area_value
+
+
+        count = count + 13
+        count1 = count1 + 13
+
     wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
 
 
+def correlation_RL(correlation_RL):
+    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+
+    fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
 

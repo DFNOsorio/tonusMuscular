@@ -67,7 +67,7 @@ create_database()
 personal_data(file)
 parameters(patient1.EMG_max_values)
 coherency(patient1.c)
-
+COP_parameters(patient1.mean, patient1.COP)
 
 
 ##Plot figures
