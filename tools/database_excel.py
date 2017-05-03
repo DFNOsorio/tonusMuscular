@@ -7,6 +7,8 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx'
+patient = 'Patient1_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
@@ -14,8 +16,8 @@ def create_database():
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
 
-    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
-    sheet1 = wb2.create_sheet('Patient1_Healthy')
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.create_sheet(patient)
 
     fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
 
@@ -58,12 +60,12 @@ def personal_data(file_name):
     B4.alignment = Alignment(horizontal='center', vertical='center')
 
 
-    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    wb2.save(file_excel)
 
 
 def parameters(EMG_values):
-    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
-    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
     count = 6
     for i in EMG_values:
         title = sheet1.cell('B' + str(count))
@@ -80,11 +82,11 @@ def parameters(EMG_values):
             sheet1.append(row)
 
         count = count + 13
-    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    wb2.save(file_excel)
 
 def coherency(coherency_values):
-    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
-    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
 
     fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
 
@@ -171,11 +173,11 @@ def coherency(coherency_values):
         count = count + 13
         count1 = count1 + 13
         count2 = (count2-1) + 6
-    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    wb2.save(file_excel)
 
 def COP_parameters (mean_velocity, platform_COP):
-    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
-    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
 
     fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
 
@@ -228,12 +230,75 @@ def COP_parameters (mean_velocity, platform_COP):
         count = count + 13
         count1 = count1 + 13
 
-    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    wb2.save(file_excel)
 
 
 def correlation_RL(correlation_RL):
-    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
-    sheet1 = wb2.get_sheet_by_name('Patient1_Healthy')
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
 
     fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
+    header = sheet1.cell('A151')
+    header.value = "Correlation values between EMG, COP, velocity and accelaration"
+    header.font = header.font.copy(bold=True)
+
+    RL_description1 = sheet1.cell('A154')
+    RL_description1.value = "**EMG data - Right muscle minus left muscle. Correlation between EMG data,"
+
+    RL_description1 = sheet1.cell('A155')
+    RL_description1.value = " COP in X direction, velocity in X direction and accelaration in X direction."
+
+    count = 158
+
+    for i in correlation_RL:
+        title = sheet1.cell('A' + str(count))
+        title.value = "Correlation values - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('A' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('B' + str(count + 1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('C' + str(count + 1))
+        third_col.value = 'Velocity X'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        fourth_col = sheet1.cell('D' + str(count + 1))
+        fourth_col.value = 'Acelaration X'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+        fourth_col.fill = fill
+
+        first_row = sheet1.cell('A' + str(count + 2))
+        first_row.value = 'Rectus_A'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('A' + str(count + 3))
+        second_row.value = 'Obliques'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('A' + str(count + 4))
+        third_row.value = 'Ilicostalis'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('A' + str(count + 5))
+        fourth_row.value = 'Multifidus'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        data = [[correlation_RL[i]["RA_corr"]["RA_COP"]],]
+
+        count = count + 8
+
+    wb2.save(file_excel)
+
 
