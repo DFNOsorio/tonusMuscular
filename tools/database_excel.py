@@ -19,7 +19,7 @@ def personal_data(file_name):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.create_sheet(patient)
 
-    fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
+    fill = PatternFill(start_color='000080', end_color='000080', fill_type='solid')
 
     A1 = sheet1.cell('A1')
     A1.value = "Gender"
@@ -237,7 +237,7 @@ def correlation_RL(correlation_RL):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.get_sheet_by_name(patient)
 
-    fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
+    fill = PatternFill(start_color='FF6600', end_color='FF6600', fill_type='solid')
     header = sheet1.cell('A151')
     header.value = "Correlation values between EMG, COP, velocity and accelaration"
     header.font = header.font.copy(bold=True)
@@ -249,6 +249,8 @@ def correlation_RL(correlation_RL):
     RL_description1.value = " COP in X direction, velocity in X direction and accelaration in X direction."
 
     count = 158
+    count1 = 160
+    count_col = 2
 
     for i in correlation_RL:
         title = sheet1.cell('A' + str(count))
@@ -295,10 +297,172 @@ def correlation_RL(correlation_RL):
         fourth_row.font = fourth_row.font.copy(bold=True)
         fourth_row.fill = fill
 
-        data = [[correlation_RL[i]["RA_corr"]["RA_COP"]],]
+        data = [[correlation_RL[i]["RA_corr"]["RA_COP"], correlation_RL[i]["RA_corr"]["RA_vel"], correlation_RL[i]["RA_corr"]["RA_acel"]],
+                [correlation_RL[i]["O_corr"]["O_COP"], correlation_RL[i]["O_corr"]["O_vel"], correlation_RL[i]["O_corr"]["O_acel"]],
+                [correlation_RL[i]["I_corr"]["I_COP"], correlation_RL[i]["I_corr"]["I_vel"], correlation_RL[i]["I_corr"]["I_acel"]],
+                [correlation_RL[i]["M_corr"]["M_COP"], correlation_RL[i]["M_corr"]["M_vel"], correlation_RL[i]["M_corr"]["M_acel"]]
+                ]
+
+        for row in data:
+            sheet1.cell(row = count1, column = count_col, value = row[0])
+            sheet1.cell(row = count1, column = count_col + 1, value = row[1])
+            sheet1.cell(row = count1, column = count_col + 2, value = row[2])
+            count1 = count1 + 1
 
         count = count + 8
+        count1 = (count1 - 1) + 5
 
     wb2.save(file_excel)
 
+def correlation_FB(correlation_FB):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    fill = PatternFill(start_color='FF6600', end_color='FF6600', fill_type='solid')
+
+    FB_description1 = sheet1.cell('H154')
+    FB_description1.value = "**EMG data - Front muscle minus back muscle. Correlation between EMG data,"
+
+    FB_description1 = sheet1.cell('H155')
+    FB_description1.value = " COP in Y direction, velocity in Y direction and accelaration in Y direction."
+
+    count = 158
+    count1 = 160
+    count_col = 9
+
+    for i in correlation_FB:
+        title = sheet1.cell('H' + str(count))
+        title.value = "Correlation values - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('H' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('I' + str(count + 1))
+        second_col.value = 'COP Y'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('J' + str(count + 1))
+        third_col.value = 'Velocity Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        fourth_col = sheet1.cell('K' + str(count + 1))
+        fourth_col.value = 'Acelaration Y'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+        fourth_col.fill = fill
+
+        first_row = sheet1.cell('H' + str(count + 2))
+        first_row.value = 'R-M_L'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('H' + str(count + 3))
+        second_row.value = 'R-M_R'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('H' + str(count + 4))
+        third_row.value = 'O-I_L'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('H' + str(count + 5))
+        fourth_row.value = 'O-I_R'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        data = [[correlation_FB[i]["MR_L_corr"]["MR_L_COP"], correlation_FB[i]["MR_L_corr"]["MR_L_vel"], correlation_FB[i]["MR_L_corr"]["MR_L_acel"]],
+                [correlation_FB[i]["MR_R_corr"]["MR_R_COP"], correlation_FB[i]["MR_R_corr"]["MR_R_vel"], correlation_FB[i]["MR_R_corr"]["MR_R_acel"]],
+                [correlation_FB[i]["IO_L_corr"]["IO_L_COP"], correlation_FB[i]["IO_L_corr"]["IO_L_vel"], correlation_FB[i]["IO_L_corr"]["IO_L_acel"]],
+                [correlation_FB[i]["IO_R_corr"]["IO_R_COP"], correlation_FB[i]["IO_R_corr"]["IO_R_vel"], correlation_FB[i]["IO_R_corr"]["IO_R_acel"]]
+                ]
+
+        for row in data:
+            sheet1.cell(row = count1, column = count_col, value = row[0])
+            sheet1.cell(row = count1, column = count_col + 1, value = row[1])
+            sheet1.cell(row = count1, column = count_col + 2, value = row[2])
+
+            count1 = count1 + 1
+
+        count = count + 8
+        count1 = count1 + 4
+
+    wb2.save(file_excel)
+
+def correlation_FB_cross(correlation_FB_cross):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    fill = PatternFill(start_color='FF6600', end_color='FF6600', fill_type='solid')
+
+    FB_description1 = sheet1.cell('O154')
+    FB_description1.value = "**EMG data - Front muscle minus back muscle in cross direction. Correlation between EMG data,"
+
+    FB_description1 = sheet1.cell('O155')
+    FB_description1.value = " COP in Y direction, velocity in Y direction and accelaration in Y direction."
+
+    count = 158
+    count1 = 160
+    count_col = 16
+
+    for i in correlation_FB_cross:
+        title = sheet1.cell('O' + str(count))
+        title.value = "Correlation values - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('O' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('P' + str(count + 1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('Q' + str(count + 1))
+        third_col.value = 'COP Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        first_row = sheet1.cell('O' + str(count + 2))
+        first_row.value = 'RL-MR'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('O' + str(count + 3))
+        second_row.value = 'RR-LM'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('O' + str(count + 4))
+        third_row.value = 'OL-IR'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('O' + str(count + 5))
+        fourth_row.value = 'OR-IL'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        data = [[correlation_FB_cross[i]["MR_LR_corr"]["MR_LR_COP_X"], correlation_FB_cross[i]["MR_LR_corr"]["MR_LR_COP_Y"]],
+                [correlation_FB_cross[i]["MR_RL_corr"]["MR_RL_COP_X"], correlation_FB_cross[i]["MR_RL_corr"]["MR_RL_COP_Y"]],
+                [correlation_FB_cross[i]["IO_LR_corr"]["IO_LR_COP_X"], correlation_FB_cross[i]["IO_LR_corr"]["IO_LR_COP_Y"]],
+                [correlation_FB_cross[i]["IO_RL_corr"]["IO_RL_COP_X"], correlation_FB_cross[i]["IO_RL_corr"]["IO_RL_COP_Y"]]
+                ]
+
+        for row in data:
+            sheet1.cell(row = count1, column = count_col, value = row[0])
+            sheet1.cell(row = count1, column = count_col + 1, value = row[1])
+
+            count1 = count1 + 1
+
+        count = count + 8
+        count1 = count1 + 4
+
+    wb2.save(file_excel)
 

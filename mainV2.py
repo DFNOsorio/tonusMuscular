@@ -54,12 +54,12 @@ print '\033[93m' + "COP_NORM_END" + '\033[0m'
 
 patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
 print '\033[93m' + "RLCORR_END" + '\033[0m'
-#
-# patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
-# print '\033[93m' + "FBCORR_END" + '\033[0m'
-#
-# patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
-# print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
+
+patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+print '\033[93m' + "FBCORR_END" + '\033[0m'
+
+patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
+print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
 
 ##Creating database
 
@@ -69,6 +69,8 @@ parameters(patient1.EMG_max_values)
 coherency(patient1.c)
 COP_parameters(patient1.mean, patient1.COP)
 correlation_RL(patient1.corr_RL)
+correlation_FB(patient1.corr_FB)
+correlation_FB_cross(patient1.corr_FB_cross)
 
 
 ##Plot figures
