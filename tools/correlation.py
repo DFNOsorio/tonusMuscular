@@ -133,3 +133,22 @@ def FB_muscles_COP_Cross(COP_array, EMG_array):
         correlation_values[i] = {"MR_LR_corr": MR_LR_corr, "MR_RL_corr": MR_RL_corr, "IO_LR_corr": IO_LR_corr,
                                  "IO_RL_corr": IO_RL_corr}
     return correlation_values
+
+def simple_correlation(EMG_array, COP_array):
+
+    correlation_values = {}
+    for i in EMG_array:
+        correlation_x = np.zeros((1, len(EMG_array[i][0, :])))
+        correlation_y = np.zeros((1, len(EMG_array[i][0, :])))
+
+        COP_X = normalization_subCOP(RMS(COP_array[i]["COP_X"]))
+        COP_Y = normalization_subCOP(RMS(COP_array[i]["COP_Y"]))
+
+        for n in range(0,8):
+            value_x = np.corrcoef(COP_X, EMG_array[i][:, n])
+            value_y = np.corrcoef(COP_Y, EMG_array[i][:, n])
+            correlation_x[:, n] = value_x[0, 1]
+            correlation_y[:, n] = value_y[0, 1]
+
+        correlation_values[i] = {"COP_X": correlation_x, "COP_Y": correlation_y}
+    return correlation_values

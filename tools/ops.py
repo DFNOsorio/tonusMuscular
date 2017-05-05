@@ -138,45 +138,43 @@ def mass_2_COP(platform_mass):
 
         Total_W = TL + TR + BR + BL + 0.001  # Prevents any division by 0
         Cop_x = (((TR+BR)-(TL+TR))/(Total_W))*W
+        cop_x = Cop_x - np.mean(Cop_x)
         Cop_y = (((TR+TL)-(BR+BL))/(Total_W))*H
+        cop_y = Cop_y - np.mean(Cop_y)
 
-        new[i] = {"Total_W": Total_W, "COP_X": Cop_x, "COP_Y": Cop_y}
+        new[i] = {"Total_W": Total_W, "COP_X": cop_x, "COP_Y": cop_y}
     return new
 
 def fourier_EMG(array):
-    FFT = {}
+    Pxx = {}
     freqs = {}
-    IDX = {}
-    time_step = 1.0 / 1000.0
+
     for i in array:
-        feq = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
-        fft = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
-        idx = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
+        feq = np.zeros((513, len(array[i][0,:])))
+        pxx = np.zeros((513, len(array[i][0,:])))
+
         for j in range(0, np.shape(array[i])[1]):
-            feq[:,j] = np.fft.fftfreq(len(array[i][:,0]), time_step)
-            fft[:,j] = np.abs(np.fft.fft(array[i][:,j]))
-            idx[:,j] = np.argsort(feq[:,j])
-        FFT[i] = fft
+            feq[:,j], pxx[:,j] = signal.welch(array[i][:,j], 1000, nperseg=1024)
+        Pxx[i] = pxx
         freqs[i] = feq
-        IDX[i] = idx
         #spipy.signal.espectogram
 
-    return  freqs, FFT, IDX
+    return  freqs, Pxx
 
 def fourier_COP(test_array):
-    FFT_COP = {}
+    Pxx = {}
     freqs_COP = {}
-    fft_COP = {}
+    Pxx_den = {}
     freqs = {}
-    time_step = 1.0 / 1000.0
+
     for i in test_array:
         for j in test_array[i]:
             if j != "Total_W":
-                fft_COP[j] = np.abs(np.fft.fft(test_array[i][j]))
-                freqs[j] = np.fft.fftfreq(len(test_array[i][j]), time_step)
-        FFT_COP[i] = {"FFT_COPX": fft_COP["COP_X"], "FFT_COPY": fft_COP["COP_Y"]}
+                freqs[j], Pxx_den[j] = signal.welch(test_array[i][j], 1000, nperseg=1024)
+
+        Pxx[i] = {"FFT_COPX": Pxx_den["COP_X"], "FFT_COPY": Pxx_den["COP_Y"]}
         freqs_COP[i] = {"freqs_COPX": freqs["COP_X"], "freqs_COPY": freqs["COP_Y"]}
-    return freqs_COP, FFT_COP
+    return freqs_COP, Pxx
 
 def velocity_COP(test_array):
     velocity_direction = {}
@@ -343,4 +341,24 @@ def normalization_subCOP(COP_array):
     norm_COP = (COP_array - min) / (max - min)
     return norm_COP
 
+def std(COP_array):
+    dp = {}
+    dp_array = {}
+    for i in COP_array:
+        for j in COP_array[i]:
+            if j != "Total_W":
+                dp[j] = np.std(COP_array[i][j])
 
+        dp_array[i] = {"COP_X": dp["COP_X"], "COP_Y": dp["COP_Y"]}
+    return dp_array
+
+def amplitude(COP_array):
+    dist = {}
+    amplitude = {}
+    for i in COP_array:
+        for j in COP_array[i]:
+            if j != "Total_W":
+                dist[j] = np.max(COP_array[i][j]) - np.min(COP_array[i][j])
+
+        amplitude[i] = {"COP_X": dist["COP_X"], "COP_Y": dist["COP_Y"]}
+    return amplitude

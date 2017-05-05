@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx'
-patient = 'Patient1_Healthy'
+patient = 'Patient2_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
@@ -175,7 +175,7 @@ def coherency(coherency_values):
         count2 = (count2-1) + 6
     wb2.save(file_excel)
 
-def COP_parameters (mean_velocity, platform_COP):
+def COP_parameters (mean_velocity, platform_COP, std, amplitude):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.get_sheet_by_name(patient)
 
@@ -209,21 +209,44 @@ def COP_parameters (mean_velocity, platform_COP):
         first_row.font = first_row.font.copy(bold=True)
         first_row.fill = fill
 
+        second_row = sheet1.cell('P' + str(count1 + 2))
+        second_row.value = 'STD'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('P' + str(count1 + 3))
+        third_row.value = 'Amplitude'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+
         velocity_x = sheet1.cell('Q' + str(count1+1))
         velocity_x.value = mean_velocity[i]["COP_X"]
 
         velocity_y = sheet1.cell('R' + str(count1+1))
         velocity_y.value = mean_velocity[i]["COP_Y"]
 
+        std_x = sheet1.cell('Q' + str(count1 + 2))
+        std_x.value = std[i]["COP_X"]
+
+        std_y = sheet1.cell('R' + str(count1 + 2))
+        std_y.value = std[i]["COP_Y"]
+
+        amp_x = sheet1.cell('Q' + str(count1 + 3))
+        amp_x.value = amplitude[i]["COP_X"]
+
+        amp_y = sheet1.cell('R' + str(count1 + 3))
+        amp_y.value = amplitude[i]["COP_Y"]
+
         area_traj = convex_hull(platform_COP[i]["COP_X"], platform_COP[i]["COP_Y"])
         area_value = area_calc(area_traj)
 
-        area = sheet1.cell('P' + str(count1 + 3))
+        area = sheet1.cell('P' + str(count1 + 6))
         area.value = "Area COP"
         area.font = area.font.copy(bold=True)
         area.fill = fill
 
-        area_val = sheet1.cell(('Q' + str(count1 + 3)))
+        area_val = sheet1.cell(('Q' + str(count1 + 6)))
         area_val.value = area_value
 
 
@@ -466,3 +489,92 @@ def correlation_FB_cross(correlation_FB_cross):
 
     wb2.save(file_excel)
 
+def correlation(simple_corr):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    count = 158
+    count2 = 160
+    count_col = 24
+
+    fill = PatternFill(start_color='FF6600', end_color='FF6600', fill_type='solid')
+    for i in simple_corr:
+        title = sheet1.cell('W' + str(count))
+        title.value = "Correlation coeficient between each muscle and each COP direction - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('W' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('X' + str(count + 1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('Y' + str(count + 1))
+        third_col.value = 'COP Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        first_row = sheet1.cell('W' + str(count + 2))
+        first_row.value = 'Rectus_A_L'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('W' + str(count + 3))
+        second_row.value = 'Obliques_L'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('W' + str(count + 4))
+        third_row.value = 'Ilicostalis_L'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('W' + str(count + 5))
+        fourth_row.value = 'Multifidus_L'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        fifth_row = sheet1.cell('W' + str(count + 6))
+        fifth_row.value = 'Rectus_A_R'
+        fifth_row.font = fifth_row.font.copy(bold=True)
+        fifth_row.fill = fill
+
+        sixth_row = sheet1.cell('W' + str(count + 7))
+        sixth_row.value = 'Obliques_R'
+        sixth_row.font = sixth_row.font.copy(bold=True)
+        sixth_row.fill = fill
+
+        seventh_row = sheet1.cell('W' + str(count + 8))
+        seventh_row.value = 'Ilicostalis_R'
+        seventh_row.font = seventh_row.font.copy(bold=True)
+        seventh_row.fill = fill
+
+        eigth_row = sheet1.cell('W' + str(count + 9))
+        eigth_row.value = 'Multifidus_R'
+        eigth_row.font = eigth_row.font.copy(bold=True)
+        eigth_row.fill = fill
+
+        data = [[simple_corr[i]["COP_X"][0, 0], simple_corr[i]["COP_Y"][0, 0]],
+                [simple_corr[i]["COP_X"][0, 2], simple_corr[i]["COP_Y"][0, 2]],
+                [simple_corr[i]["COP_X"][0, 4], simple_corr[i]["COP_Y"][0, 4]],
+                [simple_corr[i]["COP_X"][0, 6], simple_corr[i]["COP_Y"][0, 6]],
+                [simple_corr[i]["COP_X"][0, 1], simple_corr[i]["COP_Y"][0, 1]],
+                [simple_corr[i]["COP_X"][0, 3], simple_corr[i]["COP_Y"][0, 3]],
+                [simple_corr[i]["COP_X"][0, 5], simple_corr[i]["COP_Y"][0, 5]],
+                [simple_corr[i]["COP_X"][0, 7], simple_corr[i]["COP_Y"][0, 7]]
+                ]
+
+        for row in data:
+            sheet1.cell(row=count2, column=count_col, value=row[0])
+            sheet1.cell(row=count2, column=count_col + 1, value=row[1])
+            count2 = count2 + 1
+
+
+        count = count + 12
+        count2 = count2 + 4
+
+    wb2.save(file_excel)
