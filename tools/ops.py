@@ -98,6 +98,9 @@ def norm_whole_segment(test, max):
             new_new_max = np.zeros(np.shape(test[i])[1])
 
             for j in range(0, np.shape(test[i])[1]):
+                #mean = np.mean(test[i][:, j])
+                #mean_out = test[i][:, j] - mean
+
                 new_new_avg[:, j] = test[i][:, j] / max[j]
                 new_new_max[j] = np.max(new_new_avg[:, j]) * 100
 
@@ -362,3 +365,26 @@ def amplitude(COP_array):
 
         amplitude[i] = {"COP_X": dist["COP_X"], "COP_Y": dist["COP_Y"]}
     return amplitude
+
+def parameters_fourier(array_freqs, array_pxx):
+
+    peaks_freqs = {}
+    means_freqs = {}
+
+    for i in array_freqs:
+        peak_freq = np.zeros((1,len(array_freqs[i][0,:])))
+        mean_freq = np.zeros((1,len(array_freqs[i][0,:])))
+
+        for n in range(0, np.shape(array_freqs[i])[1]):
+            for idx, value in enumerate(array_pxx[i][:,n]):
+
+                if value == np.max(array_pxx[i][:,n]):
+                    peak_freq[:,n] = array_freqs[i][:,n][idx]
+
+                if value == 0.5 * np.max(array_pxx[i][:,n]):
+                    mean_freq[:,n] = array_freqs[i][:,n][idx]
+
+        peaks_freqs[i] = peak_freq
+        means_freqs[i] = mean_freq
+
+    return peaks_freqs, means_freqs

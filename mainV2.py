@@ -24,6 +24,7 @@ patient1.static_normalization, patient1.static_max_values = norm_whole_segment(p
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.RMS_max)
 print '\033[93m' + "NORM_END" + '\033[0m'
 
+
 patient1.platformdata = RAW_2_mass(patient1.platform)
 patient1.COP = mass_2_COP(patient1.platformdata)
 # #patient1.COP = []
@@ -95,9 +96,19 @@ print '\033[93m' + "CORR_END" + '\033[0m'
 #fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient2", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
 
-l = simple_correlation(patient1.EMG_normalization, patient1.COP)
-print l["Arms_extension"]["COP_X"]
+fre, pxx = fourier_EMG(patient1.EMG_normalization)
 
+plt.plot(fre["OneFootStanding_R_EC"][:,6], np.sqrt(pxx["OneFootStanding_R_EC"][:,6]))
+
+plt.show()
+
+
+#plt.plot(patient1.EMG_RMS["OneFootStanding_R_EC"][:,6])
+#plt.show()
+p, m =parameters_fourier(fre,pxx)
+
+print p["Arms_extension"][:, 7]
+print m["Arms_extension"][:, 7]
 
 
 
