@@ -162,7 +162,7 @@ def fourier_EMG(array):
         freqs[i] = feq
         #spipy.signal.espectogram
 
-    return  freqs, Pxx
+    return freqs, Pxx
 
 def fourier_COP(test_array):
     Pxx = {}
