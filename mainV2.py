@@ -137,7 +137,7 @@ plt.show()
 p, m =parameters_fourier(fre,pxx)
 
 print p["Arms_extension"][:, 7]
-print m["Arms_extension"][:, 7]
+print m["Arms_extension"][:, 6]
 
 
 
