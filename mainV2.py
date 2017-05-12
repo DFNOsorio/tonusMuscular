@@ -95,11 +95,34 @@ print '\033[93m' + "CORR_END" + '\033[0m'
 
 #fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient2", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
+<<<<<<< HEAD
 patient1.avg = avg_out(patient1.EMG_normalization)
 fre, pxx = fourier_EMG(patient1.avg)
+=======
+feq1, pxx1 = signal.periodogram(patient1.COP["OneFootStanding_R_EC"]['COP_X'] - np.mean(patient1.COP["OneFootStanding_R_EC"]['COP_X']), fs=1000)
+#http://www.scielo.br/pdf/bjmbr/v42n7/7329.pdf
+#http://nwpii.com/ajbms/papers/AJBMS_2009_4_11.pdf
+plt.figure()
+plt.plot(feq1, pxx1)
+plt.show()
 
+>>>>>>> origin/master
+
+fre, pxx = fourier_EMG(patient1.EMG_avg)
+
+feq1, pxx1 = signal.welch(patient1.EMG_avg["OneFootStanding_R_EC"][:,6], 1000, nperseg=1024)
+feq2, pxx2 = signal.periodogram(patient1.EMG_avg["OneFootStanding_R_EC"][:,6], fs=1000)
+
+plt.figure()
 plt.plot(fre["OneFootStanding_R_EC"][:,6], np.sqrt(pxx["OneFootStanding_R_EC"][:,6]))
-
+plt.figure()
+plt.plot(feq1, pxx1)
+plt.figure()
+plt.plot(feq2, pxx2)
+plt.figure()
+plt.plot(feq1, np.sqrt(pxx1))
+plt.figure()
+plt.plot(feq2, np.sqrt(pxx2))
 plt.show()
 
 freq, pxx1 = fourier_COP(patient1.COP)
@@ -107,6 +130,12 @@ plt.plot(freq["OneFootStanding_R_EC"]["freqs_COPX"], np.sqrt(pxx1["OneFootStandi
 plt.show()
 
 
+<<<<<<< HEAD
+=======
+
+#plt.plot(patient1.EMG_RMS["OneFootStanding_R_EC"][:,6])
+#plt.show()
+>>>>>>> origin/master
 p, m =parameters_fourier(fre,pxx)
 
 print p["Arms_extension"][:, 7]
