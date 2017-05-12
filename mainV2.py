@@ -95,16 +95,18 @@ print '\033[93m' + "CORR_END" + '\033[0m'
 
 #fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient2", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
-
-fre, pxx = fourier_EMG(patient1.EMG_normalization)
+patient1.avg = avg_out(patient1.EMG_normalization)
+fre, pxx = fourier_EMG(patient1.avg)
 
 plt.plot(fre["OneFootStanding_R_EC"][:,6], np.sqrt(pxx["OneFootStanding_R_EC"][:,6]))
 
 plt.show()
 
+freq, pxx1 = fourier_COP(patient1.COP)
+plt.plot(freq["OneFootStanding_R_EC"]["freqs_COPX"], np.sqrt(pxx1["OneFootStanding_R_EC"]["FFT_COPX"]))
+plt.show()
 
-#plt.plot(patient1.EMG_RMS["OneFootStanding_R_EC"][:,6])
-#plt.show()
+
 p, m =parameters_fourier(fre,pxx)
 
 print p["Arms_extension"][:, 7]
