@@ -153,7 +153,7 @@ def graph_normalizedRMS (test, description):
     pp.close()
 
 def graph_RMS(test, description):
-    pp = PdfPages('RMS_' + str(description) + '.pdf')
+    #pp = PdfPages('RMS_' + str(description) + '.pdf')
     for j in range(0, 8):
         for i in test:
             fig = plt.figure(j)
@@ -189,7 +189,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
     #width = (1. - 1. * margin) / len(ind)
     width = 0.5
     error_config = {'ecolor': '0.5', 'capthick': 0.5}
-    pp = PdfPages('Platform_'+str(description)+'.pdf')
+    #pp = PdfPages('Platform_'+str(description)+'.pdf')
 
     l = 0
     for i in max_values:

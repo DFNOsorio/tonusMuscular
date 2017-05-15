@@ -2,10 +2,14 @@ import h5py
 import numpy as np
 from ops import *
 
-dynamic_list = ["Arms_extension","Standing_EO", "Standing_EC", "OneFootStanding_R_EO", "OneFootStanding_R_EC", "OneFootStanding_L_EO", "OneFootStanding_L_EC", "Reach_R", "Reach_L", "Reach_C", "Reach_Ground"]
+dynamic_list = ["Standing_EO", "Standing_EC", "OneFootStanding_R_EO", "OneFootStanding_R_EC", "OneFootStanding_L_EO", "OneFootStanding_L_EC", "Reach_R", "Reach_L", "Reach_C"]
 
-static_list = ["MVC1", "MVC2", "Relax"]
+static_list = ["MVC_back/MVC1", "MVC_back/MVC2", "MVC_back/MVC3", "MVC_rectus/MVC1", "MVC_rectus/MVC2", "MVC_rectus/MVC3", "MVC_RO/MVC1", "MVC_RO/MVC2", "MVC_RO/MVC3", "MVC_LO/MVC1", "MVC_LO/MVC2", "MVC_LO/MVC3", "Relax"]
 
+
+#dynamic_list = ["Arms_extension","Standing_EO", "Standing_EC", "OneFootStanding_R_EO", "OneFootStanding_R_EC", "OneFootStanding_L_EO", "OneFootStanding_L_EC", "Reach_R", "Reach_L", "Reach_C", "Reach_Ground"]
+
+#static_list = ["MVC1", "MVC2", "Relax"]
 
 
 class Patient:

@@ -3,6 +3,7 @@ import scipy.fftpack as fft
 import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.signal import butter, lfilter, freqz
+from scipy import integrate
 
 
 
@@ -66,8 +67,8 @@ def RMS_whole_segment(test, window_size=100, overlap=-1):
     return new
 
 
-def max_mvc(MVC1=[], MVC2=[]):
-    flag1, flag2 = True, True
+def max_mvc(MVC1=[], MVC2=[], MVC3=[]):
+    flag1, flag2, flag3 = True, True, True
     try:
         max_MVC1 = np.amax(MVC1, axis=0)
     except ValueError:
@@ -78,18 +79,25 @@ def max_mvc(MVC1=[], MVC2=[]):
     except ValueError:
         flag2 = False
 
-    if not flag1 and not flag2:
+    try:
+        max_MVC3 = np.amax(MVC3, axis=0)
+    except ValueError:
+        flag3 = False
+
+    if not flag1 and not flag2 and not flag3:
         return np.zeros(8)
     else:
         if not flag1:
             max_MVC1 = max_MVC2
         if not flag2:
             max_MVC2 = max_MVC1
+        if not flag3:
+            max_MVC3 = max_MVC1
 
-        return np.mean(np.vstack((max_MVC1, max_MVC2)), axis=0)
+        return np.mean(np.vstack((max_MVC1, max_MVC2, max_MVC3)), axis=0)
 
 
-def norm_whole_segment(test, max):
+def norm_whole_segment(test, max_back, max_rectus, max_RO, max_LO):
     new_avg = {}
     new_max = {}
     for i in test:
@@ -97,11 +105,18 @@ def norm_whole_segment(test, max):
             new_new_avg = np.zeros(np.shape(test[i]))
             new_new_max = np.zeros(np.shape(test[i])[1])
 
-            for j in range(0, np.shape(test[i])[1]):
-                #mean = np.mean(test[i][:, j])
-                #mean_out = test[i][:, j] - mean
+            new_new_avg[:, 0] = test[i][:, 0] / max_rectus[0]
+            new_new_avg[:, 1] = test[i][:, 1] / max_rectus[1]
 
-                new_new_avg[:, j] = test[i][:, j] / max[j]
+            new_new_avg[:, 2] = test[i][:, 2] / max_LO[2]
+            new_new_avg[:, 3] = test[i][:, 3] / max_RO[3]
+
+            new_new_avg[:, 4] = test[i][:, 4] / max_back[4]
+            new_new_avg[:, 5] = test[i][:, 5] / max_back[5]
+            new_new_avg[:, 6] = test[i][:, 6] / max_back[6]
+            new_new_avg[:, 7] = test[i][:, 7] / max_back[7]
+
+            for j in range(0, np.shape(test[i])[1]):
                 new_new_max[j] = np.max(new_new_avg[:, j]) * 100
 
             new_avg[i] = np.array(new_new_avg)
@@ -173,10 +188,10 @@ def fourier_COP(test_array):
     for i in test_array:
         for j in test_array[i]:
             if j != "Total_W":
-                freqs[j], Pxx_den[j] = signal.welch(test_array[i][j], 1000, nperseg=1024)
+                freqs[j], Pxx_den[j] = signal.periodogram(test_array[i][j], fs = 1000)
 
-        Pxx[i] = {"FFT_COPX": Pxx_den["COP_X"], "FFT_COPY": Pxx_den["COP_Y"]}
-        freqs_COP[i] = {"freqs_COPX": freqs["COP_X"], "freqs_COPY": freqs["COP_Y"]}
+        Pxx[i] = {"COP_X": Pxx_den["COP_X"], "COP_Y": Pxx_den["COP_Y"]}
+        freqs_COP[i] = {"COP_X": freqs["COP_X"], "COP_Y": freqs["COP_Y"]}
     return freqs_COP, Pxx
 
 def velocity_COP(test_array):
@@ -366,25 +381,75 @@ def amplitude(COP_array):
         amplitude[i] = {"COP_X": dist["COP_X"], "COP_Y": dist["COP_Y"]}
     return amplitude
 
-def parameters_fourier(array_freqs, array_pxx):
+def parameters_fourier_EMG(array_freqs, array_pxx):
 
     peaks_freqs = {}
     means_freqs = {}
+    median_freqs = {}
+    freqs_80 = {}
 
     for i in array_freqs:
         peak_freq = np.zeros((1,len(array_freqs[i][0,:])))
         mean_freq = np.zeros((1,len(array_freqs[i][0,:])))
+        median_freq = np.zeros((1,len(array_freqs[i][0,:])))
+        freq_80 = np.zeros((1,len(array_freqs[i][0,:])))
 
         for n in range(0, np.shape(array_freqs[i])[1]):
+
+            area = integrate.cumtrapz(array_freqs[i][:,n], array_pxx[i][:,n], initial= 0)
+            find80 = np.where(area <= 0.8 * area[len(area) - 1])
+            find50 = np.where(area <= 0.5 * area[len(area) - 1])
+
+            freq_80[:,n] = array_freqs[i][find80[0][0], n]
+            median_freq[:, n] = array_freqs[i][find50[0][0], n]
+
+            mean_freq[:,n] = np.trapz(array_freqs[i][:,n], (array_freqs[i][:,n] * array_pxx[i][:,n])) / np.trapz(array_freqs[i][:,n], array_pxx[i][:,n])
+
             for idx, value in enumerate(array_pxx[i][:,n]):
 
                 if value == np.max(array_pxx[i][:,n]):
                     peak_freq[:,n] = array_freqs[i][:,n][idx]
 
-                if value == 0.5 * np.max(array_pxx[i][:,n]):
-                    mean_freq[:,n] = array_freqs[i][:,n][idx]
-
         peaks_freqs[i] = peak_freq
         means_freqs[i] = mean_freq
+        freqs_80[i] = freq_80
+        median_freqs[i] = median_freq
 
-    return peaks_freqs, means_freqs
+    return peaks_freqs, means_freqs, freqs_80, median_freqs
+
+def parameters_fourrier_COP(freqs_array, pxx_array):
+
+    peaks_freqs = {}
+    means_freqs = {}
+    median_freqs = {}
+    freqs_80 = {}
+
+    for i in freqs_array:
+
+        freq_80 = {}
+        median_freq = {}
+        peak_freq = {}
+        mean_freq = {}
+
+        for j in freqs_array[i]:
+            area = integrate.cumtrapz(freqs_array[i][j], pxx_array[i][j], initial=0)
+            find80 = np.where(area <= 0.8 * area[len(area) - 1])
+            find50 = np.where(area <= 0.5 * area[len(area) - 1])
+
+            freq_80[j] = freqs_array[i][j][find80[0][0]]
+            median_freq[j] = freqs_array[i][j][find50[0][0]]
+
+            mean_freq[j] = np.trapz(freqs_array[i][j], (freqs_array[i][j] * pxx_array[i][j])) / np.trapz(freqs_array[i][j],pxx_array[i][j])
+
+            for idx, value in enumerate(pxx_array[i][j]):
+
+                if value == np.max(pxx_array[i][j]):
+                    peak_freq[j] = freqs_array[i][j][idx]
+
+
+        peaks_freqs[i] =    {"COP_X": peak_freq["COP_X"], "COP_Y": peak_freq["COP_Y"]}
+        means_freqs[i] =    {"COP_X": mean_freq["COP_X"], "COP_Y": mean_freq["COP_Y"]}
+        freqs_80[i] =       {"COP_X": freq_80["COP_X"], "COP_Y": freq_80["COP_Y"]}
+        median_freqs[i] =   {"COP_X": median_freq["COP_X"], "COP_Y": median_freq["COP_Y"]}
+
+    return peaks_freqs, means_freqs, freqs_80, median_freqs

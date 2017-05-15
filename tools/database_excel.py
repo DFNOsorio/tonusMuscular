@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx'
-patient = 'Patient2_Healthy'
+patient = 'Patient3_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
@@ -573,6 +573,109 @@ def correlation(simple_corr):
             sheet1.cell(row=count2, column=count_col + 1, value=row[1])
             count2 = count2 + 1
 
+
+        count = count + 12
+        count2 = count2 + 4
+
+    wb2.save(file_excel)
+
+def fourrier_parameters_EMG(peak_f, mean_f, f80, median_f):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    freq_description = sheet1.cell('A252')
+    freq_description.value = "**Frequency analysis of EMG and COP"
+
+    fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
+
+    count = 258
+    count2 = 260
+    count_col = 2
+
+    for i in peak_f:
+        title = sheet1.cell('A' + str(count))
+        title.value = "Correlation coeficient between each muscle and each COP direction - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('A' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('B' + str(count + 1))
+        second_col.value = 'Peak Freq (Hz)'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('C' + str(count + 1))
+        third_col.value = 'Mean Freq (Hz)'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        fourth_col = sheet1.cell('D' + str(count + 1))
+        fourth_col.value = 'Median Freq (Hz)'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+        fourth_col.fill = fill
+
+        fifth_col = sheet1.cell('E' + str(count + 1))
+        fifth_col.value = '80% Freq (Hz)'
+        fifth_col.font = fifth_col.font.copy(bold=True)
+        fifth_col.fill = fill
+
+        first_row = sheet1.cell('A' + str(count + 2))
+        first_row.value = 'Rectus_A_L'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('A' + str(count + 3))
+        second_row.value = 'Rectus_A_R'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('A' + str(count + 4))
+        third_row.value = 'Obliques_L'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('A' + str(count + 5))
+        fourth_row.value = 'Obliques_R'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        fifth_row = sheet1.cell('A' + str(count + 6))
+        fifth_row.value = 'Ilicostalis_L'
+        fifth_row.font = fifth_row.font.copy(bold=True)
+        fifth_row.fill = fill
+
+        sixth_row = sheet1.cell('A' + str(count + 7))
+        sixth_row.value = 'Ilicostalis_R'
+        sixth_row.font = sixth_row.font.copy(bold=True)
+        sixth_row.fill = fill
+
+        seventh_row = sheet1.cell('A' + str(count + 8))
+        seventh_row.value = 'Multifidus_L'
+        seventh_row.font = seventh_row.font.copy(bold=True)
+        seventh_row.fill = fill
+
+        eigth_row = sheet1.cell('A' + str(count + 9))
+        eigth_row.value = 'Multifidus_R'
+        eigth_row.font = eigth_row.font.copy(bold=True)
+        eigth_row.fill = fill
+
+        data = [[peak_f[i][0,0], mean_f[i][0,0], f80[i][0,0], median_f[i][0,0]],
+                [peak_f[i][0,1], mean_f[i][0,1], f80[i][0,1], median_f[i][0,1]],
+                [peak_f[i][0,2], mean_f[i][0,2], f80[i][0,2], median_f[i][0,2]],
+                [peak_f[i][0,3], mean_f[i][0,3], f80[i][0,3], median_f[i][0,3]],
+                [peak_f[i][0,4], mean_f[i][0,4], f80[i][0,4], median_f[i][0,4]],
+                [peak_f[i][0,5], mean_f[i][0,5], f80[i][0,5], median_f[i][0,5]],
+                [peak_f[i][0,6], mean_f[i][0,6], f80[i][0,6], median_f[i][0,6]],
+                [peak_f[i][0,7], mean_f[i][0,7], f80[i][0,7], median_f[i][0,7]]]
+        for row in data:
+            sheet1.cell(row=count2, column=count_col, value=row[0])
+            sheet1.cell(row=count2, column=count_col + 1, value=row[1])
+            sheet1.cell(row=count2, column=count_col + 2, value=row[2])
+            sheet1.cell(row=count2, column=count_col + 3, value=row[3])
+            count2 = count2 + 1
 
         count = count + 12
         count2 = count2 + 4
