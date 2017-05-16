@@ -7,11 +7,11 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
-file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx'
-patient = 'Patient3_Healthy'
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
+patient = 'Patient6_Healthy'
 
 def create_database():
-    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/demo.xlsx')
+    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
 
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
@@ -24,40 +24,64 @@ def personal_data(file_name):
     A1 = sheet1.cell('A1')
     A1.value = "Gender"
     A1.font = A1.font.copy(bold=True)
-    A1.fill = fill
+
 
     A2 = sheet1.cell('A2')
     A2.value = "Age"
     A2.font = A2.font.copy(bold=True)
-    A2.fill = fill
+
 
     A3 = sheet1.cell('A3')
     A3.value = "Condition"
     A3.font = A3.font.copy(bold=True)
-    A3.fill = fill
+
 
     A4 = sheet1.cell('A4')
-    A4.value = "Director's Hand"
+    A4.value = "Dominant Hand"
     A4.font = A4.font.copy(bold=True)
-    A4.fill = fill
+
+
+    C5 = sheet1.cell('C1')
+    C5.value = "Height(cm)"
+    C5.font = C5.font.copy(bold=True)
+
+    C6 = sheet1.cell('C2')
+    C6.value = "Weight(kg)"
+    C6.font = C6.font.copy(bold=True)
+
+    C7 = sheet1.cell('C3')
+    C7.value = "Sports"
+    C7.font = C7.font.copy(bold=True)
 
 
 
     B1 = sheet1.cell('B1')
-    B1.value = file.attrs.values()[1]
+    B1.value = file.attrs.values()[0]
     B1.alignment = Alignment(horizontal='center', vertical='center')
 
     B2 = sheet1.cell('B2')
-    B2.value = file.attrs.values()[2]
+    B2.value = file.attrs.values()[1]
     B2.alignment = Alignment(horizontal='center', vertical='center')
 
     B3 = sheet1.cell('B3')
-    B3.value = file.attrs.values()[3]
+    B3.value = file.attrs.values()[2]
     B3.alignment = Alignment(horizontal='center', vertical='center')
 
     B4 = sheet1.cell('B4')
-    B4.value = "Right"
+    B4.value = file.attrs.values()[3]
     B4.alignment = Alignment(horizontal='center', vertical='center')
+
+    D1 = sheet1.cell('D1')
+    D1.value = file.attrs.values()[4]
+    D1.alignment = Alignment(horizontal='center', vertical='center')
+
+    D2 = sheet1.cell('D2')
+    D2.value = file.attrs.values()[5]
+    D2.alignment = Alignment(horizontal='center', vertical='center')
+
+    D3 = sheet1.cell('D3')
+    D3.value = file.attrs.values()[6]
+    D3.alignment = Alignment(horizontal='center', vertical='center')
 
 
     wb2.save(file_excel)
@@ -67,21 +91,61 @@ def parameters(EMG_values):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.get_sheet_by_name(patient)
     count = 6
+    count2 = 8
+    count_col = 2
     for i in EMG_values:
         title = sheet1.cell('B' + str(count))
         title.value = "Max values of each muscle - " + str(i)
         title.font = title.font.copy(bold=True)
-        data = [['Rectus_A', EMG_values[i][0], EMG_values[i][1]],
-                ['Obliques', EMG_values[i][2], EMG_values[i][3]],
-                ['Ilicostalis', EMG_values[i][4], EMG_values[i][5]],
-                ['Multifidus',  EMG_values[i][6], EMG_values[i][7]]
-        ]
-        first_row = sheet1.append([" ", "Left", "Right"])
 
+        first_col = sheet1.cell('A' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+
+
+        second_col = sheet1.cell('B' + str(count + 1))
+        second_col.value = 'Left'
+        second_col.font = second_col.font.copy(bold=True)
+
+
+        third_col = sheet1.cell('C' + str(count + 1))
+        third_col.value = 'Right'
+        third_col.font = third_col.font.copy(bold=True)
+
+
+        first_row = sheet1.cell('A' + str(count + 2))
+        first_row.value = 'Rectus_A'
+        first_row.font = first_row.font.copy(bold=True)
+
+
+        second_row = sheet1.cell('A' + str(count + 3))
+        second_row.value = 'Obliques'
+        second_row.font = second_row.font.copy(bold=True)
+
+
+        third_row = sheet1.cell('A' + str(count + 4))
+        third_row.value = 'Ilicostalis'
+        third_row.font = third_row.font.copy(bold=True)
+
+
+        fourth_row = sheet1.cell('A' + str(count + 5))
+        fourth_row.value = 'Multifidus'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+
+
+
+        data = [[EMG_values[i][0], EMG_values[i][1]],
+                [EMG_values[i][2], EMG_values[i][3]],
+                [EMG_values[i][4], EMG_values[i][5]],
+                [EMG_values[i][6], EMG_values[i][7]]
+        ]
         for row in data:
-            sheet1.append(row)
+            sheet1.cell(row=count2, column=count_col, value=row[0])
+            sheet1.cell(row=count2, column=count_col + 1, value=row[1])
+            count2 = count2 + 1
 
         count = count + 13
+        count2 = count2 + 9
     wb2.save(file_excel)
 
 def coherency(coherency_values):
@@ -662,14 +726,14 @@ def fourrier_parameters_EMG(peak_f, mean_f, f80, median_f):
         eigth_row.font = eigth_row.font.copy(bold=True)
         eigth_row.fill = fill
 
-        data = [[peak_f[i][0,0], mean_f[i][0,0], f80[i][0,0], median_f[i][0,0]],
-                [peak_f[i][0,1], mean_f[i][0,1], f80[i][0,1], median_f[i][0,1]],
-                [peak_f[i][0,2], mean_f[i][0,2], f80[i][0,2], median_f[i][0,2]],
-                [peak_f[i][0,3], mean_f[i][0,3], f80[i][0,3], median_f[i][0,3]],
-                [peak_f[i][0,4], mean_f[i][0,4], f80[i][0,4], median_f[i][0,4]],
-                [peak_f[i][0,5], mean_f[i][0,5], f80[i][0,5], median_f[i][0,5]],
-                [peak_f[i][0,6], mean_f[i][0,6], f80[i][0,6], median_f[i][0,6]],
-                [peak_f[i][0,7], mean_f[i][0,7], f80[i][0,7], median_f[i][0,7]]]
+        data = [[peak_f[i][0, 0], mean_f[i][0, 0], median_f[i][0, 0], f80[i][0, 0]],
+                [peak_f[i][0, 1], mean_f[i][0, 1], median_f[i][0, 1], f80[i][0, 1]],
+                [peak_f[i][0, 2], mean_f[i][0, 2], median_f[i][0, 2], f80[i][0, 2]],
+                [peak_f[i][0, 3], mean_f[i][0, 3], median_f[i][0, 3], f80[i][0, 3]],
+                [peak_f[i][0, 4], mean_f[i][0, 4], median_f[i][0, 4], f80[i][0, 4]],
+                [peak_f[i][0, 5], mean_f[i][0, 5], median_f[i][0, 5], f80[i][0, 5]],
+                [peak_f[i][0, 6], mean_f[i][0, 6], median_f[i][0, 6], f80[i][0, 6]],
+                [peak_f[i][0, 7], mean_f[i][0, 7], median_f[i][0, 7], f80[i][0, 7]]]
         for row in data:
             sheet1.cell(row=count2, column=count_col, value=row[0])
             sheet1.cell(row=count2, column=count_col + 1, value=row[1])
@@ -679,5 +743,76 @@ def fourrier_parameters_EMG(peak_f, mean_f, f80, median_f):
 
         count = count + 12
         count2 = count2 + 4
+
+    wb2.save(file_excel)
+
+
+def fourrier_parameters_COP(peak_f_COP, mean_f_COP, f80_COP, median_f_COP):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    freq_description = sheet1.cell('A252')
+    freq_description.value = "**Frequency analysis of EMG and COP"
+
+    fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
+
+    count = 258
+    count2 = 260
+    count_col = 11
+
+    for i in peak_f_COP:
+        title = sheet1.cell('J' + str(count))
+        title.value = "Correlation coeficient between each muscle and each COP direction - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('J' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('K' + str(count + 1))
+        second_col.value = 'Peak Freq (Hz)'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('L' + str(count + 1))
+        third_col.value = 'Mean Freq (Hz)'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        fourth_col = sheet1.cell('M' + str(count + 1))
+        fourth_col.value = 'Median Freq (Hz)'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+        fourth_col.fill = fill
+
+        fifth_col = sheet1.cell('N' + str(count + 1))
+        fifth_col.value = '80% Freq (Hz)'
+        fifth_col.font = fifth_col.font.copy(bold=True)
+        fifth_col.fill = fill
+
+        first_row = sheet1.cell('J' + str(count + 2))
+        first_row.value = 'COP X'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('J' + str(count + 3))
+        second_row.value = 'COP_Y'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+
+
+        data = [[peak_f_COP[i]["COP_X"], mean_f_COP[i]["COP_X"], median_f_COP[i]["COP_X"], f80_COP[i]["COP_X"]],
+                [peak_f_COP[i]["COP_Y"], mean_f_COP[i]["COP_Y"], median_f_COP[i]["COP_Y"], f80_COP[i]["COP_Y"]]]
+
+        for row in data:
+            sheet1.cell(row=count2, column=count_col, value=row[0])
+            sheet1.cell(row=count2, column=count_col + 1, value=row[1])
+            sheet1.cell(row=count2, column=count_col + 2, value=row[2])
+            sheet1.cell(row=count2, column=count_col + 3, value=row[3])
+            count2 = count2 + 1
+
+        count = count + 12
+        count2 = count2 + 10
 
     wb2.save(file_excel)
