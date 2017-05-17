@@ -189,7 +189,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
     #width = (1. - 1. * margin) / len(ind)
     width = 0.5
     error_config = {'ecolor': '0.5', 'capthick': 0.5}
-    #pp = PdfPages('Platform_'+str(description)+'.pdf')
+    pp = PdfPages('Platform_'+str(description)+'.pdf')
 
     l = 0
     for i in max_values:
@@ -329,8 +329,8 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
                 plt.subplots_adjust(top=0.75, bottom=0.11, left=0.30, right=0.98, wspace=0.47, hspace=0.01)
 
             plt.show()
-            #pp.savefig(fig)
-    #pp.close()
+            pp.savefig(fig)
+    pp.close()
 
 
 def COP_Muscle (EMG_array, COP_array):
