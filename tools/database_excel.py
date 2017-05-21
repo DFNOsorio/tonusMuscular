@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient2_Healthy'
+patient = 'Statistical Analysis'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
@@ -282,7 +282,48 @@ def COP_parameters (mean_velocity, platform_COP, std, amplitude):
         third_row.value = 'Amplitude'
         third_row.font = third_row.font.copy(bold=True)
         third_row.fill = fill
+        wb2 = load_workbook(file_excel)
+        sheet1 = wb2.get_sheet_by_name(patient)
 
+        fill = PatternFill(start_color='BCC2BC', end_color='BCC2BC', fill_type='solid')
+
+        count = 6
+        count1 = 7
+
+        for i in mean_velocity:
+            title = sheet1.cell('P' + str(count))
+            title.value = "COP important values - " + str(i)
+            title.font = title.font.copy(bold=True)
+
+            first_col = sheet1.cell('P' + str(count1))
+            first_col.value = ''
+            first_col.font = first_col.font.copy(bold=True)
+            first_col.fill = fill
+
+            second_col = sheet1.cell('Q' + str(count1))
+            second_col.value = 'COP X'
+            second_col.font = second_col.font.copy(bold=True)
+            second_col.fill = fill
+
+            third_col = sheet1.cell('R' + str(count1))
+            third_col.value = 'COP Y'
+            third_col.font = third_col.font.copy(bold=True)
+            third_col.fill = fill
+
+            first_row = sheet1.cell('P' + str(count1 + 1))
+            first_row.value = 'Mean Velocity'
+            first_row.font = first_row.font.copy(bold=True)
+            first_row.fill = fill
+
+            second_row = sheet1.cell('P' + str(count1 + 2))
+            second_row.value = 'STD'
+            second_row.font = second_row.font.copy(bold=True)
+            second_row.fill = fill
+
+            third_row = sheet1.cell('P' + str(count1 + 3))
+            third_row.value = 'Amplitude'
+            third_row.font = third_row.font.copy(bold=True)
+            third_row.fill = fill
 
         velocity_x = sheet1.cell('Q' + str(count1+1))
         velocity_x.value = mean_velocity[i]["COP_X"]
@@ -814,5 +855,105 @@ def fourrier_parameters_COP(peak_f_COP, mean_f_COP, f80_COP, median_f_COP):
 
         count = count + 12
         count2 = count2 + 10
+
+    wb2.save(file_excel)
+
+
+def coherency_mean_std(correlation_RL):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    fill = PatternFill(start_color='FF6600', end_color='FF6600', fill_type='solid')
+    header = sheet1.cell('A151')
+    header.value = "Correlation values between EMG, COP, velocity and accelaration"
+    header.font = header.font.copy(bold=True)
+
+    RL_description1 = sheet1.cell('A154')
+    RL_description1.value = "**EMG data - Right muscle minus left muscle. Correlation between EMG data,"
+
+    RL_description1 = sheet1.cell('A155')
+    RL_description1.value = " COP in X direction, velocity in X direction and accelaration in X direction."
+
+    count = 158
+    count1 = 160
+    count_col = 2
+
+    for i in correlation_RL:
+        title = sheet1.cell('A' + str(count))
+        title.value = "Correlation values - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('A' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('B' + str(count + 1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        mean_cop = sheet1.cell('B' + str(count + 2))
+        mean_cop.value = 'Mean Value'
+        mean_cop.font = mean_cop.font.copy(bold=True)
+        mean_cop.fill = fill
+
+        std_cop = sheet1.cell('C' + str(count + 2))
+        std_cop.value = 'STD Value'
+        std_cop.font = std_cop.font.copy(bold=True)
+        std_cop.fill = fill
+
+        third_col = sheet1.cell('D' + str(count + 1))
+        third_col.value = 'Velocity X'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        mean_ve = sheet1.cell('D' + str(count + 2))
+        mean_ve.value = 'Mean Value'
+        mean_ve.font = mean_cop.font.copy(bold=True)
+        mean_ve.fill = fill
+
+        std_ve = sheet1.cell('E' + str(count + 2))
+        std_ve.value = 'STD Value'
+        std_ve.font = std_cop.font.copy(bold=True)
+        std_ve.fill = fill
+
+        fourth_col = sheet1.cell('F' + str(count + 1))
+        fourth_col.value = 'Acelaration X'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+        fourth_col.fill = fill
+
+        mean_a = sheet1.cell('F' + str(count + 2))
+        mean_a.value = 'Mean Value'
+        mean_a.font = mean_cop.font.copy(bold=True)
+        mean_a.fill = fill
+
+        std_a = sheet1.cell('G' + str(count + 2))
+        std_a.value = 'STD Value'
+        std_a.font = std_cop.font.copy(bold=True)
+        std_a.fill = fill
+
+        first_row = sheet1.cell('A' + str(count + 3))
+        first_row.value = 'Rectus_A'
+        first_row.font = first_row.font.copy(bold=True)
+        first_row.fill = fill
+
+        second_row = sheet1.cell('A' + str(count + 4))
+        second_row.value = 'Obliques'
+        second_row.font = second_row.font.copy(bold=True)
+        second_row.fill = fill
+
+        third_row = sheet1.cell('A' + str(count + 5))
+        third_row.value = 'Ilicostalis'
+        third_row.font = third_row.font.copy(bold=True)
+        third_row.fill = fill
+
+        fourth_row = sheet1.cell('A' + str(count + 6))
+        fourth_row.value = 'Multifidus'
+        fourth_row.font = fourth_row.font.copy(bold=True)
+        fourth_row.fill = fill
+
+        count = count + 8
+        count1 = (count1 - 1) + 5
 
     wb2.save(file_excel)
