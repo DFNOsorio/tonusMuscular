@@ -45,32 +45,32 @@ print '\033[93m' + "COP_END" + '\033[0m'
 # patient1.amplitude = amplitude(patient1.COP)
 # print '\033[93m' + "AMP_COP_END" + '\033[0m'
 #
-patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
-print '\033[93m' + "VELOCITY_END" + '\033[0m'
+# patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
+# print '\033[93m' + "VELOCITY_END" + '\033[0m'
 #
 # patient1.trajec = trajectory(patient1.COP)
 # print '\033[93m' + "TRAJ_END" + '\033[0m'
 #
-patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
-print '\033[93m' + "COHERENCY_END" + '\033[0m'
-
-patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
-print '\033[93m' + "V_RMS_END" + '\033[0m'
-
-patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
-print '\033[93m' + "A_RMS_END" + '\033[0m'
-
-patient1.acel_norm = normalization_COP(patient1.RMS_acel)
-print '\033[93m' + "A_NORM_END" + '\033[0m'
-
-patient1.v_norm = normalization_COP(patient1.RMS_velocity)
-print '\033[93m' + "V_NORM_END" + '\033[0m'
-
-patient1.COP_norm = normalization_COP(patient1.COP)
-print '\033[93m' + "COP_NORM_END" + '\033[0m'
-
-patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
-print '\033[93m' + "RLCORR_END" + '\033[0m'
+# patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
+# print '\033[93m' + "COHERENCY_END" + '\033[0m'
+#
+# patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
+# print '\033[93m' + "V_RMS_END" + '\033[0m'
+#
+# patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
+# print '\033[93m' + "A_RMS_END" + '\033[0m'
+#
+# patient1.acel_norm = normalization_COP(patient1.RMS_acel)
+# print '\033[93m' + "A_NORM_END" + '\033[0m'
+#
+# patient1.v_norm = normalization_COP(patient1.RMS_velocity)
+# print '\033[93m' + "V_NORM_END" + '\033[0m'
+#
+# patient1.COP_norm = normalization_COP(patient1.COP)
+# print '\033[93m' + "COP_NORM_END" + '\033[0m'
+#
+# patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+# print '\033[93m' + "RLCORR_END" + '\033[0m'
 #
 # patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
 # print '\033[93m' + "FBCORR_END" + '\033[0m'
@@ -81,17 +81,17 @@ print '\033[93m' + "RLCORR_END" + '\033[0m'
 # patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
 # print '\033[93m' + "CORR_END" + '\033[0m'
 #
-patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
-print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
-
-patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
-print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
+# patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
+# print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
+#
+# patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
+# print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
 
 ##Creating database##
@@ -126,4 +126,25 @@ print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 #http://nwpii.com/ajbms/papers/AJBMS_2009_4_11.pdf
 
 
-coherency_mean_std(patient1.corr_RL)
+#mean_std(patient1.peak_COP)
+
+
+def interpolation(EMG):
+
+    for i in EMG:
+        new_EMG = np.zeros((len(EMG[i][0,:]), len(EMG[i][:,0])))
+        for n in range(0,8):
+            min = np.min(EMG[i][:,n])
+            for idx, value in enumerate(EMG[i][:,n]):
+                if value > 0.95:
+                    new_EMG[idx,n] = min
+            plt.plot(new_EMG[:,n])
+            plt.show()
+
+interpolation(patient1.EMG_normalization)
+
+
+
+
+
+#alert(patient1.EMG_max_values)

@@ -859,101 +859,107 @@ def fourrier_parameters_COP(peak_f_COP, mean_f_COP, f80_COP, median_f_COP):
     wb2.save(file_excel)
 
 
-def coherency_mean_std(correlation_RL):
+def mean_std(peak_cop):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.get_sheet_by_name(patient)
 
-    fill = PatternFill(start_color='FF6600', end_color='FF6600', fill_type='solid')
-    header = sheet1.cell('A151')
-    header.value = "Correlation values between EMG, COP, velocity and accelaration"
-    header.font = header.font.copy(bold=True)
+    freq_description = sheet1.cell('A252')
+    freq_description.value = "**Frequency analysis of EMG and COP"
 
-    RL_description1 = sheet1.cell('A154')
-    RL_description1.value = "**EMG data - Right muscle minus left muscle. Correlation between EMG data,"
+    fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
 
-    RL_description1 = sheet1.cell('A155')
-    RL_description1.value = " COP in X direction, velocity in X direction and accelaration in X direction."
+    count = 276
 
-    count = 158
-    count1 = 160
-    count_col = 2
 
-    for i in correlation_RL:
-        title = sheet1.cell('A' + str(count))
-        title.value = "Correlation values - " + str(i)
+    for i in peak_cop:
+        title = sheet1.cell('M' + str(count))
+        title.value = "Correlation coeficient between each muscle and each COP direction - " + str(i)
         title.font = title.font.copy(bold=True)
 
-        first_col = sheet1.cell('A' + str(count + 1))
+        first_col = sheet1.cell('M' + str(count + 1))
         first_col.value = ''
         first_col.font = first_col.font.copy(bold=True)
         first_col.fill = fill
 
-        second_col = sheet1.cell('B' + str(count + 1))
-        second_col.value = 'COP X'
+        first_col = sheet1.cell('M' + str(count + 2))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('N' + str(count + 1))
+        second_col.value = 'Peak Freq (Hz)'
         second_col.font = second_col.font.copy(bold=True)
         second_col.fill = fill
 
-        mean_cop = sheet1.cell('B' + str(count + 2))
-        mean_cop.value = 'Mean Value'
-        mean_cop.font = mean_cop.font.copy(bold=True)
-        mean_cop.fill = fill
+        mean1 = sheet1.cell('N' + str(count + 2))
+        mean1.value = 'Mean Value'
+        mean1.font = mean1.font.copy(bold=True)
+        mean1.fill = fill
 
-        std_cop = sheet1.cell('C' + str(count + 2))
-        std_cop.value = 'STD Value'
-        std_cop.font = std_cop.font.copy(bold=True)
-        std_cop.fill = fill
+        std1 = sheet1.cell('O' + str(count + 2))
+        std1.value = 'STD Value'
+        std1.font = std1.font.copy(bold=True)
+        std1.fill = fill
 
-        third_col = sheet1.cell('D' + str(count + 1))
-        third_col.value = 'Velocity X'
+        third_col = sheet1.cell('P' + str(count + 1))
+        third_col.value = 'Mean Freq (Hz)'
         third_col.font = third_col.font.copy(bold=True)
         third_col.fill = fill
 
-        mean_ve = sheet1.cell('D' + str(count + 2))
-        mean_ve.value = 'Mean Value'
-        mean_ve.font = mean_cop.font.copy(bold=True)
-        mean_ve.fill = fill
+        mean2 = sheet1.cell('P' + str(count + 2))
+        mean2.value = 'Mean Value'
+        mean2.font = mean2.font.copy(bold=True)
+        mean2.fill = fill
 
-        std_ve = sheet1.cell('E' + str(count + 2))
-        std_ve.value = 'STD Value'
-        std_ve.font = std_cop.font.copy(bold=True)
-        std_ve.fill = fill
+        std2 = sheet1.cell('Q' + str(count + 2))
+        std2.value = 'STD Value'
+        std2.font = std2.font.copy(bold=True)
+        std2.fill = fill
 
-        fourth_col = sheet1.cell('F' + str(count + 1))
-        fourth_col.value = 'Acelaration X'
+        fourth_col = sheet1.cell('R' + str(count + 1))
+        fourth_col.value = 'Median Freq (Hz)'
         fourth_col.font = fourth_col.font.copy(bold=True)
         fourth_col.fill = fill
 
-        mean_a = sheet1.cell('F' + str(count + 2))
-        mean_a.value = 'Mean Value'
-        mean_a.font = mean_cop.font.copy(bold=True)
-        mean_a.fill = fill
+        mean3 = sheet1.cell('R' + str(count + 2))
+        mean3.value = 'Mean Value'
+        mean3.font = mean3.font.copy(bold=True)
+        mean3.fill = fill
 
-        std_a = sheet1.cell('G' + str(count + 2))
-        std_a.value = 'STD Value'
-        std_a.font = std_cop.font.copy(bold=True)
-        std_a.fill = fill
+        std3 = sheet1.cell('S' + str(count + 2))
+        std3.value = 'STD Value'
+        std3.font = std3.font.copy(bold=True)
+        std3.fill = fill
 
-        first_row = sheet1.cell('A' + str(count + 3))
-        first_row.value = 'Rectus_A'
+        fifth_col = sheet1.cell('T' + str(count + 1))
+        fifth_col.value = '80% Freq (Hz)'
+        fifth_col.font = fifth_col.font.copy(bold=True)
+        fifth_col.fill = fill
+
+        mean4 = sheet1.cell('T' + str(count + 2))
+        mean4.value = 'Mean Value'
+        mean4.font = mean4.font.copy(bold=True)
+        mean4.fill = fill
+
+        std4 = sheet1.cell('U' + str(count + 2))
+        std4.value = 'STD Value'
+        std4.font = std4.font.copy(bold=True)
+        std4.fill = fill
+
+        first_row = sheet1.cell('M' + str(count + 3))
+        first_row.value = 'COP X'
         first_row.font = first_row.font.copy(bold=True)
         first_row.fill = fill
 
-        second_row = sheet1.cell('A' + str(count + 4))
-        second_row.value = 'Obliques'
+        second_row = sheet1.cell('M' + str(count + 4))
+        second_row.value = 'COP Y'
         second_row.font = second_row.font.copy(bold=True)
         second_row.fill = fill
 
-        third_row = sheet1.cell('A' + str(count + 5))
-        third_row.value = 'Ilicostalis'
-        third_row.font = third_row.font.copy(bold=True)
-        third_row.fill = fill
 
-        fourth_row = sheet1.cell('A' + str(count + 6))
-        fourth_row.value = 'Multifidus'
-        fourth_row.font = fourth_row.font.copy(bold=True)
-        fourth_row.fill = fill
 
-        count = count + 8
-        count1 = (count1 - 1) + 5
+
+
+        count = count + 12
 
     wb2.save(file_excel)

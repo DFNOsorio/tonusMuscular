@@ -453,3 +453,14 @@ def parameters_fourrier_COP(freqs_array, pxx_array):
         median_freqs[i] =   {"COP_X": median_freq["COP_X"], "COP_Y": median_freq["COP_Y"]}
 
     return peaks_freqs, means_freqs, freqs_80, median_freqs
+
+
+def alert(EMG):
+    for i in EMG:
+        for n in range(0,8):
+            if EMG[i][n] > 95:
+                print i
+                print "\n"
+                print n
+
+
