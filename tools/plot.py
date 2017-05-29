@@ -303,7 +303,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
             plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
             plt.xticks(ind1, ("Rectus_A_L", "Obliques_L", "Ilicostalis_L", "Multifidus_L"), fontsize=10)
             plt.xlim([0, 5])
-            plt.ylim([0, 0.8])
+            plt.ylim([0, 1])
             plt.ylabel("Coherence between COP \n and each muscle.", fontsize=9)
             plot7.set_title("Coherence", fontsize=12)
 
@@ -318,7 +318,7 @@ def graph(max_values, platform_COP,description,mean_trajectory, coherence, veloc
                             np.max(coherence[i]["coherency_y"][0:40, 7])], 'ro')
             plt.xticks(ind1, ("Rectus_A_R", "Obliques_R", "Ilicostalis_R", "Multifidus_R"), fontsize=10)
             plt.xlim([0, 5])
-            plt.ylim([0, 0.8])
+            plt.ylim([0, 1])
             plt.ylabel("Coherence between COP \n and each muscle.", fontsize=9)
             plot8.set_title("Coherence", fontsize=12)
 

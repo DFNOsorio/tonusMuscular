@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.signal import butter, lfilter, freqz
 from scipy import integrate
+import novainstrumentation as ni
 
 
 
@@ -463,4 +464,15 @@ def alert(EMG):
                 print "\n"
                 print n
 
+def filter_EMG(array):
+    EMG_filter = {}
 
+    for i in array:
+        EMG = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
+
+        for j in range(0, np.shape(array[i])[1]):
+            EMG[:,j] = ni.filter.bandstop(array[i][:,j],25,55,fs=1000)
+        EMG_filter[i] = EMG
+
+
+    return EMG_filter
