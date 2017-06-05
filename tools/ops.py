@@ -476,3 +476,5 @@ def filter_EMG(array):
 
 
     return EMG_filter
+
+
