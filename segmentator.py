@@ -5,12 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-filename1 = 'Testes_plat/testes_FMH_dia1/patient_se_rest_EMGs_2017-05-22_17-54-45.h5'
-filename2 = 'Testes_plat/testes_FMH_dia1/patient_se_back_EMGs_2017-05-22_17-55-16.h5'
-filename3 = 'Testes_plat/testes_FMH_dia1/patient_se_front_EMGs_2017-05-22_17-56-06.h5'
-filename4 = 'Testes_plat/testes_FMH_dia1/patient_se_mvc_right_EMGs_2017-05-22_17-57-09.h5'
-filename5 = 'Testes_plat/testes_FMH_dia1/patient_se_mvc_left_EMGs_2017-05-22_17-57-58.h5'
-filename6 = 'Testes_plat/testes_FMH_dia1/patient_se_plataforma_Plataforma_EMGs_2017-05-22_17-59-21.h5'
+filename1 = 'Testes_plat/Testes_FCT_dia1/patient_6_rest_EMGs_2017-06-01_18-04-06.h5'
+filename2 = 'Testes_plat/Testes_FCT_dia1/patient_6_back_EMGs_2017-06-01_18-06-54.h5'
+filename3 = 'Testes_plat/Testes_FCT_dia1/patient_6_front_EMGs_2017-06-01_18-04-57.h5'
+filename4 = 'Testes_plat/Testes_FCT_dia1/patient_6_right_EMGs_2017-06-01_18-05-34.h5'
+filename5 = 'Testes_plat/Testes_FCT_dia1/patient_6_left_EMGs_2017-06-01_18-06-11.h5'
+filename6 = 'Testes_plat/Testes_FCT_dia1/patient_6_platform_Plataforma_EMGs_2017-06-01_18-08-00.h5'
+#filename7 = 'Testes_plat/Testes_FCT_dia1/patient_4_platform_Plataforma_EMGs_2017-06-01_17-26-20.h5'
 
 
 
@@ -20,7 +21,7 @@ if("plataforma in filename#):
     platform == True
 
 """
-filename_w='Egas_Moniz_Segments/Patient7_Healthy.h5'
+filename_w='Egas_Moniz_Segments/Patient13_Healthy.h5'
 
 
 def load_data_h5(filename, platform = False):
@@ -116,6 +117,7 @@ MVC_RO_time, MVC_RO_EMG_data, MVC_RO_EMG_lables             = load_data_h5(filen
 MVC_LO_time, MVC_LO_EMG_data, MVC_LO_EMG_lables             = load_data_h5(filename5)
 
 plat1_time, plat1_EMG_data, plat1_EMG_lables, plat1_data, plat1_lables    = load_data_h5(filename6, platform=True)
+#plat2_time, plat2_EMG_data, plat2_EMG_lables, plat2_data, plat2_lables    = load_data_h5(filename7, platform=True)
 
 
 
@@ -123,13 +125,13 @@ plat1_time, plat1_EMG_data, plat1_EMG_lables, plat1_data, plat1_lables    = load
 
 f_new = h5py.File(filename_w, 'w')
 
-atrib1 = f_new.attrs['Gender'] = 'F'
-atrib2 = f_new.attrs['Age'] = 44
+atrib1 = f_new.attrs['Gender'] = 'M'
+atrib2 = f_new.attrs['Age'] = 23
 atrib3 = f_new.attrs['Condition'] = 'Healthy'
 atrib4 = f_new.attrs['Dominant Hand'] = 'Right'
-atrib5 = f_new.attrs['Height (cm)'] = 160
-atrib6 = f_new.attrs['Weight (kg)'] = 74.8
-atrib7 = f_new.attrs['Sports'] = 'None'
+atrib5 = f_new.attrs['Height (cm)'] = 178
+atrib6 = f_new.attrs['Weight (kg)'] = 86
+atrib7 = f_new.attrs['Sports'] = 'Yes'
 
 atrib8  = f_new.attrs ['Channel1'] = 'RA_L'
 atrib9  = f_new.attrs ['Channel2'] = 'RA_R'
@@ -179,57 +181,57 @@ f_new.create_group('Platform/Reach_L')
 f_new.create_group('Platform/Reach_C')
 
 
-sliceMVC1_back  = 5
-sliceMVC1_back2 = 12
-sliceMVC2_back  = 16
-sliceMVC2_back2 = 23
-sliceMVC3_back  = 27
-sliceMVC3_back2 = 32
+sliceMVC1_back  = 15
+sliceMVC1_back2 = 19
+sliceMVC2_back  = 20
+sliceMVC2_back2 = 24
+sliceMVC3_back  = 25
+sliceMVC3_back2 = 29
 
-sliceMVC1_rectus  = 13
-sliceMVC1_rectus2 = 20
-sliceMVC2_rectus  = 23
-sliceMVC2_rectus2 = 29
-sliceMVC3_rectus  = 33
-sliceMVC3_rectus2 = 39
+sliceMVC1_rectus  = 8
+sliceMVC1_rectus2 = 11
+sliceMVC2_rectus  = 12
+sliceMVC2_rectus2 = 16
+sliceMVC3_rectus  = 17
+sliceMVC3_rectus2 = 20
 
-sliceMVC1_RO  = 1
-sliceMVC1_RO2 = 8
-sliceMVC2_RO  = 14
-sliceMVC2_RO2 = 20
-sliceMVC3_RO  = 25
-sliceMVC3_RO2 = 30
+sliceMVC1_RO  = 7
+sliceMVC1_RO2 = 11
+sliceMVC2_RO  = 12
+sliceMVC2_RO2 = 14
+sliceMVC3_RO  = 15
+sliceMVC3_RO2 = 19
 
-sliceMVC1_LO  = 3
-sliceMVC1_LO2 = 8
+sliceMVC1_LO  = 11
+sliceMVC1_LO2 = 14
 sliceMVC2_LO  = 15
-sliceMVC2_LO2 = 21
-sliceMVC3_LO  = 25
-sliceMVC3_LO2 = 30
+sliceMVC2_LO2 = 18
+sliceMVC3_LO  = 19
+sliceMVC3_LO2 = 23
 
 
-slice_2FS       = 3
-slice_2_2FS     = 33
-slice_2FS_EC    = 42
-slice_2_2FS_EC  = 72
-slice_RF_EO     = 97
-slice_2_RF_EO   = 127
-slice_RF_EC     = 187
-slice_2_RF_EC   = 193
-slice_LF_EO     = 204
-slice_2_LF_EO   = 234
-slice_LF_EC     = 264
-slice_LF2_EC    = 270
-slice_reach_R   = 305
-slice_reach2_R  = 315
-slice_reach_L   = 323
-slice_reach2_L  = 333
-slice_reach_C   = 340
-slice_reach2_C  = 348
+slice_2FS       = 18
+slice_2_2FS     = 48
+slice_2FS_EC    = 55
+slice_2_2FS_EC  = 85
+slice_RF_EO     = 104
+slice_2_RF_EO   = 134
+slice_RF_EC     = 149
+slice_2_RF_EC   = 179
+slice_LF_EO     = 196
+slice_2_LF_EO   = 226
+slice_LF_EC     = 240
+slice_LF2_EC    = 265
+slice_reach_R   = 303
+slice_reach2_R  = 310
+slice_reach_L   = 317
+slice_reach2_L  = 324
+slice_reach_C   = 337
+slice_reach2_C  = 343
 
 
-slice_repouso = 1
-slice_2_repouso = 15
+slice_repouso = 23
+slice_2_repouso = 35
 
 
 
