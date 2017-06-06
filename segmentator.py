@@ -5,13 +5,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-filename1 = 'Testes_plat/Testes_FCT_dia1/patient_6_rest_EMGs_2017-06-01_18-04-06.h5'
-filename2 = 'Testes_plat/Testes_FCT_dia1/patient_6_back_EMGs_2017-06-01_18-06-54.h5'
-filename3 = 'Testes_plat/Testes_FCT_dia1/patient_6_front_EMGs_2017-06-01_18-04-57.h5'
-filename4 = 'Testes_plat/Testes_FCT_dia1/patient_6_right_EMGs_2017-06-01_18-05-34.h5'
-filename5 = 'Testes_plat/Testes_FCT_dia1/patient_6_left_EMGs_2017-06-01_18-06-11.h5'
-filename6 = 'Testes_plat/Testes_FCT_dia1/patient_6_platform_Plataforma_EMGs_2017-06-01_18-08-00.h5'
-#filename7 = 'Testes_plat/Testes_FCT_dia1/patient_4_platform_Plataforma_EMGs_2017-06-01_17-26-20.h5'
+filename1 = 'Testes_plat/Testes_FCT_dia1/patient_9_mvc_EMGs_2017-06-02_11-14-40.h5'
+filename2 = 'Testes_plat/Testes_FCT_dia1/patient_9_mvc_EMGs_2017-06-02_11-16-57.h5' #back
+filename3 = 'Testes_plat/Testes_FCT_dia1/patient_9_mvc_EMGs_2017-06-02_11-14-40.h5' #front
+filename4 = 'Testes_plat/Testes_FCT_dia1/patient_9_mvc_EMGs_2017-06-02_11-14-40.h5' #r
+filename5 = 'Testes_plat/Testes_FCT_dia1/patient_9_mvc_EMGs_2017-06-02_11-14-40.h5' #l
+filename6 = 'Testes_plat/Testes_FCT_dia1/patient_9_platform_Plataforma_EMGs_2017-06-02_11-17-56.h5'
+filename7 = 'Testes_plat/Testes_FCT_dia1/patient_9_platform_Plataforma_EMGs_2017-06-02_11-22-34.h5'
+
 
 
 
@@ -21,7 +22,7 @@ if("plataforma in filename#):
     platform == True
 
 """
-filename_w='Egas_Moniz_Segments/Patient13_Healthy.h5'
+filename_w='Egas_Moniz_Segments/Patient15_Healthy.h5'
 
 
 def load_data_h5(filename, platform = False):
@@ -117,7 +118,7 @@ MVC_RO_time, MVC_RO_EMG_data, MVC_RO_EMG_lables             = load_data_h5(filen
 MVC_LO_time, MVC_LO_EMG_data, MVC_LO_EMG_lables             = load_data_h5(filename5)
 
 plat1_time, plat1_EMG_data, plat1_EMG_lables, plat1_data, plat1_lables    = load_data_h5(filename6, platform=True)
-#plat2_time, plat2_EMG_data, plat2_EMG_lables, plat2_data, plat2_lables    = load_data_h5(filename7, platform=True)
+plat2_time, plat2_EMG_data, plat2_EMG_lables, plat2_data, plat2_lables    = load_data_h5(filename7, platform=True)
 
 
 
@@ -125,13 +126,13 @@ plat1_time, plat1_EMG_data, plat1_EMG_lables, plat1_data, plat1_lables    = load
 
 f_new = h5py.File(filename_w, 'w')
 
-atrib1 = f_new.attrs['Gender'] = 'M'
-atrib2 = f_new.attrs['Age'] = 23
+atrib1 = f_new.attrs['Gender'] = 'F'
+atrib2 = f_new.attrs['Age'] = 21
 atrib3 = f_new.attrs['Condition'] = 'Healthy'
 atrib4 = f_new.attrs['Dominant Hand'] = 'Right'
-atrib5 = f_new.attrs['Height (cm)'] = 178
-atrib6 = f_new.attrs['Weight (kg)'] = 86
-atrib7 = f_new.attrs['Sports'] = 'Yes'
+atrib5 = f_new.attrs['Height (cm)'] = 170
+atrib6 = f_new.attrs['Weight (kg)'] = 52
+atrib7 = f_new.attrs['Sports'] = 'None'
 
 atrib8  = f_new.attrs ['Channel1'] = 'RA_L'
 atrib9  = f_new.attrs ['Channel2'] = 'RA_R'
@@ -181,57 +182,57 @@ f_new.create_group('Platform/Reach_L')
 f_new.create_group('Platform/Reach_C')
 
 
-sliceMVC1_back  = 15
-sliceMVC1_back2 = 19
-sliceMVC2_back  = 20
-sliceMVC2_back2 = 24
-sliceMVC3_back  = 25
-sliceMVC3_back2 = 29
+sliceMVC1_back  = 10
+sliceMVC1_back2 = 14
+sliceMVC2_back  = 15
+sliceMVC2_back2 = 18
+sliceMVC3_back  = 19
+sliceMVC3_back2 = 22
 
-sliceMVC1_rectus  = 8
-sliceMVC1_rectus2 = 11
-sliceMVC2_rectus  = 12
-sliceMVC2_rectus2 = 16
-sliceMVC3_rectus  = 17
-sliceMVC3_rectus2 = 20
+sliceMVC1_rectus  = 59
+sliceMVC1_rectus2 = 62
+sliceMVC2_rectus  = 63
+sliceMVC2_rectus2 = 68
+sliceMVC3_rectus  = 69
+sliceMVC3_rectus2 = 74
 
-sliceMVC1_RO  = 7
-sliceMVC1_RO2 = 11
-sliceMVC2_RO  = 12
-sliceMVC2_RO2 = 14
-sliceMVC3_RO  = 15
-sliceMVC3_RO2 = 19
+sliceMVC1_RO  = 85
+sliceMVC1_RO2 = 90
+sliceMVC2_RO  = 91
+sliceMVC2_RO2 = 94
+sliceMVC3_RO  = 96
+sliceMVC3_RO2 = 100
 
-sliceMVC1_LO  = 11
-sliceMVC1_LO2 = 14
-sliceMVC2_LO  = 15
-sliceMVC2_LO2 = 18
-sliceMVC3_LO  = 19
-sliceMVC3_LO2 = 23
-
-
-slice_2FS       = 18
-slice_2_2FS     = 48
-slice_2FS_EC    = 55
-slice_2_2FS_EC  = 85
-slice_RF_EO     = 104
-slice_2_RF_EO   = 134
-slice_RF_EC     = 149
-slice_2_RF_EC   = 179
-slice_LF_EO     = 196
-slice_2_LF_EO   = 226
-slice_LF_EC     = 240
-slice_LF2_EC    = 265
-slice_reach_R   = 303
-slice_reach2_R  = 310
-slice_reach_L   = 317
-slice_reach2_L  = 324
-slice_reach_C   = 337
-slice_reach2_C  = 343
+sliceMVC1_LO  = 103
+sliceMVC1_LO2 = 106
+sliceMVC2_LO  = 110
+sliceMVC2_LO2 = 115
+sliceMVC3_LO  = 116
+sliceMVC3_LO2 = 122
 
 
-slice_repouso = 23
-slice_2_repouso = 35
+slice_2FS       = 13
+slice_2_2FS     = 43
+slice_2FS_EC    = 57
+slice_2_2FS_EC  = 87
+slice_RF_EO     = 13
+slice_2_RF_EO   = 43
+slice_RF_EC     = 66
+slice_2_RF_EC   = 96
+slice_LF_EO     = 120
+slice_2_LF_EO   = 150
+slice_LF_EC     = 173
+slice_LF2_EC    = 203
+slice_reach_R   = 245
+slice_reach2_R  = 252
+slice_reach_L   = 257
+slice_reach2_L  = 264
+slice_reach_C   = 274
+slice_reach2_C  = 281
+
+
+slice_repouso = 39
+slice_2_repouso = 44
 
 
 
@@ -256,25 +257,25 @@ MVC3_LO_segment = segments(MVC_LO_time, MVC_LO_EMG_data, sliceMVC3_LO, sliceMVC3
 
 FS_segment      = segments(plat1_time, plat1_EMG_data, slice_2FS, slice_2_2FS)
 FS_EC_segment   = segments(plat1_time, plat1_EMG_data, slice_2FS_EC, slice_2_2FS_EC)
-RF_EO_segment   = segments(plat1_time, plat1_EMG_data, slice_RF_EO, slice_2_RF_EO)
-RF_EC_segment   = segments(plat1_time, plat1_EMG_data, slice_RF_EC, slice_2_RF_EC)
-LF_EO_segment   = segments(plat1_time, plat1_EMG_data, slice_LF_EO, slice_2_LF_EO)
-LF_EC_segment   = segments(plat1_time, plat1_EMG_data, slice_LF_EC, slice_LF2_EC)
-reach_R_segment = segments(plat1_time, plat1_EMG_data, slice_reach_R, slice_reach2_R)
-reach_L_segment = segments(plat1_time, plat1_EMG_data, slice_reach_L, slice_reach2_L)
-reach_C_segment = segments(plat1_time, plat1_EMG_data, slice_reach_C, slice_reach2_C)
+RF_EO_segment   = segments(plat2_time, plat2_EMG_data, slice_RF_EO, slice_2_RF_EO)
+RF_EC_segment   = segments(plat2_time, plat2_EMG_data, slice_RF_EC, slice_2_RF_EC)
+LF_EO_segment   = segments(plat2_time, plat2_EMG_data, slice_LF_EO, slice_2_LF_EO)
+LF_EC_segment   = segments(plat2_time, plat2_EMG_data, slice_LF_EC, slice_LF2_EC)
+reach_R_segment = segments(plat2_time, plat2_EMG_data, slice_reach_R, slice_reach2_R)
+reach_L_segment = segments(plat2_time, plat2_EMG_data, slice_reach_L, slice_reach2_L)
+reach_C_segment = segments(plat2_time, plat2_EMG_data, slice_reach_C, slice_reach2_C)
 
 
 
 FS_plat_segment      = segments(plat1_time, plat1_data, slice_2FS, slice_2_2FS)
 FS_EC_plat_segment   = segments(plat1_time, plat1_data, slice_2FS_EC, slice_2_2FS_EC)
-RF_EO_plat_segment   = segments(plat1_time, plat1_data, slice_RF_EO, slice_2_RF_EO)
-RF_EC_plat_segment   = segments(plat1_time, plat1_data, slice_RF_EC, slice_2_RF_EC)
-LF_EO_plat_segment   = segments(plat1_time, plat1_data, slice_LF_EO, slice_2_LF_EO)
-LF_EC_plat_segment   = segments(plat1_time, plat1_data, slice_LF_EC, slice_LF2_EC)
-reach_R_plat_segment = segments(plat1_time, plat1_data, slice_reach_R, slice_reach2_R)
-reach_L_plat_segment = segments(plat1_time, plat1_data, slice_reach_L, slice_reach2_L)
-reach_C_plat_segment = segments(plat1_time, plat1_data, slice_reach_C, slice_reach2_C)
+RF_EO_plat_segment   = segments(plat2_time, plat2_data, slice_RF_EO, slice_2_RF_EO)
+RF_EC_plat_segment   = segments(plat2_time, plat2_data, slice_RF_EC, slice_2_RF_EC)
+LF_EO_plat_segment   = segments(plat2_time, plat2_data, slice_LF_EO, slice_2_LF_EO)
+LF_EC_plat_segment   = segments(plat2_time, plat2_data, slice_LF_EC, slice_LF2_EC)
+reach_R_plat_segment = segments(plat2_time, plat2_data, slice_reach_R, slice_reach2_R)
+reach_L_plat_segment = segments(plat2_time, plat2_data, slice_reach_L, slice_reach2_L)
+reach_C_plat_segment = segments(plat2_time, plat2_data, slice_reach_C, slice_reach2_C)
 
 
 
