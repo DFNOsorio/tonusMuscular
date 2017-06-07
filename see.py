@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-filename1 = 'Testes_plat/Testes_FCT_dia1/patient_9_platform_Plataforma_EMGs_2017-06-02_11-17-56.h5'
+filename1 = 'Testes_plat/Testes_FCT_dia1/patient_17_platform_Plataforma_EMGs_2017-06-02_15-17-14.h5'
 
 def load_data_h5(filename, platform = False):
 
@@ -60,5 +60,5 @@ def load_data_h5(filename, platform = False):
 
 MVC1_time, MVC1_EMG_data, MVC1_EMG_lables       = load_data_h5(filename1)
 
-plt.plot(MVC1_EMG_data[:,0])
+plt.plot(MVC1_EMG_data[:,1])
 plt.show()
