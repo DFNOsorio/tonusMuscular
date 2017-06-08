@@ -7,11 +7,11 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
-file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA.xlsx'
-patient = 'Patient1_EA'
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
+patient = 'Patient30_Healthy'
 
 def create_database():
-    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA.xlsx')
+    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
 
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
@@ -699,7 +699,7 @@ def fourrier_parameters_EMG(peak_f, mean_f, f80, median_f):
 
     for i in peak_f:
         title = sheet1.cell('A' + str(count))
-        title.value = "Correlation coeficient between each muscle and each COP direction - " + str(i)
+        title.value = "Frequency EMG - " + str(i)
         title.font = title.font.copy(bold=True)
 
         first_col = sheet1.cell('A' + str(count + 1))
@@ -803,7 +803,7 @@ def fourrier_parameters_COP(peak_f_COP, mean_f_COP, f80_COP, median_f_COP):
 
     for i in peak_f_COP:
         title = sheet1.cell('J' + str(count))
-        title.value = "Correlation coeficient between each muscle and each COP direction - " + str(i)
+        title.value = "Frequency COP - " + str(i)
         title.font = title.font.copy(bold=True)
 
         first_col = sheet1.cell('J' + str(count + 1))

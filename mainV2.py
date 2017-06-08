@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import novainstrumentation as ni
 
 
-file = "Egas_Moniz_Segments/Patient7_Healthy.h5"
+file = "Egas_Moniz_Segments/Patient36_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -34,7 +34,7 @@ patient1.static_normalization, patient1.static_max_values = norm_whole_segment(p
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.max_MVC_back, patient1.max_MVC_rectus, patient1.max_MVC_RO, patient1.max_MVC_LO)
 print '\033[93m' + "NORM_END" + '\033[0m'
 
-
+#
 # patient1.platformdata = RAW_2_mass(patient1.platform)
 # patient1.COP = mass_2_COP(patient1.platformdata)
 # # # #patient1.COP = []
@@ -84,7 +84,7 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 #
 # patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
 # print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-# #
+#
 # patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
 # print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
 #
@@ -100,12 +100,12 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 #
 # patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
 # print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
-
-
-##Creating database##
-
-#create_database()
-
+#
+#
+# ##Creating database##
+#
+# #create_database()
+#
 # personal_data(file)
 # parameters(patient1.EMG_max_values)
 # coherency(patient1.c)
@@ -164,9 +164,15 @@ def blabla(array):
     return array
 
 bla = blabla(array)
-print bla
+#plt.plot(bla)
+#plt.show()
 
-inter = np.interp(bla[5213:5733])
+inter = np.interp(bla[5213:5733], bla,patient1.EMG_normalization["OneFootStanding_R_EC"][:,7])
+#plt.plot(inter)
+#plt.show()
+
+#plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,7])
+#plt.show()
 
 
 
