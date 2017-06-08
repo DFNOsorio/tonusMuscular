@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-filename1 = 'Testes_plat/Testes_FCT_dia1/patient_17_platform_Plataforma_EMGs_2017-06-02_15-17-14.h5'
+filename1 = 'Testes_plat/Testes_FCT_dia1/patient_30_mvc_EMGs_2017-06-05_11-08-36.h5'
 
 def load_data_h5(filename, platform = False):
 
