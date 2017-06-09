@@ -471,10 +471,12 @@ def filter_EMG(array):
         EMG = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
 
         for j in range(0, np.shape(array[i])[1]):
-            EMG[:,j] = ni.filter.bandstop(array[i][:,j],25,55,fs=1000)
+            EMG[:,j] = ni.filter.bandstop(array[i][:,j],0,1,fs=1000)
         EMG_filter[i] = EMG
 
 
     return EMG_filter
+
+
 
 
