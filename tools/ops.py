@@ -172,6 +172,9 @@ def fourier_EMG(array):
         feq = np.zeros((513, len(array[i][0,:])))
         pxx = np.zeros((513, len(array[i][0,:])))
 
+        #feq =  np.array([])
+        #pxx =  np.array([])
+
         for j in range(0, np.shape(array[i])[1]):
             feq[:,j], pxx[:,j] = signal.welch(array[i][:,j], 1000, nperseg=1024)
         Pxx[i] = pxx

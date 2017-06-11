@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient22_Healthy'
+patient = 'Patient29_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')

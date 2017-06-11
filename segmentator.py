@@ -5,13 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-filename1 = 'Testes_plat/Testes_FCT_dia1/patient_4_rest_EMGs_2017-06-01_17-18-39.h5'
-filename2 = 'Testes_plat/Testes_FCT_dia1/patient_4_back_EMGs_2017-06-01_17-22-01.h5' #back
-filename3 = 'Testes_plat/Testes_FCT_dia1/patient_4_front_EMGs_2017-06-01_17-19-35.h5' #front
-filename4 = 'Testes_plat/Testes_FCT_dia1/patient_4_right_EMGs_2017-06-01_17-20-31.h5' #r
-filename5 = 'Testes_plat/Testes_FCT_dia1/patient_4_left_EMGs_2017-06-01_17-21-06.h5' #l
-filename6 = 'Testes_plat/Testes_FCT_dia1/patient_4_platform_Plataforma_EMGs_2017-06-01_17-22-59.h5'
-filename7 = 'Testes_plat/Testes_FCT_dia1/patient_4_platform_Plataforma_EMGs_2017-06-01_17-26-20.h5'
+filename1 = 'Testes_plat/Testes_FCT_dia1/patient_23_mvc_EMGs_2017-06-05_08-46-02.h5'
+filename2 = 'Testes_plat/Testes_FCT_dia1/patient_23_mvc_EMGs_2017-06-05_08-46-02.h5' #back
+filename3 = 'Testes_plat/Testes_FCT_dia1/patient_23_mvc_EMGs_2017-06-05_08-46-02.h5' #front
+filename4 = 'Testes_plat/Testes_FCT_dia1/patient_23_mvc_EMGs_2017-06-05_08-46-02.h5' #r
+filename5 = 'Testes_plat/Testes_FCT_dia1/patient_23_mvc_EMGs_2017-06-05_08-46-02.h5' #l
+filename6 = 'Testes_plat/Testes_FCT_dia1/patient_23_plataforma_Plataforma_EMGs_2017-06-05_08-49-08.h5'
+filename7 = 'Testes_plat/Testes_FCT_dia1/patient_23_plataforma_Plataforma_EMGs_2017-06-05_08-49-08.h5'
 #filename8 = 'Testes_plat/Testes_FCT_dia1/patient_17_platform_Plataforma_EMGs_2017-06-02_15-17-14.h5'
 
 
@@ -23,7 +23,7 @@ if("plataforma in filename#):
     platform == True
 
 """
-filename_w='Egas_Moniz_Segments/Patient11_Healthy.h5'
+filename_w='Egas_Moniz_Segments/Patient29_Healthy.h5'
 
 
 def load_data_h5(filename, platform = False):
@@ -129,11 +129,11 @@ plat2_time, plat2_EMG_data, plat2_EMG_lables, plat2_data, plat2_lables    = load
 f_new = h5py.File(filename_w, 'w')
 
 atrib1 = f_new.attrs['Gender'] = 'F'
-atrib2 = f_new.attrs['Age'] = 22
-atrib3 = f_new.attrs['Condition'] = 'Healthy'
-atrib4 = f_new.attrs['Dominant Hand'] = 'Left'
-atrib5 = f_new.attrs['Height (cm)'] = 161
-atrib6 = f_new.attrs['Weight (kg)'] = 69
+atrib2 = f_new.attrs['Age'] = 54
+atrib3 = f_new.attrs['Condition'] = 'Healthy/Knee problems'
+atrib4 = f_new.attrs['Dominant Hand'] = 'Right'
+atrib5 = f_new.attrs['Height (cm)'] = 171
+atrib6 = f_new.attrs['Weight (kg)'] = 86
 atrib7 = f_new.attrs['Sports'] = 'None'
 
 atrib8  = f_new.attrs ['Channel1'] = 'RA_L'
@@ -184,57 +184,57 @@ f_new.create_group('Platform/Reach_L')
 f_new.create_group('Platform/Reach_C')
 
 
-sliceMVC1_back  = 16
-sliceMVC1_back2 = 24
-sliceMVC2_back  = 25
-sliceMVC2_back2 = 30
-sliceMVC3_back  = 31
-sliceMVC3_back2 = 37
+sliceMVC1_back  = 114
+sliceMVC1_back2 = 119
+sliceMVC2_back  = 119
+sliceMVC2_back2 = 122
+sliceMVC3_back  = 122
+sliceMVC3_back2 = 126
 
-sliceMVC1_rectus  = 9
-sliceMVC1_rectus2 = 16
-sliceMVC2_rectus  = 21
-sliceMVC2_rectus2 = 28
-sliceMVC3_rectus  = 33
-sliceMVC3_rectus2 = 39
+sliceMVC1_rectus  = 39
+sliceMVC1_rectus2 = 44
+sliceMVC2_rectus  = 44
+sliceMVC2_rectus2 = 49
+sliceMVC3_rectus  = 49
+sliceMVC3_rectus2 = 54
 
-sliceMVC1_RO  = 4
-sliceMVC1_RO2 = 8
-sliceMVC2_RO  = 10
-sliceMVC2_RO2 = 15
-sliceMVC3_RO  = 17
-sliceMVC3_RO2 = 20
+sliceMVC1_RO  = 67
+sliceMVC1_RO2 = 72
+sliceMVC2_RO  = 72
+sliceMVC2_RO2 = 76
+sliceMVC3_RO  = 76
+sliceMVC3_RO2 = 80
 
-sliceMVC1_LO  = 5
-sliceMVC1_LO2 = 10
-sliceMVC2_LO  = 21
-sliceMVC2_LO2 = 27
-sliceMVC3_LO  = 29
-sliceMVC3_LO2 = 35
-
-
-slice_2FS       = 23
-slice_2_2FS     = 53
-slice_2FS_EC    = 62
-slice_2_2FS_EC  = 92
-slice_RF_EO     = 109
-slice_2_RF_EO   = 139
-slice_RF_EC     = 6
-slice_2_RF_EC   = 36
-slice_LF_EO     = 47
-slice_2_LF_EO   = 77
-slice_LF_EC     = 113
-slice_LF2_EC    = 143
-slice_reach_R   = 169
-slice_reach2_R  = 176
-slice_reach_L   = 185
-slice_reach2_L  = 192
-slice_reach_C   = 210
-slice_reach2_C  = 216
+sliceMVC1_LO  = 83
+sliceMVC1_LO2 = 87
+sliceMVC2_LO  = 87
+sliceMVC2_LO2 = 90
+sliceMVC3_LO  = 90
+sliceMVC3_LO2 = 94
 
 
-slice_repouso = 31
-slice_2_repouso = 38
+slice_2FS       = 4
+slice_2_2FS     = 34
+slice_2FS_EC    = 42
+slice_2_2FS_EC  = 72
+slice_RF_EO     = 107
+slice_2_RF_EO   = 137
+slice_RF_EC     = 138
+slice_2_RF_EC   = 139
+slice_LF_EO     = 236
+slice_2_LF_EO   = 296
+slice_LF_EC     = 310
+slice_LF2_EC    = 320
+slice_reach_R   = 365
+slice_reach2_R  = 372
+slice_reach_L   = 378
+slice_reach2_L  = 385
+slice_reach_C   = 398
+slice_reach2_C  = 403
+
+
+slice_repouso = 9
+slice_2_repouso = 19
 
 
 
