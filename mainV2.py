@@ -3,12 +3,15 @@ from scipy import signal
 import numpy as np
 import matplotlib.pyplot as plt
 import novainstrumentation as ni
+import matplotlib.pyplot as plt
 
 
-file = "Egas_Moniz_Segments/Patient29_Healthy.h5"
+from sklearn.decomposition import FastICA, PCA
+
+
+file = "Egas_Moniz_Segments/Patient11_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
-
 
 patient1.static_avg = avg_out(patient1.static)
 patient1.EMG_avg = avg_out(patient1.EMG)
@@ -37,86 +40,89 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 
 patient1.platformdata = RAW_2_mass(patient1.platform)
 patient1.COP = mass_2_COP(patient1.platformdata)
-# # #patient1.COP = []
 print '\033[93m' + "COP_END" + '\033[0m'
-
-patient1.std = std(patient1.COP)
-print '\033[93m' + "STD_COP_END" + '\033[0m'
-
-patient1.amplitude = amplitude(patient1.COP)
-print '\033[93m' + "AMP_COP_END" + '\033[0m'
-
+#
+# patient1.std = std(patient1.COP)
+# print '\033[93m' + "STD_COP_END" + '\033[0m'
+#
+# patient1.amplitude = amplitude(patient1.COP)
+# print '\033[93m' + "AMP_COP_END" + '\033[0m'
+#
 patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
 print '\033[93m' + "VELOCITY_END" + '\033[0m'
 
-patient1.trajec = trajectory(patient1.COP)
-print '\033[93m' + "TRAJ_END" + '\033[0m'
+# patient1.trajec = trajectory(patient1.COP)
+# print '\033[93m' + "TRAJ_END" + '\033[0m'
+#
+# patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
+# print '\033[93m' + "COHERENCY_END" + '\033[0m'
+#
+# patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
+# print '\033[93m' + "V_RMS_END" + '\033[0m'
+#
+# patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
+# print '\033[93m' + "A_RMS_END" + '\033[0m'
+#
+# patient1.acel_norm = normalization_COP(patient1.RMS_acel)
+# print '\033[93m' + "A_NORM_END" + '\033[0m'
+#
+# patient1.v_norm = normalization_COP(patient1.RMS_velocity)
+# print '\033[93m' + "V_NORM_END" + '\033[0m'
+#
+# patient1.COP_norm = normalization_COP(patient1.COP)
+# print '\033[93m' + "COP_NORM_END" + '\033[0m'
+#
+# patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+# print '\033[93m' + "RLCORR_END" + '\033[0m'
+#
+# patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+# print '\033[93m' + "FBCORR_END" + '\033[0m'
+#
+# patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
+# print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
+#
+# patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
+# print '\033[93m' + "CORR_END" + '\033[0m'
+#
+# patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
+# print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
+#
+# patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
+# print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
+#
+# patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_80_EMG_rest, patient1.f_50_EMG_rest = parameters_fourier_EMG(patient1.fre_EMG_rest, patient1.pxx_EMG_rest)
+# print '\033[93m' + "FOURRIER_EMG_REST_PARAMETERS_END" + '\033[0m'
+#
+#
+# patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
+# print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
-patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
-print '\033[93m' + "COHERENCY_END" + '\033[0m'
-
-patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
-print '\033[93m' + "V_RMS_END" + '\033[0m'
-
-patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
-print '\033[93m' + "A_RMS_END" + '\033[0m'
-
-patient1.acel_norm = normalization_COP(patient1.RMS_acel)
-print '\033[93m' + "A_NORM_END" + '\033[0m'
-
-patient1.v_norm = normalization_COP(patient1.RMS_velocity)
-print '\033[93m' + "V_NORM_END" + '\033[0m'
-
-patient1.COP_norm = normalization_COP(patient1.COP)
-print '\033[93m' + "COP_NORM_END" + '\033[0m'
-
-patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
-print '\033[93m' + "RLCORR_END" + '\033[0m'
-
-patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
-print '\033[93m' + "FBCORR_END" + '\033[0m'
-
-patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
-print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
-
-patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
-print '\033[93m' + "CORR_END" + '\033[0m'
-
-patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
-print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
-
-patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
-print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
-
-patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_80_EMG_rest, patient1.f_50_EMG_rest = parameters_fourier_EMG(patient1.fre_EMG_rest, patient1.pxx_EMG_rest)
-print '\033[93m' + "FOURRIER_EMG_REST_PARAMETERS_END" + '\033[0m'
+patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution = evolution_parameters(patient1.COP, patient1.velocity)
+print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 
 
-patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
 
-patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
-print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
-
-
-##Creating database##
-
-#create_database()
-
-personal_data(file)
-parameters(patient1.EMG_max_values)
-coherency(patient1.c)
-COP_parameters(patient1.mean, patient1.COP, patient1.std, patient1.amplitude)
-correlation_RL(patient1.corr_RL)
-correlation_FB(patient1.corr_FB)
-correlation_FB_cross(patient1.corr_FB_cross)
-correlation(patient1.simple_corr)
-fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
-fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
-rest_parameters(patient1.static_max_values, patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
+# ##Creating database##
+#
+# #create_database()
+#
+# personal_data(file)
+# parameters(patient1.EMG_max_values)
+# coherency(patient1.c)
+# COP_parameters(patient1.mean, patient1.COP, patient1.std, patient1.amplitude)
+# correlation_RL(patient1.corr_RL)
+# correlation_FB(patient1.corr_FB)
+# correlation_FB_cross(patient1.corr_FB_cross)
+# correlation(patient1.simple_corr)
+# fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
+# fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
+# rest_parameters(patient1.static_max_values, patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
 
 #mean_std(patient1.peak_COP)
 
@@ -142,59 +148,27 @@ alert(patient1.EMG_max_values)
 #http://nwpii.com/ajbms/papers/AJBMS_2009_4_11.pdf
 
 
-#array = np.interp()
-
-# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,5])
+# plt.plot(patient1.EMG_normalization["Reach_L"][:,3])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,7])
+# plt.plot(patient1.EMG_normalization["Reach_C"][:,4])
 # plt.show()
-#plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,3])
-#plt.show()
-#plt.plot(patient1.EMG_normalization["Reach_R"][:,3])
-#plt.show()
-
-array = np.zeros((len(patient1.EMG_normalization["OneFootStanding_R_EC"][:,7])))
-
-def blabla(array):
-    sum = 0
-    for i in range(0, len(array)):
-        array[i] = sum
-        sum = sum + 1
-
-    return array
-
-bla = blabla(array)
-#plt.plot(bla)
-#plt.show()
-
-inter = np.interp(bla[5213:5733], bla,patient1.EMG_normalization["OneFootStanding_R_EC"][:,7])
-#plt.plot(inter)
-#plt.show()
-# # # #
-plt.plot(patient1.EMG_normalization["Reach_L"][:,3])
-plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,3])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,2])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,5])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,3])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,7])
-# plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EO"][:,7])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,2])
 # plt.show()
 # plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,3])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EO"][:,6])
-# plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,3])
-# plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EO"][:,2])
-# plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EO"][:,5])
-# plt.show()
-# plt.plot(patient1.EMG_normalization["Reach_R"][:,2])
+
+# ica = FastICA(n_components=1)
+# S_ = ica.fit_transform(patient1.static_avg["Relax"][:,1])  # Reconstruct signals
+# A_ = ica.mixing_
+#
+# plt.plot(S_)
 # plt.show()
 
-
+evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution)
 
 
 

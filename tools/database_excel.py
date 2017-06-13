@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient29_Healthy'
+patient = 'Patient11_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
@@ -1108,3 +1108,52 @@ def rest_parameters(rest_array, peak_f, mean_f, median_f, f80):
                 count2_freq = count2_freq + 1
 
     wb2.save(file_excel)
+
+
+def evolution_parameters_COP(std, velocity, area):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    fill = PatternFill(start_color='00FF00', end_color='00FF00', fill_type='solid')
+
+    count = 6
+    time = 8
+
+    for i in area:
+        title = sheet1.cell('V' + str(count))
+        title.value = "Evolution of COP parameters - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('V' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('W' + str(count + 1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('X' + str(count + 1))
+        third_col.value = 'COP_Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        start = 0
+        finish = 2.5
+
+        for n in area[i]:
+            row = sheet1.cell('V' + str(time))
+            row.value = '[' + str(start) + '-' + str(finish) + '] s'
+            row.font = row.font.copy(bold=True)
+            row.fill = fill
+            time += 1
+            start = finish
+            finish = finish + 2.5
+
+
+        count = count + 13
+        #time = time + 5
+
+    wb2.save(file_excel)
+

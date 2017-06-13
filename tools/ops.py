@@ -474,11 +474,55 @@ def filter_EMG(array):
         EMG = np.zeros((len(array[i][:,0]), len(array[i][0,:])))
 
         for j in range(0, np.shape(array[i])[1]):
-            EMG[:,j] = ni.filter.bandstop(array[i][:,j],0,1,fs=1000)
+            EMG[:,j] = ni.filter.highpass(array[i][:,j],30,fs=1000)
         EMG_filter[i] = EMG
 
 
     return EMG_filter
+
+
+def evolution_parameters(COP_array, COP_velocity):
+
+    std = {}
+    velocity = {}
+    area = {}
+    for i in COP_array:
+
+        area_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
+        std_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
+        std_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0))
+        velocity_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
+        velocity_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0))
+
+        start = 0
+        index = 0
+
+
+        for count in range(2500, len(COP_array[i]["COP_X"]), 2500):
+
+            area_traj = convex_hull(COP_array[i]["COP_X"][start:count], COP_array[i]["COP_Y"][start:count])
+            area_new[index] = area_calc(area_traj)
+
+            std_x_new[index] = np.std(COP_array[i]["COP_X"][start:count])
+            std_y_new[index] = np.std(COP_array[i]["COP_Y"][start:count])
+            velocity_x_new[index] = np.mean(COP_velocity[i]["COP_X"][start:count])
+            velocity_y_new[index] = np.mean(COP_velocity[i]["COP_Y"][start:count])
+
+            start = count
+            index = index + 1
+
+        std[i] = {"COP_X": std_x_new, "COP_Y": std_y_new}
+        velocity[i] = {"COP_X": velocity_x_new, "COP_Y": velocity_y_new}
+        area[i] = {"Area_COP": area_new}
+
+    return std, velocity, area
+
+
+
+
+
+
+
 
 
 
