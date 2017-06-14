@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient11_Healthy'
+patient = 'Patient36_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
@@ -1116,8 +1116,8 @@ def evolution_parameters_COP(std, velocity, area):
 
     fill = PatternFill(start_color='00FF00', end_color='00FF00', fill_type='solid')
 
-    count = 6
-    time = 8
+    count = 5
+    time = 6
 
     for i in area:
         title = sheet1.cell('V' + str(count))
@@ -1142,7 +1142,7 @@ def evolution_parameters_COP(std, velocity, area):
         start = 0
         finish = 2.5
 
-        for n in area[i]:
+        for n in velocity[i]["COP_X"]:
             row = sheet1.cell('V' + str(time))
             row.value = '[' + str(start) + '-' + str(finish) + '] s'
             row.font = row.font.copy(bold=True)
@@ -1150,10 +1150,11 @@ def evolution_parameters_COP(std, velocity, area):
             time += 1
             start = finish
             finish = finish + 2.5
+            print start
+            print finish
 
 
         count = count + 13
-        #time = time + 5
-
+        time = time + 2
     wb2.save(file_excel)
 

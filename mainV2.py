@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import FastICA, PCA
 
 
-file = "Egas_Moniz_Segments/Patient11_Healthy.h5"
+file = "Egas_Moniz_Segments/Patient36_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -148,13 +148,13 @@ alert(patient1.EMG_max_values)
 #http://nwpii.com/ajbms/papers/AJBMS_2009_4_11.pdf
 
 
-# plt.plot(patient1.EMG_normalization["Reach_L"][:,3])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,2])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["Reach_C"][:,4])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,3])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,2])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_L_EO"][:,7])
 # plt.show()
-# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EC"][:,3])
+# plt.plot(patient1.EMG_normalization["OneFootStanding_R_EO"][:,7])
 # plt.show()
 # plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,2])
 # plt.show()
@@ -169,6 +169,8 @@ alert(patient1.EMG_max_values)
 # plt.show()
 
 evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution)
+
+
 
 
 
