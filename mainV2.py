@@ -161,16 +161,14 @@ alert(patient1.EMG_max_values)
 # plt.plot(patient1.EMG_normalization["OneFootStanding_L_EC"][:,3])
 # plt.show()
 
-# ica = FastICA(n_components=1)
+
+# ica = FastICA(n_components=2)
 # S_ = ica.fit_transform(patient1.static_avg["Relax"][:,1])  # Reconstruct signals
-# A_ = ica.mixing_
-#
-# plt.plot(S_)
-# plt.show()
+
 
 evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution)
 
-
+print patient1.area_evolution ["Standing_EO"]["Area_COP"][0]
 
 
 

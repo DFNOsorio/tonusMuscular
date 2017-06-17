@@ -1116,28 +1116,66 @@ def evolution_parameters_COP(std, velocity, area):
 
     fill = PatternFill(start_color='00FF00', end_color='00FF00', fill_type='solid')
 
-    count = 5
-    time = 6
+    count = 6
+    time = 8
+    time2 = 8
 
     for i in area:
+
         title = sheet1.cell('V' + str(count))
         title.value = "Evolution of COP parameters - " + str(i)
         title.font = title.font.copy(bold=True)
+
 
         first_col = sheet1.cell('V' + str(count + 1))
         first_col.value = ''
         first_col.font = first_col.font.copy(bold=True)
         first_col.fill = fill
 
+        first1_col = sheet1.cell('V' + str(count + 2))
+        first1_col.value = ''
+        first1_col.font = first1_col.font.copy(bold=True)
+        first1_col.fill = fill
+
         second_col = sheet1.cell('W' + str(count + 1))
         second_col.value = 'COP X'
         second_col.font = second_col.font.copy(bold=True)
         second_col.fill = fill
 
-        third_col = sheet1.cell('X' + str(count + 1))
+        third_col = sheet1.cell('Y' + str(count + 1))
         third_col.value = 'COP_Y'
         third_col.font = third_col.font.copy(bold=True)
         third_col.fill = fill
+
+        second1_col = sheet1.cell('W' + str(count + 2))
+        second1_col.value = 'STD'
+        second1_col.font = second1_col.font.copy(bold=True)
+        second1_col.fill = fill
+
+        third1_col1 = sheet1.cell('X' + str(count + 2))
+        third1_col1.value = 'Velocity'
+        third1_col1.font = third1_col1.font.copy(bold=True)
+        third1_col1.fill = fill
+
+        fourth1_coll = sheet1.cell('Y' + str(count + 2))
+        fourth1_coll.value = 'STD'
+        fourth1_coll.font = fourth1_coll.font.copy(bold=True)
+        fourth1_coll.fill = fill
+
+        fifht1_col1 = sheet1.cell('Z' + str(count + 2))
+        fifht1_col1.value = 'Velocity'
+        fifht1_col1.font = fifht1_col1.font.copy(bold=True)
+        fifht1_col1.fill = fill
+
+        area = sheet1.cell('AC' + str(count + 1))
+        area.value = 'Area'
+        area.font = area.font.copy(bold=True)
+        area.fill = fill
+
+        area1 = sheet1.cell('AB' + str(count + 1))
+        area1.value = ''
+        area1.font = area1.font.copy(bold=True)
+        area1.fill = fill
 
         start = 0
         finish = 2.5
@@ -1147,14 +1185,30 @@ def evolution_parameters_COP(std, velocity, area):
             row.value = '[' + str(start) + '-' + str(finish) + '] s'
             row.font = row.font.copy(bold=True)
             row.fill = fill
+
+            row_area = sheet1.cell('AB' + str(time2))
+            row_area.value = '[' + str(start) + '-' + str(finish) + '] s'
+            row_area.font = row.font.copy(bold=True)
+            row_area.fill = fill
+
+            data = [[std[i]["COP_X"][n], velocity[i]["COP_X"][n], std[i]["COP_Y"][n], velocity[i]["COP_X"][n]]]
+            for row in data:
+                sheet1.cell(row=time, column=23, value=row[0])
+                sheet1.cell(row=time, column=24, value=row[1])
+                sheet1.cell(row=time, column=25, value=row[2])
+                sheet1.cell(row=time, column=26, value=row[3])
+
+            #data1 = [[area[i]["Area_COP"][n]]]
+            #for row1 in data1:
+             #   sheet1.cell(row = time2, column= 29, value = row1[0])
+
             time += 1
+            time2 += 1
             start = finish
             finish = finish + 2.5
-            print start
-            print finish
 
-
-        count = count + 13
-        time = time + 2
+        count = count + 17
+        time = count + 3
+        time2 = count + 2
     wb2.save(file_excel)
 
