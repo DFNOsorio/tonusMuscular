@@ -488,17 +488,17 @@ def evolution_parameters(COP_array, COP_velocity):
     area = {}
     for i in COP_array:
 
-        area_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
-        std_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
-        std_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0))
-        velocity_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
-        velocity_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0))
+        area_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0 + 1))
+        std_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0 + 1))
+        std_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0 + 1))
+        velocity_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0 + 1))
+        velocity_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0 + 1))
 
         start = 0
         index = 0
 
 
-        for count in range(2500, len(COP_array[i]["COP_X"]), 2500):
+        for count in range(2500, len(COP_array[i]["COP_X"]) + 1, 2500):
 
             area_traj = convex_hull(COP_array[i]["COP_X"][start:count], COP_array[i]["COP_Y"][start:count])
             area_new[index] = area_calc(area_traj)
@@ -513,9 +513,35 @@ def evolution_parameters(COP_array, COP_velocity):
 
         std[i] = {"COP_X": std_x_new, "COP_Y": std_y_new}
         velocity[i] = {"COP_X": velocity_x_new, "COP_Y": velocity_y_new}
-        area[i] = {"Area_COP": area_new}
+        area[i] = area_new
 
     return std, velocity, area
+
+def evolution_EMG(max_values, EMG_array):
+
+    EMG_evolution = {}
+
+    for i in EMG_array:
+
+        EMG = np.zeros(((len(EMG_array[i][:,0]) / 2500.0) + 1, 8))
+
+        for n in range(0, 8):
+
+            start = 0
+            count = 0
+            for index in range(2500, len(EMG_array[i][:,n]) + 1,2500):
+
+                EMG[count, n] = (np.max(EMG_array[i][start:index, n])/max_values[i][n]) * 100.0
+
+
+                start = index
+                count = count + 1
+
+        EMG_evolution[i] = EMG
+
+    return EMG_evolution
+
+
 
 
 

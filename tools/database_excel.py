@@ -8,7 +8,7 @@ from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient36_Healthy'
+patient = 'Patient32_Healthy'
 
 def create_database():
     workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
@@ -1114,65 +1114,65 @@ def evolution_parameters_COP(std, velocity, area):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.get_sheet_by_name(patient)
 
-    fill = PatternFill(start_color='00FF00', end_color='00FF00', fill_type='solid')
+    fill = PatternFill(start_color='1E90FF', end_color='1E90FF', fill_type='solid')
 
-    count = 6
-    time = 8
-    time2 = 8
+    count = 407
+    time = 410
+    time2 = 409
 
     for i in area:
 
-        title = sheet1.cell('V' + str(count))
+        title = sheet1.cell('A' + str(count))
         title.value = "Evolution of COP parameters - " + str(i)
         title.font = title.font.copy(bold=True)
 
 
-        first_col = sheet1.cell('V' + str(count + 1))
+        first_col = sheet1.cell('A' + str(count + 1))
         first_col.value = ''
         first_col.font = first_col.font.copy(bold=True)
         first_col.fill = fill
 
-        first1_col = sheet1.cell('V' + str(count + 2))
+        first1_col = sheet1.cell('A' + str(count + 2))
         first1_col.value = ''
         first1_col.font = first1_col.font.copy(bold=True)
         first1_col.fill = fill
 
-        second_col = sheet1.cell('W' + str(count + 1))
+        second_col = sheet1.cell('B' + str(count + 1))
         second_col.value = 'COP X'
         second_col.font = second_col.font.copy(bold=True)
         second_col.fill = fill
 
-        third_col = sheet1.cell('Y' + str(count + 1))
+        third_col = sheet1.cell('D' + str(count + 1))
         third_col.value = 'COP_Y'
         third_col.font = third_col.font.copy(bold=True)
         third_col.fill = fill
 
-        second1_col = sheet1.cell('W' + str(count + 2))
-        second1_col.value = 'STD'
+        second1_col = sheet1.cell('B' + str(count + 2))
+        second1_col.value = 'STD (mm)'
         second1_col.font = second1_col.font.copy(bold=True)
         second1_col.fill = fill
 
-        third1_col1 = sheet1.cell('X' + str(count + 2))
-        third1_col1.value = 'Velocity'
+        third1_col1 = sheet1.cell('C' + str(count + 2))
+        third1_col1.value = 'Velocity (mm/s)'
         third1_col1.font = third1_col1.font.copy(bold=True)
         third1_col1.fill = fill
 
-        fourth1_coll = sheet1.cell('Y' + str(count + 2))
-        fourth1_coll.value = 'STD'
+        fourth1_coll = sheet1.cell('D' + str(count + 2))
+        fourth1_coll.value = 'STD (mm)'
         fourth1_coll.font = fourth1_coll.font.copy(bold=True)
         fourth1_coll.fill = fill
 
-        fifht1_col1 = sheet1.cell('Z' + str(count + 2))
-        fifht1_col1.value = 'Velocity'
+        fifht1_col1 = sheet1.cell('E' + str(count + 2))
+        fifht1_col1.value = 'Velocity (mm/s)'
         fifht1_col1.font = fifht1_col1.font.copy(bold=True)
         fifht1_col1.fill = fill
 
-        area = sheet1.cell('AC' + str(count + 1))
-        area.value = 'Area'
+        area = sheet1.cell('H' + str(count + 1))
+        area.value = 'Area (mm2)'
         area.font = area.font.copy(bold=True)
         area.fill = fill
 
-        area1 = sheet1.cell('AB' + str(count + 1))
+        area1 = sheet1.cell('G' + str(count + 1))
         area1.value = ''
         area1.font = area1.font.copy(bold=True)
         area1.fill = fill
@@ -1180,27 +1180,275 @@ def evolution_parameters_COP(std, velocity, area):
         start = 0
         finish = 2.5
 
-        for n in velocity[i]["COP_X"]:
-            row = sheet1.cell('V' + str(time))
+
+        for n in range(0, len(velocity[i]["COP_X"]) - 1):
+            row = sheet1.cell('A' + str(time))
             row.value = '[' + str(start) + '-' + str(finish) + '] s'
             row.font = row.font.copy(bold=True)
             row.fill = fill
 
-            row_area = sheet1.cell('AB' + str(time2))
+            row_area = sheet1.cell('G' + str(time2))
             row_area.value = '[' + str(start) + '-' + str(finish) + '] s'
             row_area.font = row.font.copy(bold=True)
             row_area.fill = fill
 
-            data = [[std[i]["COP_X"][n], velocity[i]["COP_X"][n], std[i]["COP_Y"][n], velocity[i]["COP_X"][n]]]
+            data = [[std[i]["COP_X"][n], velocity[i]["COP_X"][n], std[i]["COP_Y"][n], velocity[i]["COP_Y"][n]]]
             for row in data:
-                sheet1.cell(row=time, column=23, value=row[0])
-                sheet1.cell(row=time, column=24, value=row[1])
-                sheet1.cell(row=time, column=25, value=row[2])
-                sheet1.cell(row=time, column=26, value=row[3])
+                sheet1.cell(row=time2 + 1, column=2, value=row[0])
+                sheet1.cell(row=time2 + 1, column=3, value=row[1])
+                sheet1.cell(row=time2 + 1, column=4, value=row[2])
+                sheet1.cell(row=time2 + 1, column=5, value=row[3])
 
-            #data1 = [[area[i]["Area_COP"][n]]]
+            #data1 = [[area[i][n]]]
+
             #for row1 in data1:
-             #   sheet1.cell(row = time2, column= 29, value = row1[0])
+             #   sheet1.cell(row=time, column=29, value=row[0])
+
+
+            time += 1
+            time2 += 1
+            start = finish
+            finish = finish + 2.5
+
+        count = count + 23
+        time = count + 3
+        time2 = count + 2
+    wb2.save(file_excel)
+
+
+def EMG_evolution(EMG_array):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    fill = PatternFill(start_color='00BFFF', end_color='00BFFF', fill_type='solid')
+
+    count = 407
+    time = 409
+    time2 = 409
+
+    for i in EMG_array:
+        title = sheet1.cell('L' + str(count))
+        title.value = "Evolution of EMG values in percentage - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('L' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        second_col = sheet1.cell('M' + str(count + 1))
+        second_col.value = 'Rectus_A L'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('N' + str(count + 1))
+        third_col.value = 'Rectus_A R'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        fourth_col = sheet1.cell('O' + str(count + 1))
+        fourth_col.value = 'Obliques L'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+        fourth_col.fill = fill
+
+        fifth_col = sheet1.cell('P' + str(count + 1))
+        fifth_col.value = 'Obliques R'
+        fifth_col.font = fifth_col.font.copy(bold=True)
+        fifth_col.fill = fill
+
+        sixth_col = sheet1.cell('Q' + str(count + 1))
+        sixth_col.value = 'Ilicostalis L'
+        sixth_col.font = sixth_col.font.copy(bold=True)
+        sixth_col.fill = fill
+
+        seventh_col = sheet1.cell('R' + str(count + 1))
+        seventh_col.value = 'Ilicostalis R'
+        seventh_col.font = seventh_col.font.copy(bold=True)
+        seventh_col.fill = fill
+
+        eighth_col = sheet1.cell('S' + str(count + 1))
+        eighth_col.value = 'Multifidus L'
+        eighth_col.font = eighth_col.font.copy(bold=True)
+        eighth_col.fill = fill
+
+        nineth_col = sheet1.cell('T' + str(count + 1))
+        nineth_col.value = 'Multifidus R'
+        nineth_col.font = nineth_col.font.copy(bold=True)
+        nineth_col.fill = fill
+
+        start = 0
+        finish = 2.5
+
+        for n in range(0, len(EMG_array[i][:,0]) - 1):
+            row = sheet1.cell('L' + str(time))
+            row.value = '[' + str(start) + '-' + str(finish) + '] s'
+            row.font = row.font.copy(bold=True)
+            row.fill = fill
+
+            data = [[EMG_array[i][n,0], EMG_array[i][n,1], EMG_array[i][n,2], EMG_array[i][n,3], EMG_array[i][n,4],
+                     EMG_array[i][n, 5], EMG_array[i][n,6], EMG_array[i][n,7]]]
+            for row in data:
+                sheet1.cell(row=time, column=13, value=row[0])
+                sheet1.cell(row=time, column=14, value=row[1])
+                sheet1.cell(row=time, column=15, value=row[2])
+                sheet1.cell(row=time, column=16, value=row[3])
+                sheet1.cell(row=time, column=17, value=row[4])
+                sheet1.cell(row=time, column=18, value=row[5])
+                sheet1.cell(row=time, column=19, value=row[6])
+                sheet1.cell(row=time, column=20, value=row[7])
+
+
+            time += 1
+            time2 += 1
+            start = finish
+            finish = finish + 2.5
+
+        count = count + 23
+        time = count + 2
+        time2 = count + 2
+    wb2.save(file_excel)
+
+
+
+def mean_std_COP_evolution(std, velocity, area):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    fill = PatternFill(start_color='1E90FF', end_color='1E90FF', fill_type='solid')
+
+    count = 6
+    time = 10
+    time2 = 9
+
+    for i in area:
+
+        title = sheet1.cell('X' + str(count))
+        title.value = "Evolution of COP parameters - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+
+        first_col = sheet1.cell('X' + str(count + 1))
+        first_col.value = ''
+        first_col.font = first_col.font.copy(bold=True)
+        first_col.fill = fill
+
+        first1_col = sheet1.cell('X' + str(count + 2))
+        first1_col.value = ''
+        first1_col.font = first1_col.font.copy(bold=True)
+        first1_col.fill = fill
+
+        second_col = sheet1.cell('Y' + str(count + 1))
+        second_col.value = 'COP X'
+        second_col.font = second_col.font.copy(bold=True)
+        second_col.fill = fill
+
+        third_col = sheet1.cell('AC' + str(count + 1))
+        third_col.value = 'COP_Y'
+        third_col.font = third_col.font.copy(bold=True)
+        third_col.fill = fill
+
+        second1_col = sheet1.cell('Y' + str(count + 2))
+        second1_col.value = 'STD (mm)'
+        second1_col.font = second1_col.font.copy(bold=True)
+        second1_col.fill = fill
+
+        third1_col1 = sheet1.cell('AA' + str(count + 2))
+        third1_col1.value = 'Velocity (mm/s)'
+        third1_col1.font = third1_col1.font.copy(bold=True)
+        third1_col1.fill = fill
+
+        fourth1_coll = sheet1.cell('AC' + str(count + 2))
+        fourth1_coll.value = 'STD (mm)'
+        fourth1_coll.font = fourth1_coll.font.copy(bold=True)
+        fourth1_coll.fill = fill
+
+        fifht1_col1 = sheet1.cell('AE' + str(count + 2))
+        fifht1_col1.value = 'Velocity (mm/s)'
+        fifht1_col1.font = fifht1_col1.font.copy(bold=True)
+        fifht1_col1.fill = fill
+
+        mean_std_x = sheet1.cell('Y' + str(count + 3))
+        mean_std_x.value = 'Mean'
+        mean_std_x.font = mean_std_x.font.copy(bold=True)
+        mean_std_x.fill = fill
+
+        std_std_x = sheet1.cell('Z' + str(count + 3))
+        std_std_x.value = 'STD'
+        std_std_x.font = std_std_x.font.copy(bold=True)
+        std_std_x.fill = fill
+
+        mean_v_x = sheet1.cell('AA' + str(count + 3))
+        mean_v_x.value = 'Mean'
+        mean_v_x.font = mean_v_x.font.copy(bold=True)
+        mean_v_x.fill = fill
+
+        std_v_x = sheet1.cell('AB' + str(count + 3))
+        std_v_x.value = 'STD'
+        std_v_x.font = std_v_x.font.copy(bold=True)
+        std_v_x.fill = fill
+
+        mean_std_y = sheet1.cell('AC' + str(count + 3))
+        mean_std_y.value = 'Mean'
+        mean_std_y.font = mean_std_y.font.copy(bold=True)
+        mean_std_y.fill = fill
+
+        std_std_y = sheet1.cell('AD' + str(count + 3))
+        std_std_y.value = 'STD'
+        std_std_y.font = std_std_y.font.copy(bold=True)
+        std_std_y.fill = fill
+
+        mean_v_y = sheet1.cell('AE' + str(count + 3))
+        mean_v_y.value = 'Mean'
+        mean_v_y.font = mean_v_y.font.copy(bold=True)
+        mean_v_y.fill = fill
+
+        std_v_y = sheet1.cell('AF' + str(count + 3))
+        std_v_y.value = 'STD'
+        std_v_y.font = std_v_y.font.copy(bold=True)
+        std_v_y.fill = fill
+
+
+
+
+        area = sheet1.cell('AJ' + str(count + 1))
+        area.value = 'Area (mm2)'
+        area.font = area.font.copy(bold=True)
+        area.fill = fill
+
+        area1 = sheet1.cell('AI' + str(count + 1))
+        area1.value = ''
+        area1.font = area1.font.copy(bold=True)
+        area1.fill = fill
+
+        area_std = sheet1.cell('AJ' + str(count + 2))
+        area_std.value = 'STD'
+        area_std.font = area_std.font.copy(bold=True)
+        area_std.fill = fill
+
+        area_mean = sheet1.cell('AK' + str(count + 2))
+        area_mean.value = 'Mean'
+        area_mean.font = area_mean.font.copy(bold=True)
+        area_mean.fill = fill
+
+
+
+        start = 0
+        finish = 2.5
+
+
+        for n in range(0, len(velocity[i]["COP_X"]) - 1):
+            row = sheet1.cell('X' + str(time))
+            row.value = '[' + str(start) + '-' + str(finish) + '] s'
+            row.font = row.font.copy(bold=True)
+            row.fill = fill
+
+            row_area = sheet1.cell('AI' + str(time2))
+            row_area.value = '[' + str(start) + '-' + str(finish) + '] s'
+            row_area.font = row.font.copy(bold=True)
+            row_area.fill = fill
+
+
+
 
             time += 1
             time2 += 1
@@ -1208,7 +1456,10 @@ def evolution_parameters_COP(std, velocity, area):
             finish = finish + 2.5
 
         count = count + 17
-        time = count + 3
-        time2 = count + 2
+        time = count + 4
+        time2 = count + 3
     wb2.save(file_excel)
+
+
+
 

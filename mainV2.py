@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import FastICA, PCA
 
 
-file = "Egas_Moniz_Segments/Patient36_Healthy.h5"
+file = "Egas_Moniz_Segments/Patient32_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -106,6 +106,8 @@ print '\033[93m' + "VELOCITY_END" + '\033[0m'
 patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution = evolution_parameters(patient1.COP, patient1.velocity)
 print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 
+patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
+print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 
 # ##Creating database##
@@ -123,6 +125,9 @@ print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 # fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
 # fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
 # rest_parameters(patient1.static_max_values, patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
+evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution)
+EMG_evolution(patient1.EMG_evolution)
+
 
 #mean_std(patient1.peak_COP)
 
@@ -139,7 +144,7 @@ print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 #fig1_max_platform = graph(patient1.EMG_max_values, patient1.COP,"Patient6_Healthy", patient1.trajec, patient1.c, patient1.mean, platform = True)
 
 
-alert(patient1.EMG_max_values)
+#alert(patient1.EMG_max_values)
 
 ###################################################################################################
 
@@ -166,10 +171,8 @@ alert(patient1.EMG_max_values)
 # S_ = ica.fit_transform(patient1.static_avg["Relax"][:,1])  # Reconstruct signals
 
 
-evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_evolution)
-
-print patient1.area_evolution ["Standing_EO"]["Area_COP"][0]
-
+plt.plot(patient1.EMG_normalization["Reach_L"])
+plt.show()
 
 
 
