@@ -488,28 +488,50 @@ def evolution_parameters(COP_array, COP_velocity):
     area = {}
     for i in COP_array:
 
-        area_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0 + 1))
-        std_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0 + 1))
-        std_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0 + 1))
-        velocity_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0 + 1))
-        velocity_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0 + 1))
+        if i != "Reach_C" and i != "Reach_R" and i !="Reach_L":
+            area_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
+            std_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
+            std_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0))
+            velocity_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 2500.0))
+            velocity_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 2500.0))
 
-        start = 0
-        index = 0
+            start = 0
+            index = 0
 
+            for count in range(2500, len(COP_array[i]["COP_X"]) + 1, 2500):
 
-        for count in range(2500, len(COP_array[i]["COP_X"]) + 1, 2500):
+                area_traj = convex_hull(COP_array[i]["COP_X"][start:count], COP_array[i]["COP_Y"][start:count])
+                area_new[index] = area_calc(area_traj)
 
-            area_traj = convex_hull(COP_array[i]["COP_X"][start:count], COP_array[i]["COP_Y"][start:count])
-            area_new[index] = area_calc(area_traj)
+                std_x_new[index] = np.std(COP_array[i]["COP_X"][start:count])
+                std_y_new[index] = np.std(COP_array[i]["COP_Y"][start:count])
+                velocity_x_new[index] = np.mean(COP_velocity[i]["COP_X"][start:count])
+                velocity_y_new[index] = np.mean(COP_velocity[i]["COP_Y"][start:count])
 
-            std_x_new[index] = np.std(COP_array[i]["COP_X"][start:count])
-            std_y_new[index] = np.std(COP_array[i]["COP_Y"][start:count])
-            velocity_x_new[index] = np.mean(COP_velocity[i]["COP_X"][start:count])
-            velocity_y_new[index] = np.mean(COP_velocity[i]["COP_Y"][start:count])
+                start = count
+                index = index + 1
 
-            start = count
-            index = index + 1
+        else:
+            area_new = np.zeros((len(COP_array[i]["COP_X"]) / 1000.0 ))
+            std_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 1000.0 ))
+            std_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 1000.0 ))
+            velocity_x_new = np.zeros((len(COP_array[i]["COP_X"]) / 1000.0))
+            velocity_y_new = np.zeros((len(COP_array[i]["COP_Y"]) / 1000.0))
+
+            start = 0
+            index = 0
+
+            for count in range(1000, len(COP_array[i]["COP_X"]) + 1, 1000):
+                area_traj = convex_hull(COP_array[i]["COP_X"][start:count], COP_array[i]["COP_Y"][start:count])
+                area_new[index] = area_calc(area_traj)
+
+                std_x_new[index] = np.std(COP_array[i]["COP_X"][start:count])
+                std_y_new[index] = np.std(COP_array[i]["COP_Y"][start:count])
+                velocity_x_new[index] = np.mean(COP_velocity[i]["COP_X"][start:count])
+                velocity_y_new[index] = np.mean(COP_velocity[i]["COP_Y"][start:count])
+
+                start = count
+                index = index + 1
 
         std[i] = {"COP_X": std_x_new, "COP_Y": std_y_new}
         velocity[i] = {"COP_X": velocity_x_new, "COP_Y": velocity_y_new}
@@ -522,34 +544,42 @@ def evolution_EMG(max_values, EMG_array):
     EMG_evolution = {}
 
     for i in EMG_array:
+        if i != "Reach_C" and i != "Reach_R" and i != "Reach_L":
 
-        EMG = np.zeros(((len(EMG_array[i][:,0]) / 2500.0) + 1, 8))
+            EMG = np.zeros(((len(EMG_array[i][:,0]) / 2500.0), 8))
 
-        for n in range(0, 8):
+            for n in range(0, 8):
 
-            start = 0
-            count = 0
-            for index in range(2500, len(EMG_array[i][:,n]) + 1,2500):
+                start = 0
+                count = 0
+                for index in range(2500, len(EMG_array[i][:,n]) + 1,2500):
 
-                EMG[count, n] = (np.max(EMG_array[i][start:index, n])/max_values[i][n]) * 100.0
+                    EMG[count, n] = (np.max(EMG_array[i][start:index, n])/max_values[i][n]) * 100.0
 
 
-                start = index
-                count = count + 1
+                    start = index
+                    count = count + 1
+
+        else:
+
+            EMG = np.zeros(((len(EMG_array[i][:, 0]) / 1000.0), 8))
+
+
+
+            for n in range(0, 8):
+
+                start = 0
+                count = 0
+                for index in range(1000, len(EMG_array[i][:, n]) + 1, 1000):
+                    EMG[count, n] = (np.max(EMG_array[i][start:index, n]) / max_values[i][n]) * 100.0
+
+
+
+                    start = index
+                    count = count + 1
+
 
         EMG_evolution[i] = EMG
 
     return EMG_evolution
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -7,11 +7,11 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
-file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient32_Healthy'
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA.xlsx'
+patient = 'Patient4_EA'
 
 def create_database():
-    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
+    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA.xlsx')
 
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
@@ -1110,7 +1110,7 @@ def rest_parameters(rest_array, peak_f, mean_f, median_f, f80):
     wb2.save(file_excel)
 
 
-def evolution_parameters_COP(std, velocity, area):
+def evolution_parameters_COP(std, velocity, area, COP_array):
     wb2 = load_workbook(file_excel)
     sheet1 = wb2.get_sheet_by_name(patient)
 
@@ -1177,38 +1177,86 @@ def evolution_parameters_COP(std, velocity, area):
         area1.font = area1.font.copy(bold=True)
         area1.fill = fill
 
-        start = 0
-        finish = 2.5
+        if i != "Reach_C" and i != "Reach_R" and i !="Reach_L":
+
+            start = 0
+            finish = 2.5
+            start_array = 0
+            time_array = 2500
 
 
-        for n in range(0, len(velocity[i]["COP_X"]) - 1):
-            row = sheet1.cell('A' + str(time))
-            row.value = '[' + str(start) + '-' + str(finish) + '] s'
-            row.font = row.font.copy(bold=True)
-            row.fill = fill
+            for n in range(0, len(velocity[i]["COP_X"])):
+                row = sheet1.cell('A' + str(time))
+                row.value = '[' + str(start) + '-' + str(finish) + '] s'
+                row.font = row.font.copy(bold=True)
+                row.fill = fill
 
-            row_area = sheet1.cell('G' + str(time2))
-            row_area.value = '[' + str(start) + '-' + str(finish) + '] s'
-            row_area.font = row.font.copy(bold=True)
-            row_area.fill = fill
+                row_area = sheet1.cell('G' + str(time2))
+                row_area.value = '[' + str(start) + '-' + str(finish) + '] s'
+                row_area.font = row.font.copy(bold=True)
+                row_area.fill = fill
 
-            data = [[std[i]["COP_X"][n], velocity[i]["COP_X"][n], std[i]["COP_Y"][n], velocity[i]["COP_Y"][n]]]
-            for row in data:
-                sheet1.cell(row=time2 + 1, column=2, value=row[0])
-                sheet1.cell(row=time2 + 1, column=3, value=row[1])
-                sheet1.cell(row=time2 + 1, column=4, value=row[2])
-                sheet1.cell(row=time2 + 1, column=5, value=row[3])
+                data = [[std[i]["COP_X"][n], velocity[i]["COP_X"][n], std[i]["COP_Y"][n], velocity[i]["COP_Y"][n]]]
+                for row in data:
+                    sheet1.cell(row=time2 + 1, column=2, value=row[0])
+                    sheet1.cell(row=time2 + 1, column=3, value=row[1])
+                    sheet1.cell(row=time2 + 1, column=4, value=row[2])
+                    sheet1.cell(row=time2 + 1, column=5, value=row[3])
 
-            #data1 = [[area[i][n]]]
+                area_traj = convex_hull(COP_array[i]["COP_X"][start_array:time_array], COP_array[i]["COP_Y"][start_array:time_array])
+                area = area_calc(area_traj)
 
-            #for row1 in data1:
-             #   sheet1.cell(row=time, column=29, value=row[0])
+                area_values = sheet1.cell('H' + str(time2))
+                area_values.value = area
 
 
-            time += 1
-            time2 += 1
-            start = finish
-            finish = finish + 2.5
+
+                time += 1
+                time2 += 1
+                start = finish
+                finish = finish + 2.5
+
+                start_array = time_array
+                time_array = time_array + 2500
+
+        else:
+            start = 0
+            finish = 1
+            start_array = 0
+            time_array = 1000
+
+            for n in range(0, len(velocity[i]["COP_X"])):
+                row = sheet1.cell('A' + str(time))
+                row.value = '[' + str(start) + '-' + str(finish) + '] s'
+                row.font = row.font.copy(bold=True)
+                row.fill = fill
+
+                row_area = sheet1.cell('G' + str(time2))
+                row_area.value = '[' + str(start) + '-' + str(finish) + '] s'
+                row_area.font = row.font.copy(bold=True)
+                row_area.fill = fill
+
+                data = [[std[i]["COP_X"][n], velocity[i]["COP_X"][n], std[i]["COP_Y"][n], velocity[i]["COP_Y"][n]]]
+                for row in data:
+                    sheet1.cell(row=time2 + 1, column=2, value=row[0])
+                    sheet1.cell(row=time2 + 1, column=3, value=row[1])
+                    sheet1.cell(row=time2 + 1, column=4, value=row[2])
+                    sheet1.cell(row=time2 + 1, column=5, value=row[3])
+
+                area_traj = convex_hull(COP_array[i]["COP_X"][start_array:time_array],
+                                        COP_array[i]["COP_Y"][start_array:time_array])
+                area = area_calc(area_traj)
+
+                area_values = sheet1.cell('H' + str(time2))
+                area_values.value = area
+
+                time += 1
+                time2 += 1
+                start = finish
+                finish = finish + 1
+
+                start_array = time_array
+                time_array = time_array + 1000
 
         count = count + 23
         time = count + 3
@@ -1276,32 +1324,62 @@ def EMG_evolution(EMG_array):
         nineth_col.font = nineth_col.font.copy(bold=True)
         nineth_col.fill = fill
 
-        start = 0
-        finish = 2.5
 
-        for n in range(0, len(EMG_array[i][:,0]) - 1):
-            row = sheet1.cell('L' + str(time))
-            row.value = '[' + str(start) + '-' + str(finish) + '] s'
-            row.font = row.font.copy(bold=True)
-            row.fill = fill
+        if i != "Reach_C" and i != "Reach_R" and i !="Reach_L":
+            start = 0
+            finish = 2.5
 
-            data = [[EMG_array[i][n,0], EMG_array[i][n,1], EMG_array[i][n,2], EMG_array[i][n,3], EMG_array[i][n,4],
-                     EMG_array[i][n, 5], EMG_array[i][n,6], EMG_array[i][n,7]]]
-            for row in data:
-                sheet1.cell(row=time, column=13, value=row[0])
-                sheet1.cell(row=time, column=14, value=row[1])
-                sheet1.cell(row=time, column=15, value=row[2])
-                sheet1.cell(row=time, column=16, value=row[3])
-                sheet1.cell(row=time, column=17, value=row[4])
-                sheet1.cell(row=time, column=18, value=row[5])
-                sheet1.cell(row=time, column=19, value=row[6])
-                sheet1.cell(row=time, column=20, value=row[7])
+            for n in range(0, len(EMG_array[i][:,0])):
+                row = sheet1.cell('L' + str(time))
+                row.value = '[' + str(start) + '-' + str(finish) + '] s'
+                row.font = row.font.copy(bold=True)
+                row.fill = fill
+
+                data = [[EMG_array[i][n,0], EMG_array[i][n,1], EMG_array[i][n,2], EMG_array[i][n,3], EMG_array[i][n,4],
+                        EMG_array[i][n, 5], EMG_array[i][n,6], EMG_array[i][n,7]]]
+                for row in data:
+                    sheet1.cell(row=time, column=13, value=row[0])
+                    sheet1.cell(row=time, column=14, value=row[1])
+                    sheet1.cell(row=time, column=15, value=row[2])
+                    sheet1.cell(row=time, column=16, value=row[3])
+                    sheet1.cell(row=time, column=17, value=row[4])
+                    sheet1.cell(row=time, column=18, value=row[5])
+                    sheet1.cell(row=time, column=19, value=row[6])
+                    sheet1.cell(row=time, column=20, value=row[7])
 
 
-            time += 1
-            time2 += 1
-            start = finish
-            finish = finish + 2.5
+                time += 1
+                time2 += 1
+                start = finish
+                finish = finish + 2.5
+
+        else:
+            start = 0
+            finish = 1
+
+            for n in range(0, len(EMG_array[i][:,0])):
+                row = sheet1.cell('L' + str(time))
+                row.value = '[' + str(start) + '-' + str(finish) + '] s'
+                row.font = row.font.copy(bold=True)
+                row.fill = fill
+
+                data = [[EMG_array[i][n,0], EMG_array[i][n,1], EMG_array[i][n,2], EMG_array[i][n,3], EMG_array[i][n,4],
+                        EMG_array[i][n, 5], EMG_array[i][n,6], EMG_array[i][n,7]]]
+                for row in data:
+                    sheet1.cell(row=time, column=13, value=row[0])
+                    sheet1.cell(row=time, column=14, value=row[1])
+                    sheet1.cell(row=time, column=15, value=row[2])
+                    sheet1.cell(row=time, column=16, value=row[3])
+                    sheet1.cell(row=time, column=17, value=row[4])
+                    sheet1.cell(row=time, column=18, value=row[5])
+                    sheet1.cell(row=time, column=19, value=row[6])
+                    sheet1.cell(row=time, column=20, value=row[7])
+
+
+                time += 1
+                time2 += 1
+                start = finish
+                finish = finish + 1
 
         count = count + 23
         time = count + 2
