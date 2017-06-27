@@ -7,11 +7,11 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
-file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx'
-patient = 'Patient33_Healthy'
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA.xlsx'
+patient = 'Patient4_EA'
 
 def create_database():
-    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography.xlsx')
+    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA.xlsx')
 
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
