@@ -400,14 +400,14 @@ def parameters_fourier_EMG(array_freqs, array_pxx):
 
         for n in range(0, np.shape(array_freqs[i])[1]):
 
-            area = integrate.cumtrapz(array_freqs[i][:,n], array_pxx[i][:,n], initial= 0)
-            find80 = np.where(area <= 0.8 * area[len(area) - 1])
-            find50 = np.where(area <= 0.5 * area[len(area) - 1])
+            area = integrate.cumtrapz(array_pxx[i][:,n],array_freqs[i][:,n], initial= 0)
+            find80 = np.where(area >= 0.8 * area[len(area) - 1])
+            find50 = np.where(area >= 0.5 * area[len(area) - 1])
 
             freq_80[:,n] = array_freqs[i][find80[0][0], n]
             median_freq[:, n] = array_freqs[i][find50[0][0], n]
 
-            mean_freq[:,n] = np.trapz(array_freqs[i][:,n], (array_freqs[i][:,n] * array_pxx[i][:,n])) / np.trapz(array_freqs[i][:,n], array_pxx[i][:,n])
+            mean_freq[:,n] = np.trapz((array_freqs[i][:,n] * array_pxx[i][:,n]),array_freqs[i][:,n]) / np.trapz( array_pxx[i][:,n],array_freqs[i][:,n])
 
             for idx, value in enumerate(array_pxx[i][:,n]):
 
@@ -436,14 +436,15 @@ def parameters_fourrier_COP(freqs_array, pxx_array):
         mean_freq = {}
 
         for j in freqs_array[i]:
-            area = integrate.cumtrapz(freqs_array[i][j], pxx_array[i][j], initial=0)
-            find80 = np.where(area <= 0.8 * area[len(area) - 1])
-            find50 = np.where(area <= 0.5 * area[len(area) - 1])
+            area = integrate.cumtrapz(pxx_array[i][j], freqs_array[i][j])
+            find80 = np.where(area >= 0.8 * area[len(area) - 1])
+            find50 = np.where(area >= 0.5 * area[len(area) - 1])
+
 
             freq_80[j] = freqs_array[i][j][find80[0][0]]
             median_freq[j] = freqs_array[i][j][find50[0][0]]
 
-            mean_freq[j] = np.trapz(freqs_array[i][j], (freqs_array[i][j] * pxx_array[i][j])) / np.trapz(freqs_array[i][j],pxx_array[i][j])
+            mean_freq[j] = np.trapz((freqs_array[i][j] * pxx_array[i][j]),freqs_array[i][j]) / np.trapz(pxx_array[i][j],freqs_array[i][j])
 
             for idx, value in enumerate(pxx_array[i][j]):
 
