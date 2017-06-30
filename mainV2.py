@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import FastICA, PCA
 
 
-file = "Egas_Moniz_Segments/Patient36_Healthy.h5"
+file = "Egas_Moniz_Segments/Patient4_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -33,14 +33,15 @@ print '\033[93m' + "MAX_RO_END" + '\033[0m'
 patient1.max_MVC_LO = max_mvc(patient1.static_RMS["MVC_LO/MVC1"], patient1.static_RMS["MVC_LO/MVC2"], patient1.static_RMS["MVC_LO/MVC3"])
 print '\033[93m' + "MAX_LO_END" + '\033[0m'
 
+
 patient1.static_normalization, patient1.static_max_values = norm_whole_segment(patient1.static_RMS, patient1.max_MVC_back, patient1.max_MVC_rectus, patient1.max_MVC_RO, patient1.max_MVC_LO)
 patient1.EMG_normalization, patient1.EMG_max_values = norm_whole_segment(patient1.EMG_RMS, patient1.max_MVC_back, patient1.max_MVC_rectus, patient1.max_MVC_RO, patient1.max_MVC_LO)
 print '\033[93m' + "NORM_END" + '\033[0m'
 
 
-patient1.platformdata = RAW_2_mass(patient1.platform)
-patient1.COP = mass_2_COP(patient1.platformdata)
-print '\033[93m' + "COP_END" + '\033[0m'
+# patient1.platformdata = RAW_2_mass(patient1.platform)
+# patient1.COP = mass_2_COP(patient1.platformdata)
+# print '\033[93m' + "COP_END" + '\033[0m'
 #
 # patient1.std = std(patient1.COP)
 # print '\033[93m' + "STD_COP_END" + '\033[0m'
@@ -83,25 +84,25 @@ print '\033[93m' + "COP_END" + '\033[0m'
 #
 # patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
 # print '\033[93m' + "CORR_END" + '\033[0m'
-
-patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
-print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
-
-patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
-print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
-
-patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_80_EMG_rest, patient1.f_50_EMG_rest = parameters_fourier_EMG(patient1.fre_EMG_rest, patient1.pxx_EMG_rest)
-print '\033[93m' + "FOURRIER_EMG_REST_PARAMETERS_END" + '\033[0m'
-
-patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
-print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
-
+#
+# patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
+# print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
+#
+# patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
+# print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
+#
+# patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_80_EMG_rest, patient1.f_50_EMG_rest = parameters_fourier_EMG(patient1.fre_EMG_rest, patient1.pxx_EMG_rest)
+# print '\033[93m' + "FOURRIER_EMG_REST_PARAMETERS_END" + '\033[0m'
+#
+# patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
+# print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
+#
 # patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
 # print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 #
@@ -111,9 +112,9 @@ print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
 
 
-# ##Creating database##
-#
-# #create_database()
+##Creating database##
+
+#create_database()
 
 # personal_data(file)
 # parameters(patient1.EMG_max_values)
@@ -123,10 +124,10 @@ print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 # correlation_FB(patient1.corr_FB)
 # correlation_FB_cross(patient1.corr_FB_cross)
 # correlation(patient1.simple_corr)
-fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
-fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
-rest_parameters(patient1.static_max_values, patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
-
+# fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
+# fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
+# rest_parameters(patient1.static_max_values, patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
+#
 # evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_e, patient1.COP)
 # EMG_evolution(patient1.EMG_evolution)
 
@@ -167,4 +168,9 @@ alert(patient1.EMG_max_values)
 #
 # patient1.max_MVC_LO = max_mvc(patient1.static_RMS["MVC1"], patient1.static_RMS["MVC2"], [])
 # print '\033[93m' + "MAX_LO_END" + '\033[0m'
+
+over30, male, female, EA = get_value_tonus(patient1.EMG_normalization)
+
+print male["Reach_C"]["Rectus_L"]
+
 
