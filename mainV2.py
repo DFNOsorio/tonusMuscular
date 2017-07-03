@@ -106,8 +106,8 @@ print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 # patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
 # print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 #
-# patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
-# print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
+patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
+print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 
 
@@ -183,11 +183,13 @@ over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest = get_value
 
 
 #tonus_boxplot(over30_tonus, male_tonus, female_tonus, EA_tonus)
-#EMG_freq_boxplot(over30_freq, male_freq, female_freq, EA_freq)
+#EMG_freq_front_boxplot(over30_freq, male_freq, female_freq, EA_freq)
 #COP_parameters_boxplot(over30_cop, male_cop, female_cop, EA_cop)
 #COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_cop_freq)
 
-over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean = means_database(over30_tonus, male_tonus, female_tonus, EA_tonus,over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest)
+#over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean = means_database(over30_tonus, male_tonus, female_tonus, EA_tonus,over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest)
 
-task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean)
-print male_tonus_rest_mean["Rectus_L"]
+#task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean)
+#print male_tonus_rest_mean["Rectus_L"]
+
+get_EMG_evolution(patient1.EMG_evolution)
