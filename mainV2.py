@@ -182,6 +182,12 @@ over30_freq_rest, male_freq_rest, female_freq_rest, EA_freq_rest = get_value_fre
 over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest = get_value_tonus_rest()
 
 
-plt.figure()
-plt.boxplot(over30_freq["Reach_L"]["Rectus_L"]["Peak"])
-plt.show()
+#tonus_boxplot(over30_tonus, male_tonus, female_tonus, EA_tonus)
+#EMG_freq_boxplot(over30_freq, male_freq, female_freq, EA_freq)
+#COP_parameters_boxplot(over30_cop, male_cop, female_cop, EA_cop)
+#COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_cop_freq)
+
+over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean = means_database(over30_tonus, male_tonus, female_tonus, EA_tonus,over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest)
+
+task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean)
+print male_tonus_rest_mean["Rectus_L"]
