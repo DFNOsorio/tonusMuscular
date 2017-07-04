@@ -103,9 +103,9 @@ print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
 patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
 print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 #
-# patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
-# print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
-#
+patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
+print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
+
 patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
 print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
@@ -192,4 +192,5 @@ over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest = get_value
 #task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean)
 #print male_tonus_rest_mean["Rectus_L"]
 
-get_EMG_evolution(patient1.EMG_evolution)
+l = get_EMG_evolution(patient1.area_e)
+print l["Reach_L"]

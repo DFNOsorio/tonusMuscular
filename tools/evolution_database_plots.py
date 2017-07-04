@@ -24,34 +24,32 @@ def get_EMG_evolution(EMG_array):
     wb_EA = load_workbook(file_excel_EA)
 
 
-    count = 409
+    count = 410
     value_final_over30 = {}
     value_final_male = {}
     value_final_female = {}
     value_final_EA = {}
 
-    value_muscle_over30 = {}
-    value_muscle_male = {}
-    value_muscle_female = {}
-    value_muscle_EA = {}
+    value_STDX_over30 = {}
+    value_STDX_male = {}
+    value_STDX_female = {}
+    value_STDX_EA = {}
 
 
     for task in EMG_array:
 
-        value_0_25 = []
-        value_25_50 = []
-        value_50_75 = []
-        value_75_100 = []
-        value_100_125 = []
-        value_125_150 = []
-        value_150_175 = []
-        value_175_200 = []
-        value_200_225 = []
-        value_225_250 = []
-        value_250_275 = []
-        value_275_300 = []
-        name = ''
-        column = ''
+        value_0_25_STD_X = []
+        value_25_50_STD_X = []
+        value_50_75_STD_X = []
+        value_75_100_STD_X = []
+        value_100_125_STD_X = []
+        value_125_150_STD_X = []
+        value_150_175_STD_X = []
+        value_175_200_STD_X = []
+        value_200_225_STD_X = []
+        value_225_250_STD_X = []
+        value_250_275_STD_X = []
+        value_275_300_STD_X = []
 
 
         for i in wb_over30.sheetnames:
@@ -59,95 +57,41 @@ def get_EMG_evolution(EMG_array):
                     and i != 'Statistical Analysis over 30' and i != 'Folha1':
 
                 ws_over30 = wb_over30.get_sheet_by_name(i)
-
                 if task == "Reach_L" and task == "Reach_R" and task == "Reach_C":
-                    for muscle in EMG_array[task][1, :]:
-                        if muscle == 0:
-                            column = 'M'
-                            name = "Rectus_L"
-                        if muscle == 1:
-                            column = 'N'
-                            name = "Rectus_R"
-                        if muscle == 2:
-                            column = 'O'
-                            name = "Obliques_L"
-                        if muscle == 3:
-                            column = 'P'
-                            name = "Obliques_R"
-                        if muscle == 4:
-                            column = 'Q'
-                            name = "Ilicostalis_L"
-                        if muscle == 5:
-                            column = 'R'
-                            name = "Ilicostalis_R"
-                        if muscle == 6:
-                            column = 'S'
-                            name = "Multi_L"
-                        if muscle == 7:
-                            column = 'T'
-                            name = "Multi_R"
 
-                        print name
-                        print column
+                    value_0_25_STD_X.append(ws_over30['B' + str(count)].value)
+                    value_25_50_STD_X.append(ws_over30['B' + str(count + 1)].value)
+                    value_50_75_STD_X.append(ws_over30['B' + str(count + 2)].value)
+                    value_75_100_STD_X.append(ws_over30['B' + str(count + 3)].value)
+                    value_100_125_STD_X.append(ws_over30['B' + str(count + 4)].value)
+                    value_125_150_STD_X.append(ws_over30['B' + str(count + 5)].value)
+                    value_150_175_STD_X.append(ws_over30['B' + str(count + 6)].value)
 
+                    value_STDX_over30[task] = {"[0 - 1]": value_0_25_STD_X, "[1 - 2]": value_25_50_STD_X, "[2 - 3]": value_50_75_STD_X,
+                                               "[3 - 4]": value_75_100_STD_X, "[4 - 5]": value_100_125_STD_X,
+                                               "[5 - 6]": value_125_150_STD_X, "[6 - 7]": value_150_175_STD_X}
 
-                        value_0_25.append(ws_over30[str(column) + str(count)].value)
-                        value_25_50.append(ws_over30[str(column) + str(count + 1)].value)
-                        value_50_75.append(ws_over30[str(column) + str(count + 2)].value)
-                        value_75_100.append(ws_over30[str(column) + str(count + 3)].value)
-                        value_100_125.append(ws_over30[str(column) + str(count + 4)].value)
-                        value_125_150.append(ws_over30[str(column) + str(count + 5)].value)
-                        value_150_175.append(ws_over30[str(column) + str(count + 6)].value)
+                if task != "Reach_L" or task != "Reach_R" or task != "Reach_C":
 
-                    value_muscle_over30[name] = {"[0 - 1]": value_0_25, "[1 - 2]": value_25_50, "[2 - 3]": value_50_75,
-                                               "[3 - 4]": value_75_100, "[4 - 5]": value_100_125,
-                                               "[5 - 6]": value_125_150, "[6 - 7]": value_150_175}
+                    value_0_25_STD_X.append(ws_over30['B' + str(count)].value)
+                    value_25_50_STD_X.append(ws_over30['B' + str(count + 1)].value)
+                    value_50_75_STD_X.append(ws_over30['B' + str(count + 2)].value)
+                    value_75_100_STD_X.append(ws_over30['B' + str(count + 3)].value)
+                    value_100_125_STD_X.append(ws_over30['B' + str(count + 4)].value)
+                    value_125_150_STD_X.append(ws_over30['B' + str(count + 5)].value)
+                    value_150_175_STD_X.append(ws_over30['B' + str(count + 6)].value)
+                    value_175_200_STD_X.append(ws_over30['B' + str(count + 7)].value)
+                    value_200_225_STD_X.append(ws_over30['B' + str(count + 8)].value)
+                    value_225_250_STD_X.append(ws_over30['B' + str(count + 9)].value)
+                    value_250_275_STD_X.append(ws_over30['B' + str(count + 10)].value)
+                    value_275_300_STD_X.append(ws_over30['B' + str(count + 11)].value)
 
-                if task != "Reach_L" and task != "Reach_R" and task != "Reach_C":
-                    for muscle in EMG_array[task][1, :]:
-                        if muscle == 0:
-                            column = 'M'
-                            name = "Rectus_L"
-                        if muscle == 1:
-                            column = 'N'
-                            name = "Rectus_R"
-                        if muscle == 2:
-                            column = 'O'
-                            name = "Obliques_L"
-                        if muscle == 3:
-                            column = 'P'
-                            name = "Obliques_R"
-                        if muscle == 4:
-                            column = 'Q'
-                            name = "Ilicostalis_L"
-                        if muscle == 5:
-                            column = 'R'
-                            name = "Ilicostalis_R"
-                        if muscle == 6:
-                            column = 'S'
-                            name = "Multi_L"
-                        if muscle == 7:
-                            column = 'T'
-                            name = "Multi_R"
-                        value_0_25.append(ws_over30[str(column) + str(count)].value)
-                        value_25_50.append(ws_over30[str(column) + str(count + 1)].value)
-                        value_50_75.append(ws_over30[str(column) + str(count + 2)].value)
-                        value_75_100.append(ws_over30[str(column) + str(count + 3)].value)
-                        value_100_125.append(ws_over30[str(column) + str(count + 4)].value)
-                        value_125_150.append(ws_over30[str(column) + str(count + 5)].value)
-                        value_150_175.append(ws_over30[str(column) + str(count + 6)].value)
-                        value_175_200.append(ws_over30[str(column) + str(count + 7)].value)
-                        value_200_225.append(ws_over30[str(column) + str(count + 8)].value)
-                        value_225_250.append(ws_over30[str(column) + str(count + 9)].value)
-                        value_250_275.append(ws_over30[str(column) + str(count + 10)].value)
-                        value_275_300.append(ws_over30[str(column) + str(count + 11)].value)
-
-                    value_muscle_over30[name] = {"[0 - 2.5]": value_0_25, "[2.5 - 5]": value_25_50, "[5 - 7.5]": value_50_75,
-                                            "[7.5 - 10]": value_75_100, "[10 - 12.5]": value_100_125,
-                                            "[12.5 - 15]": value_125_150, "[15 - 17.5]": value_150_175,
-                                            "[17.5 - 20]": value_175_200, "[20 - 22.5]": value_200_225,
-                                            "[22.5 - 25]": value_225_250, "[25 - 27.5]": value_250_275,
-                                            "[27.5 - 30]": value_275_300}
+                    value_STDX_over30[task] = {"[0 - 2.5]": value_0_25_STD_X, "[2.5 - 5]": value_25_50_STD_X, "[5 - 7.5]": value_50_75_STD_X,
+                                            "[7.5 - 10]": value_75_100_STD_X, "[10 - 12.5]": value_100_125_STD_X,
+                                            "[12.5 - 15]": value_125_150_STD_X, "[15 - 17.5]": value_150_175_STD_X,
+                                            "[17.5 - 20]": value_175_200_STD_X, "[20 - 22.5]": value_200_225_STD_X,
+                                            "[22.5 - 25]": value_225_250_STD_X, "[25 - 27.5]": value_250_275_STD_X,
+                                            "[27.5 - 30]": value_275_300_STD_X}
 
 
     #     for i in wb_20.sheetnames:
@@ -422,7 +366,7 @@ def get_EMG_evolution(EMG_array):
     #                                                "[22.5 - 25]": value_225_250, "[25 - 27.5]": value_250_275,
     #                                                "[27.5 - 30]": value_275_300}
     #
-    #     count = count + 23
+        count = count + 23
     #
     #     value_final_over30[task] = value_muscle_over30
     #
@@ -432,4 +376,4 @@ def get_EMG_evolution(EMG_array):
     #
     #     value_final_EA[task] = value_muscle_EA
     #
-    # return value_final_over30, value_final_male, value_final_female, value_final_EA
+    return value_STDX_over30
