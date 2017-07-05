@@ -1219,440 +1219,117 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA,mean_rest_over30,
 
     l = 0
 
-    fig = plt.figure(l)
-    l = l + 1
-    fig.suptitle("Relax VS Task", fontsize=21)
+    for i in mean_over30:
 
-    plot1 = plt.subplot2grid((3, 3), (0, 0))
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle("Relax VS Task", fontsize=21)
 
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["Standing_EO"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["Standing_EO"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["Standing_EO"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["Standing_EO"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["Standing_EO"]["Ilicostalis_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["Standing_EO"]["Ilicostalis_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["Standing_EO"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["Standing_EO"]["Multifidus_R"], 'ro', color='blue', label = "Over 30 Years")
+        plot1 = plt.subplot2grid((2, 4), (0, 0))
 
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["Standing_EO"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["Standing_EO"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["Standing_EO"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["Standing_EO"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["Standing_EO"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["Standing_EO"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["Standing_EO"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["Standing_EO"]["Multifidus_R"], 'ro', color='yellow', label = "Male 20 Years Old")
+        plt.plot(mean_rest_over30["Rectus_L"], mean_over30[i]["Rectus_L"], 'ro', color='blue', label = "Over 30")
+        plt.plot(mean_rest_male["Rectus_L"], mean_male[i]["Rectus_L"], 'ro', color='yellow', label = "Male 20-30")
+        plt.plot(mean_rest_female["Rectus_L"], mean_female[i]["Rectus_L"], 'ro', color='green', label = "Female 20-30")
+        plt.plot(mean_rest_EA["Rectus_L"], mean_EA[i]["Rectus_L"], 'ro', color='red', label = "EA")
 
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["Standing_EO"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["Standing_EO"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["Standing_EO"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["Standing_EO"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["Standing_EO"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["Standing_EO"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["Standing_EO"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["Standing_EO"]["Multifidus_R"], 'ro', color='red', label="Female 20 Years Old")
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Rectus Left Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot1.set_title("Rectus Left", fontsize=12)
 
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["Standing_EO"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["Standing_EO"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["Standing_EO"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["Standing_EO"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["Standing_EO"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["Standing_EO"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["Standing_EO"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["Standing_EO"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
+        plot2 = plt.subplot2grid((2, 4), (0, 1))
 
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot1.set_title("Standing Eyes Open", fontsize=12)
+        plt.plot(mean_rest_over30["Rectus_R"], mean_over30[i]["Rectus_R"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Rectus_R"], mean_male[i]["Rectus_R"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Rectus_R"], mean_female[i]["Rectus_R"], 'ro', color='green', label="Female 20-30")
+        plt.plot(mean_rest_EA["Rectus_R"], mean_EA[i]["Rectus_R"], 'ro', color='red', label="EA")
 
-    plot2 = plt.subplot2grid((3, 3), (0, 1))
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Rectus Right Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot2.set_title("Rectus Right", fontsize=12)
 
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["Standing_EC"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["Standing_EC"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["Standing_EC"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["Standing_EC"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["Standing_EC"]["Ilicostalis_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["Standing_EC"]["Ilicostalis_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["Standing_EC"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["Standing_EC"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
+        plot3 = plt.subplot2grid((2, 4), (0, 2))
 
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["Standing_EC"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["Standing_EC"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["Standing_EC"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["Standing_EC"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["Standing_EC"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["Standing_EC"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["Standing_EC"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["Standing_EC"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
+        plt.plot(mean_rest_over30["Obliques_L"], mean_over30[i]["Obliques_L"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Obliques_L"], mean_male[i]["Obliques_L"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Obliques_L"], mean_female[i]["Obliques_L"], 'ro', color='green', label="Female 20-30")
+        plt.plot(mean_rest_EA["Obliques_L"], mean_EA[i]["Obliques_L"], 'ro', color='red', label="EA")
 
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["Standing_EC"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["Standing_EC"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["Standing_EC"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["Standing_EC"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["Standing_EC"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["Standing_EC"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["Standing_EC"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["Standing_EC"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Obliques Left Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot3.set_title("Obliques Left", fontsize=12)
 
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["Standing_EC"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["Standing_EC"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["Standing_EC"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["Standing_EC"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["Standing_EC"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["Standing_EC"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["Standing_EC"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["Standing_EC"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
+        plot4 = plt.subplot2grid((2, 4), (0, 3))
+        plt.plot(mean_rest_over30["Obliques_R"], mean_over30[i]["Obliques_R"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Obliques_R"], mean_male[i]["Obliques_R"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Obliques_R"], mean_female[i]["Obliques_R"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA["Obliques_R"], mean_EA[i]["Obliques_R"], 'ro', color='red', label="EA")
 
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot2.set_title("Standing Eyes Close", fontsize=12)
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Obliques Right Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot4.set_title("Obliques Right", fontsize=12)
 
-    plot3 = plt.subplot2grid((3, 3), (0, 2))
+        plot5 = plt.subplot2grid((2, 4), (1, 0))
 
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["OneFootStanding_R_EO"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["OneFootStanding_R_EO"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["OneFootStanding_R_EO"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["OneFootStanding_R_EO"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["OneFootStanding_R_EO"]["Ilicostalis_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["OneFootStanding_R_EO"]["Ilicostalis_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["OneFootStanding_R_EO"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["OneFootStanding_R_EO"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
+        plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30[i]["Ilicostalis_L"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Ilicostalis_L"], mean_male[i]["Ilicostalis_L"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Ilicostalis_L"], mean_female[i]["Ilicostalis_L"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA[i]["Ilicostalis_L"], 'ro', color='red', label="EA")
 
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["OneFootStanding_R_EO"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["OneFootStanding_R_EO"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["OneFootStanding_R_EO"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["OneFootStanding_R_EO"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["OneFootStanding_R_EO"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["OneFootStanding_R_EO"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["OneFootStanding_R_EO"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["OneFootStanding_R_EO"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Ilicostalis Left Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot5.set_title("Ilicostalis Left", fontsize=12)
 
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["OneFootStanding_R_EO"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["OneFootStanding_R_EO"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["OneFootStanding_R_EO"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["OneFootStanding_R_EO"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["OneFootStanding_R_EO"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["OneFootStanding_R_EO"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["OneFootStanding_R_EO"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["OneFootStanding_R_EO"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
+        plot6 = plt.subplot2grid((2, 4), (1, 1))
 
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["OneFootStanding_R_EO"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["OneFootStanding_R_EO"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["OneFootStanding_R_EO"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["OneFootStanding_R_EO"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["OneFootStanding_R_EO"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["OneFootStanding_R_EO"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["OneFootStanding_R_EO"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["OneFootStanding_R_EO"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
+        plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30[i]["Ilicostalis_R"], 'ro', color='blue',
+                 label="Over 30")
+        plt.plot(mean_rest_male["Ilicostalis_R"], mean_male[i]["Ilicostalis_R"], 'ro', color='yellow',
+                 label="Male 20-30")
+        plt.plot(mean_rest_female["Ilicostalis_R"], mean_female[i]["Ilicostalis_R"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA[i]["Ilicostalis_R"], 'ro', color='red', label="EA")
 
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot3.set_title("Right Foot Standing Eyes Open", fontsize=12)
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Ilicostalis Right Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot6.set_title("Ilicostalis Right", fontsize=12)
 
-    plot4 = plt.subplot2grid((3, 3), (1, 0))
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["OneFootStanding_R_EC"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["OneFootStanding_R_EC"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["OneFootStanding_R_EC"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["OneFootStanding_R_EC"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["OneFootStanding_R_EC"]["Ilicostalis_L"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["OneFootStanding_R_EC"]["Ilicostalis_R"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["OneFootStanding_R_EC"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["OneFootStanding_R_EC"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
+        plot7 = plt.subplot2grid((2, 4), (1, 2))
 
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["OneFootStanding_R_EC"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["OneFootStanding_R_EC"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["OneFootStanding_R_EC"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["OneFootStanding_R_EC"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["OneFootStanding_R_EC"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["OneFootStanding_R_EC"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["OneFootStanding_R_EC"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["OneFootStanding_R_EC"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
+        plt.plot(mean_rest_over30["Multifidus_L"], mean_over30[i]["Multifidus_L"], 'ro', color='blue',
+                 label="Over 30")
+        plt.plot(mean_rest_male["Multifidus_L"], mean_male[i]["Multifidus_L"], 'ro', color='yellow',
+                 label="Male 20-30")
+        plt.plot(mean_rest_female["Multifidus_L"], mean_female[i]["Multifidus_L"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA["Multifidus_L"], mean_EA[i]["Multifidus_L"], 'ro', color='red', label="EA")
 
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["OneFootStanding_R_EC"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["OneFootStanding_R_EC"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["OneFootStanding_R_EC"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["OneFootStanding_R_EC"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["OneFootStanding_R_EC"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["OneFootStanding_R_EC"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["OneFootStanding_R_EC"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["OneFootStanding_R_EC"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Multifidus Left Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot7.set_title("Multifidus Left", fontsize=12)
 
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["OneFootStanding_R_EC"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["OneFootStanding_R_EC"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["OneFootStanding_R_EC"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["OneFootStanding_R_EC"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["OneFootStanding_R_EC"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["OneFootStanding_R_EC"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["OneFootStanding_R_EC"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["OneFootStanding_R_EC"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
+        plot8 = plt.subplot2grid((2, 4), (1, 3))
 
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot4.set_title("Right Foot Standing Eyes Close", fontsize=12)
+        plt.plot(mean_rest_over30["Multifidus_R"], mean_over30[i]["Multifidus_R"], 'ro', color='blue',
+                 label="Over 30")
+        plt.plot(mean_rest_male["Multifidus_R"], mean_male[i]["Multifidus_R"], 'ro', color='yellow',
+                 label="Male 20-30")
+        plt.plot(mean_rest_female["Multifidus_R"], mean_female[i]["Multifidus_R"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA["Multifidus_R"], mean_EA[i]["Multifidus_R"], 'ro', color='red', label="EA")
 
-    plot5 = plt.subplot2grid((3, 3), (1, 1))
-
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["OneFootStanding_L_EO"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["OneFootStanding_L_EO"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["OneFootStanding_L_EO"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["OneFootStanding_L_EO"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["OneFootStanding_L_EO"]["Ilicostalis_L"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["OneFootStanding_L_EO"]["Ilicostalis_R"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["OneFootStanding_L_EO"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["OneFootStanding_L_EO"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
-
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["OneFootStanding_L_EO"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["OneFootStanding_L_EO"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["OneFootStanding_L_EO"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["OneFootStanding_L_EO"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["OneFootStanding_L_EO"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["OneFootStanding_L_EO"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["OneFootStanding_L_EO"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["OneFootStanding_L_EO"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
-
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["OneFootStanding_L_EO"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["OneFootStanding_L_EO"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["OneFootStanding_L_EO"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["OneFootStanding_L_EO"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["OneFootStanding_L_EO"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["OneFootStanding_L_EO"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["OneFootStanding_L_EO"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["OneFootStanding_L_EO"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
-
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["OneFootStanding_L_EO"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["OneFootStanding_L_EO"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["OneFootStanding_L_EO"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["OneFootStanding_L_EO"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["OneFootStanding_L_EO"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["OneFootStanding_L_EO"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["OneFootStanding_L_EO"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["OneFootStanding_L_EO"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
-
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot5.set_title("Left Foot Standing Eyes Open", fontsize=12)
-
-    plot6 = plt.subplot2grid((3, 3), (1, 2))
-
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["OneFootStanding_L_EC"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["OneFootStanding_L_EC"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["OneFootStanding_L_EC"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["OneFootStanding_L_EC"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["OneFootStanding_L_EC"]["Ilicostalis_L"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["OneFootStanding_L_EC"]["Ilicostalis_R"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["OneFootStanding_L_EC"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["OneFootStanding_L_EC"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
-
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["OneFootStanding_L_EC"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["OneFootStanding_L_EC"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["OneFootStanding_L_EC"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["OneFootStanding_L_EC"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["OneFootStanding_L_EC"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["OneFootStanding_L_EC"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["OneFootStanding_L_EC"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["OneFootStanding_L_EC"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
-
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["OneFootStanding_L_EC"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["OneFootStanding_L_EC"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["OneFootStanding_L_EC"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["OneFootStanding_L_EC"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["OneFootStanding_L_EC"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["OneFootStanding_L_EC"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["OneFootStanding_L_EC"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["OneFootStanding_L_EC"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
-
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["OneFootStanding_L_EC"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["OneFootStanding_L_EC"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["OneFootStanding_L_EC"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["OneFootStanding_L_EC"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["OneFootStanding_L_EC"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["OneFootStanding_L_EC"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["OneFootStanding_L_EC"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["OneFootStanding_L_EC"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
-
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot6.set_title("Left Foot Standing Eyes Close", fontsize=12)
-
-    plot7 = plt.subplot2grid((3, 3), (2, 0))
-
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["Reach_R"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["Reach_R"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["Reach_R"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["Reach_R"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["Reach_R"]["Ilicostalis_L"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["Reach_R"]["Ilicostalis_R"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["Reach_R"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["Reach_R"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
-
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["Reach_R"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["Reach_R"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["Reach_R"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["Reach_R"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["Reach_R"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["Reach_R"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["Reach_R"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["Reach_R"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
-
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["Reach_R"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["Reach_R"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["Reach_R"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["Reach_R"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["Reach_R"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["Reach_R"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["Reach_R"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["Reach_R"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
-
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["Reach_R"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["Reach_R"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["Reach_R"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["Reach_R"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["Reach_R"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["Reach_R"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["Reach_R"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["Reach_R"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
-
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot7.set_title("Reach Right", fontsize=12)
-
-    plot8 = plt.subplot2grid((3, 3), (2, 1))
-
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["Reach_L"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["Reach_L"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["Reach_L"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["Reach_L"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["Reach_L"]["Ilicostalis_L"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["Reach_L"]["Ilicostalis_R"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["Reach_L"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["Reach_L"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
-
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["Reach_L"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["Reach_L"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["Reach_L"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["Reach_L"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["Reach_L"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["Reach_L"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["Reach_L"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["Reach_L"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
-
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["Reach_L"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["Reach_L"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["Reach_L"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["Reach_L"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["Reach_L"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["Reach_L"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["Reach_L"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["Reach_L"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
-
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["Reach_L"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["Reach_L"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["Reach_L"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["Reach_L"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["Reach_L"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["Reach_L"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["Reach_L"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["Reach_L"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
-
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot8.set_title("Reach Left", fontsize=12)
-
-    plot9 = plt.subplot2grid((3, 3), (2, 2))
-
-    plt.plot(mean_rest_over30["Rectus_L"], mean_over30["Reach_C"]["Rectus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Rectus_R"], mean_over30["Reach_C"]["Rectus_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_L"], mean_over30["Reach_C"]["Obliques_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Obliques_R"], mean_over30["Reach_C"]["Obliques_R"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30["Reach_C"]["Ilicostalis_L"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30["Reach_C"]["Ilicostalis_R"], 'ro',
-             color='blue')
-    plt.plot(mean_rest_over30["Multifidus_L"], mean_over30["Reach_C"]["Multifidus_L"], 'ro', color='blue')
-    plt.plot(mean_rest_over30["Multifidus_R"], mean_over30["Reach_C"]["Multifidus_R"], 'ro', color='blue',
-             label="Over 30 Years")
-
-    plt.plot(mean_rest_male["Rectus_L"], mean_male["Reach_C"]["Rectus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Rectus_R"], mean_male["Reach_C"]["Rectus_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_L"], mean_male["Reach_C"]["Obliques_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Obliques_R"], mean_male["Reach_C"]["Obliques_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_L"], mean_male["Reach_C"]["Ilicostalis_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Ilicostalis_R"], mean_male["Reach_C"]["Ilicostalis_R"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_L"], mean_male["Reach_C"]["Multifidus_L"], 'ro', color='yellow')
-    plt.plot(mean_rest_male["Multifidus_R"], mean_male["Reach_C"]["Multifidus_R"], 'ro', color='yellow',
-             label="Male 20 Years Old")
-
-    plt.plot(mean_rest_female["Rectus_L"], mean_female["Reach_C"]["Rectus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Rectus_R"], mean_female["Reach_C"]["Rectus_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_L"], mean_female["Reach_C"]["Obliques_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Obliques_R"], mean_female["Reach_C"]["Obliques_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_L"], mean_female["Reach_C"]["Ilicostalis_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Ilicostalis_R"], mean_female["Reach_C"]["Ilicostalis_R"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_L"], mean_female["Reach_C"]["Multifidus_L"], 'ro', color='red')
-    plt.plot(mean_rest_female["Multifidus_R"], mean_female["Reach_C"]["Multifidus_R"], 'ro', color='red',
-             label="Female 20 Years Old")
-
-    plt.plot(mean_rest_EA["Rectus_L"], mean_EA["Reach_C"]["Rectus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Rectus_R"], mean_EA["Reach_C"]["Rectus_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_L"], mean_EA["Reach_C"]["Obliques_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Obliques_R"], mean_EA["Reach_C"]["Obliques_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_L"], mean_EA["Reach_C"]["Ilicostalis_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Ilicostalis_R"], mean_EA["Reach_C"]["Ilicostalis_R"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_L"], mean_EA["Reach_C"]["Multifidus_L"], 'ro', color='green')
-    plt.plot(mean_rest_EA["Multifidus_R"], mean_EA["Reach_C"]["Multifidus_R"], 'ro', color='green',
-             label="EA")
-
-    plt.xlabel('Rest Values', fontsize=10)
-    plt.ylabel('Task Values', fontsize=10)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-    plot9.set_title("Reach Center", fontsize=12)
+        plt.xlabel('Rest Values', fontsize=10)
+        plt.ylabel('Multifidus Right Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot8.set_title("Multifidus Right", fontsize=12)
 
     plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.86, hspace=0.68)
     plt.show()
