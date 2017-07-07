@@ -584,3 +584,120 @@ def evolution_EMG(max_values, EMG_array):
 
     return EMG_evolution
 
+def delete_EMG_values_freqs(over30, male, female, EA_over30, EA_under30, EA_evolved):
+
+    for i in over30:
+        EA_over30[i]["Ilicostalis_L"]["Peak"].pop(2)
+        EA_over30[i]["Ilicostalis_L"]["Mean"].pop(2)
+        EA_over30[i]["Ilicostalis_L"]["Median"].pop(2)
+        EA_over30[i]["Ilicostalis_L"]["80_freq"].pop(2)
+
+        EA_evolved[i]["Ilicostalis_R"]["Peak"].pop(0)
+        EA_evolved[i]["Ilicostalis_R"]["Mean"].pop(0)
+        EA_evolved[i]["Ilicostalis_R"]["Median"].pop(0)
+        EA_evolved[i]["Ilicostalis_R"]["80_freq"].pop(0)
+
+        over30[i]["Multi_L"]["Peak"].pop(3)
+        over30[i]["Multi_L"]["Mean"].pop(3)
+        over30[i]["Multi_L"]["Median"].pop(3)
+        over30[i]["Multi_L"]["80_freq"].pop(3)
+
+    for i in male["Reach_L"]:
+        for n in male["Reach_L"][i]:
+            male["OneFootStanding_R_EC"][i][n].pop(5)
+
+    over30["Reach_L"]["Multi_L"]["Peak"].pop(3)
+    over30["Reach_L"]["Multi_L"]["Mean"].pop(3)
+    over30["Reach_L"]["Multi_L"]["Median"].pop(3)
+    over30["Reach_L"]["Multi_L"]["80_freq"].pop(3)
+
+    female["Standing_EO"]["Rectus_R"]["Peak"].pop(1)
+    female["Standing_EO"]["Rectus_R"]["Mean"].pop(1)
+    female["Standing_EO"]["Rectus_R"]["Median"].pop(1)
+    female["Standing_EO"]["Rectus_R"]["80_freq"].pop(1)
+
+    female["Standing_EC"]["Rectus_R"]["Peak"].pop(1)
+    female["Standing_EC"]["Rectus_R"]["Mean"].pop(1)
+    female["Standing_EC"]["Rectus_R"]["Median"].pop(1)
+    female["Standing_EC"]["Rectus_R"]["80_freq"].pop(1)
+
+    female["Reach_L"]["Rectus_R"]["Peak"].pop(1)
+    female["Reach_L"]["Rectus_R"]["Mean"].pop(1)
+    female["Reach_L"]["Rectus_R"]["Median"].pop(1)
+    female["Reach_L"]["Rectus_R"]["80_freq"].pop(1)
+
+    female["Reach_L"]["Ilicostalis_L"]["Peak"].pop(2)
+    female["Reach_L"]["Ilicostalis_L"]["Mean"].pop(2)
+    female["Reach_L"]["Ilicostalis_L"]["Median"].pop(2)
+    female["Reach_L"]["Ilicostalis_L"]["80_freq"].pop(2)
+
+    male["OneFootStanding_L_EO"]["Rectus_L"]["Peak"].pop(5)
+    male["OneFootStanding_L_EO"]["Rectus_L"]["Mean"].pop(5)
+    male["OneFootStanding_L_EO"]["Rectus_L"]["Median"].pop(5)
+    male["OneFootStanding_L_EO"]["Rectus_L"]["80_freq"].pop(5)
+
+    male["OneFootStanding_L_EO"]["Rectus_R"]["Peak"].pop(5)
+    male["OneFootStanding_L_EO"]["Rectus_R"]["Mean"].pop(5)
+    male["OneFootStanding_L_EO"]["Rectus_R"]["Median"].pop(5)
+    male["OneFootStanding_L_EO"]["Rectus_R"]["80_freq"].pop(5)
+
+    male["OneFootStanding_L_EO"]["Obliques_L"]["Peak"].pop(5)
+    male["OneFootStanding_L_EO"]["Obliques_L"]["Mean"].pop(5)
+    male["OneFootStanding_L_EO"]["Obliques_L"]["Median"].pop(5)
+    male["OneFootStanding_L_EO"]["Obliques_L"]["80_freq"].pop(5)
+
+    female["Reach_R"]["Multi_R"]["Peak"].pop(11)
+    female["Reach_R"]["Multi_R"]["Mean"].pop(11)
+    female["Reach_R"]["Multi_R"]["Median"].pop(11)
+    female["Reach_R"]["Multi_R"]["80_freq"].pop(11)
+
+    female["OneFootStanding_L_EC"]["Multi_R"]["Peak"].pop(17)
+    female["OneFootStanding_L_EC"]["Multi_R"]["Mean"].pop(17)
+    female["OneFootStanding_L_EC"]["Multi_R"]["Median"].pop(17)
+    female["OneFootStanding_L_EC"]["Multi_R"]["80_freq"].pop(17)
+
+    female["OneFootStanding_L_EO"]["Multi_R"]["Peak"].pop(17)
+    female["OneFootStanding_L_EO"]["Multi_R"]["Mean"].pop(17)
+    female["OneFootStanding_L_EO"]["Multi_R"]["Median"].pop(17)
+    female["OneFootStanding_L_EO"]["Multi_R"]["80_freq"].pop(17)
+
+    return over30, male, female, EA_over30, EA_under30, EA_evolved
+
+def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_under30, EA_evolved):
+
+    for i in over30:
+        EA_over30[i]["Ilicostalis_L"].pop(2)
+
+        EA_evolved[i]["Ilicostalis_R"].pop(0)
+
+        over30[i]["Multifidus_L"].pop(3)
+
+    for n in male["Reach_L"]:
+        male["OneFootStanding_R_EC"][n].pop(5)
+
+    over30["Reach_L"]["Multifidus_L"].pop(3)
+
+    female["Standing_EO"]["Rectus_R"].pop(1)
+
+    female["Standing_EC"]["Rectus_R"].pop(1)
+
+    female["Reach_L"]["Rectus_R"].pop(1)
+
+    female["Reach_L"]["Ilicostalis_L"].pop(2)
+
+    male["OneFootStanding_L_EO"]["Rectus_L"].pop(5)
+
+    male["OneFootStanding_L_EO"]["Rectus_R"].pop(5)
+
+    male["OneFootStanding_L_EO"]["Obliques_L"].pop(5)
+
+    female["Reach_R"]["Multifidus_R"].pop(11)
+
+    female["OneFootStanding_L_EC"]["Multifidus_R"].pop(17)
+
+    female["OneFootStanding_L_EO"]["Multifidus_R"].pop(17)
+
+
+    return over30, male, female, EA_over30, EA_under30, EA_evolved
+
+

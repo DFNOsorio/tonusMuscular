@@ -6,9 +6,6 @@ import novainstrumentation as ni
 import matplotlib.pyplot as plt
 
 
-from sklearn.decomposition import FastICA, PCA
-
-
 file = "Egas_Moniz_Segments/Patient20_Healthy.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
@@ -126,7 +123,7 @@ print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 # correlation(patient1.simple_corr)
 # fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
 # fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
-rest_parameters(patient1.static_max_values, [],[], [], [])
+# rest_parameters(patient1.static_max_values, [],[], [], [])
 #
 # evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_e, patient1.COP)
 # EMG_evolution(patient1.EMG_evolution)
@@ -138,8 +135,8 @@ rest_parameters(patient1.static_max_values, [],[], [], [])
 ##############################################################################################################
 ##Plot figures##
 
-#velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
-#COP_Muscle(patient1.EMG_normalization, patient1.COP)
+# velocity_Muscle(patient1.EMG_normalization, patient1.v_norm)
+# COP_Muscle(patient1.EMG_normalization, patient1.COP)
 # group_LR_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient6_Healthy")
 # group_FB_COP(patient1.COP_norm, patient1.EMG_normalization, patient1.v_norm, patient1.acel_norm, "Patient6_Healthy")
 # groupmuscles_COP(patient1.COP_norm, patient1.EMG_normalization, "Patient6_Healthy")
@@ -171,29 +168,27 @@ rest_parameters(patient1.static_max_values, [],[], [], [])
 
 #####################################################################################################
 
-over30_tonus, male_tonus, female_tonus, EA_tonus = get_value_tonus(patient1.EMG_normalization)
+over30_tonus, male_tonus, female_tonus, EA_over30_tonus, EA_under30_tonus, EA_more_tonus = get_value_tonus(patient1.EMG_normalization)
 
-over30_freq, male_freq, female_freq, EA_freq = get_value_freq(patient1.peak_EMG)
+over30_freq, male_freq, female_freq, EA_over30_freq, EA_under30_freq, EA_more_freq = get_value_freq(patient1.peak_EMG)
 
-#over30_cop, male_cop, female_cop, EA_cop = get_values_COP(patient1.mean)
+over30_cop, male_cop, female_cop, EA_over30_cop, EA_under30_cop, EA_more_cop = get_values_COP(patient1.mean)
 
-#over30_cop_freq, male_cop_freq, female_cop_freq, EA_cop_freq = get_values_COP_freq(patient1.peak_COP)
+over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_under30_cop_freq, EA_more_cop_freq = get_values_COP_freq(patient1.peak_COP)
 
-#over30_freq_rest, male_freq_rest, female_freq_rest, EA_freq_rest = get_value_freq_rest()
+over30_freq_rest, male_freq_rest, female_freq_rest, EA_over30_freq_rest, EA_under30_freq_rest, EA_more_freq_rest = get_value_freq_rest()
 
-over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest = get_value_tonus_rest()
+over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_over30_tonus_rest, EA_under30_tonus_rest, EA_more_tonus_rest = get_value_tonus_rest()
 
+over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new = delete_EMG_values_freqs(over30_freq, male_freq, female_freq, EA_over30_freq, EA_under30_freq, EA_more_freq)
 
-#tonus_boxplot(over30_tonus, male_tonus, female_tonus, EA_tonus)
-#EMG_freq_back_boxplot(over30_freq, male_freq, female_freq, EA_freq)
-#COP_parameters_boxplot(over30_cop, male_cop, female_cop, EA_cop)
-#COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_cop_freq)
+#over30_tonus_new, male_tonus_new, female_tonus_new, EA_over30_tonus_new, EA_under30_tonus_new, EA_more_tonus_new = delete_EMG_values_tonus(over30_tonus, male_tonus, female_tonus, EA_over30_tonus, EA_under30_tonus, EA_more_tonus)
 
-#over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_tonus_mean,over30_tonus_rest_mean, male_tonus_rest_mean, female_tonus_rest_mean, EA_tonus_rest_mean = means_database(over30_tonus, male_tonus, female_tonus, EA_tonus,over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest)
+#tonus_boxplot(over30_tonus_new, male_tonus_new, female_tonus_new, EA_over30_tonus_new, EA_under30_tonus_new, EA_more_tonus_new)
+#EMG_freq_back_boxplot(over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new)
+#EMG_freq_front_boxplot(over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new)
+#COP_parameters_boxplot(over30_cop, male_cop, female_cop, EA_over30_cop, EA_under30_cop, EA_more_cop)
+#COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_under30_cop_freq, EA_more_cop_freq)
+#task_vs_relax(over30_tonus, male_tonus, female_tonus, EA_over30_tonus, EA_under30_tonus, EA_more_tonus,over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_over30_tonus_rest, EA_under30_tonus_rest, EA_more_tonus_rest)
 
-#task_vs_relax(over30_tonus, male_tonus, female_tonus, EA_tonus,over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_tonus_rest)
-#print male_tonus_rest_mean["Rectus_L"]
-
-#print over30_tonus_rest["Rectus_L"]
-#print over30_tonus["Standing_EO"]["Rectus_L"]
 
