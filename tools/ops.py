@@ -101,10 +101,12 @@ def max_mvc(MVC1=[], MVC2=[], MVC3=[]):
 def norm_whole_segment(test, max_back, max_rectus, max_RO, max_LO):
     new_avg = {}
     new_max = {}
+    new_mean = {}
     for i in test:
         try:
             new_new_avg = np.zeros(np.shape(test[i]))
             new_new_max = np.zeros(np.shape(test[i])[1])
+            new_new_mean = np.zeros(np.shape(test[i])[1])
 
             new_new_avg[:, 0] = test[i][:, 0] / max_rectus[0]
             new_new_avg[:, 1] = test[i][:, 1] / max_rectus[1]
@@ -119,14 +121,17 @@ def norm_whole_segment(test, max_back, max_rectus, max_RO, max_LO):
 
             for j in range(0, np.shape(test[i])[1]):
                 new_new_max[j] = np.max(new_new_avg[:, j]) * 100
+                new_new_mean[j] = np.mean(new_new_avg[:, j]) * 100
 
             new_avg[i] = np.array(new_new_avg)
             new_max[i] = np.array(new_new_max)
+            new_mean[i] = np.array(new_new_mean)
         except IndexError:
             new_avg[i] = []
             new_max[i] = []
+            new_mean[i] = []
 
-    return new_avg, new_max
+    return new_avg, new_max, new_mean
 
 def RAW_2_mass(platform_data):
     mass={}

@@ -23,38 +23,4 @@ def get_EMG_evolution(EMG_array):
     wb_20 = load_workbook(file_excel_20)
     wb_EA = load_workbook(file_excel_EA)
 
-
     count = 410
-    value_final_over30 = {}
-    value_final_male = {}
-    value_final_female = {}
-    value_final_EA = {}
-
-    value_STDX_over30 = {}
-    value_STDX_male = {}
-    value_STDX_female = {}
-    value_STDX_EA = {}
-
-    value_STDY_over30 = {}
-    value_STDY_male = {}
-    value_STDY_female = {}
-    value_STDY_EA = {}
-
-    value_VX_over30 = {}
-    value_VX_male = {}
-    value_VX_female = {}
-    value_VX_EA = {}
-
-    value_VY_over30 = {}
-    value_VY_male = {}
-    value_VY_female = {}
-    value_VY_EA = {}
-
-    value_area_over30 = {}
-    value_area_male = {}
-    value_area_female = {}
-    value_area_EA = {}
-
-
-    for task in EMG_array:
-        print ''

@@ -1658,7 +1658,7 @@ def COP_freq_boxplot(over30, male, female, EA_over, EA_under, EA_more):
 def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_under, mean_EA_more,mean_rest_over30, mean_rest_male, mean_rest_female, mean_rest_EA_over, mean_rest_EA_under, mean_rest_EA_more):
 
     l = 0
-    pp = PdfPages('RelaxVSTask_Analysis.pdf')
+    #pp = PdfPages('RelaxVSTask_Analysis.pdf')
 
     for i in mean_over30:
 
@@ -1676,8 +1676,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
         plt.plot(mean_rest_EA_more["Rectus_L"], mean_EA_more[i]["Rectus_L"], 'ro', color='magenta', label="EA evolved")
 
         plt.xlabel('Rest Values', fontsize=10)
-        plt.xlim([0,100])
-        plt.ylim([0, 100])
+        plt.xlim([0,50])
+        plt.ylim([0, 50])
         plt.ylabel('Rectus Left Values', fontsize=10)
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot1.set_title("Rectus Left", fontsize=12)
@@ -1693,8 +1693,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Rectus Right Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot2.set_title("Rectus Right", fontsize=12)
 
@@ -1709,8 +1709,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Obliques Left Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot3.set_title("Obliques Left", fontsize=12)
 
@@ -1726,8 +1726,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Obliques Right Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot4.set_title("Obliques Right", fontsize=12)
 
@@ -1744,8 +1744,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Ilicostalis Left Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot5.set_title("Ilicostalis Left", fontsize=12)
 
@@ -1766,8 +1766,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Ilicostalis Right Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot6.set_title("Ilicostalis Right", fontsize=12)
 
@@ -1788,8 +1788,8 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Multifidus Left Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot7.set_title("Multifidus Left", fontsize=12)
 
@@ -1810,15 +1810,15 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_und
 
         plt.xlabel('Rest Values', fontsize=10)
         plt.ylabel('Multifidus Right Values', fontsize=10)
-        plt.xlim([0, 100])
-        plt.ylim([0, 100])
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot8.set_title("Multifidus Right", fontsize=12)
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.95, hspace=0.68)
         plt.show()
-        pp.savefig(fig)
-    pp.close()
+        #pp.savefig(fig)
+    #pp.close()
 
 
 def means_database(over30, male, female, EA,rest_over30, restmale, restfemale, restEA):
@@ -1988,3 +1988,383 @@ def EMG_freq_back_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_
         plt.show()
         pp.savefig(fig)
     pp.close()
+
+
+def get_value_mean_tonus(EMG_array):
+    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
+    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
+    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
+
+    wb_over30 = load_workbook(file_excel_over30)
+    wb_20 = load_workbook(file_excel_20)
+    wb_EA = load_workbook(file_excel_EA)
+
+
+    count = 616
+    value_final_over30 = {}
+    value_final_male = {}
+    value_final_female = {}
+    value_final_EA_over30 = {}
+    value_final_EA_under30 = {}
+    value_final_EA_evoluted = {}
+
+    for task in EMG_array:
+
+        value_rectus_l_over30 = []
+        value_rectus_r_over30 = []
+        value_obliques_l_over30 = []
+        value_obliques_r_over30 = []
+        value_ilicostalis_l_over30 = []
+        value_ilicostalis_r_over30 = []
+        value_multi_l_over30 = []
+        value_multi_r_over30 = []
+
+        value_rectus_l_female = []
+        value_rectus_r_female = []
+        value_obliques_l_female = []
+        value_obliques_r_female = []
+        value_ilicostalis_l_female = []
+        value_ilicostalis_r_female = []
+        value_multi_l_female = []
+        value_multi_r_female = []
+
+        value_rectus_l_male = []
+        value_rectus_r_male = []
+        value_obliques_l_male = []
+        value_obliques_r_male = []
+        value_ilicostalis_l_male = []
+        value_ilicostalis_r_male = []
+        value_multi_l_male = []
+        value_multi_r_male = []
+
+        value_rectus_l_EA_over30 = []
+        value_rectus_r_EA_over30 = []
+        value_obliques_l_EA_over30 = []
+        value_obliques_r_EA_over30 = []
+        value_ilicostalis_l_EA_over30 = []
+        value_ilicostalis_r_EA_over30 = []
+        value_multi_l_EA_over30 = []
+        value_multi_r_EA_over30 = []
+
+        value_rectus_l_EA_under30 = []
+        value_rectus_r_EA_under30 = []
+        value_obliques_l_EA_under30 = []
+        value_obliques_r_EA_under30 = []
+        value_ilicostalis_l_EA_under30 = []
+        value_ilicostalis_r_EA_under30 = []
+        value_multi_l_EA_under30 = []
+        value_multi_r_EA_under30 = []
+
+        value_rectus_l_EA_evoluted = []
+        value_rectus_r_EA_evoluted = []
+        value_obliques_l_EA_evoluted = []
+        value_obliques_r_EA_evoluted = []
+        value_ilicostalis_l_EA_evoluted = []
+        value_ilicostalis_r_EA_evoluted = []
+        value_multi_l_EA_evoluted = []
+        value_multi_r_EA_evoluted = []
+
+        for i in wb_over30.sheetnames:
+            if i != 'Sheet1' and i != 'Statistical Analysis_20_Female' and i!= 'Statistical Analysis_20_Male'\
+                    and i != 'Statistical Analysis over 30' and i != 'Folha1':
+
+                ws_over30 = wb_over30.get_sheet_by_name(i)
+                value_rectus_l_over30.append(ws_over30['B' + str(count)].value)
+                value_rectus_r_over30.append(ws_over30['C' + str(count)].value)
+                value_obliques_l_over30.append(ws_over30['B' + str(count+1)].value)
+                value_obliques_r_over30.append(ws_over30['C' + str(count+1)].value)
+                value_ilicostalis_l_over30.append(ws_over30['B' + str(count+2)].value)
+                value_ilicostalis_r_over30.append(ws_over30['C' + str(count+2)].value)
+                value_multi_l_over30.append(ws_over30['B' + str(count+3)].value)
+                value_multi_r_over30.append(ws_over30['C' + str(count+3)].value)
+
+        for i in wb_20.sheetnames:
+            if i != 'Sheet1' and i != 'Statistical Analysis_20_Female' and i!= 'Statistical Analysis_20_Male'\
+                    and i != 'Statistical Analysis over 30' and i != 'Folha1' and i != 'Patient5_Healthy'\
+                    and i != 'Patient8_Healthy' and i != 'Patient10_Healthy' and i != 'Patient13_Healthy'\
+                    and i != 'Patient17_Healthy' and i != 'Patient18_Healthy' and i != 'Patient23_Healthy'\
+                    and i != 'Patient25_Healthy' and i != 'Patient27_Healthy' and i != 'Patient30_Healthy':
+
+                ws_female = wb_20.get_sheet_by_name(i)
+                value_rectus_l_female.append(ws_female['B' + str(count)].value)
+                value_rectus_r_female.append(ws_female['C' + str(count)].value)
+                value_obliques_l_female.append(ws_female['B' + str(count+1)].value)
+                value_obliques_r_female.append(ws_female['C' + str(count+1)].value)
+                value_ilicostalis_l_female.append(ws_female['B' + str(count+2)].value)
+                value_ilicostalis_r_female.append(ws_female['C' + str(count+2)].value)
+                value_multi_l_female.append(ws_female['B' + str(count+3)].value)
+                value_multi_r_female.append(ws_female['C' + str(count+3)].value)
+
+            if i == 'Patient8_Healthy' or i == 'Patient10_Healthy' or i == 'Patient13_Healthy'\
+                    or i == 'Patient17_Healthy' or i == 'Patient18_Healthy' or i == 'Patient23_Healthy'\
+                    or i == 'Patient25_Healthy' or i == 'Patient27_Healthy' or i == 'Patient30_Healthy' or i == 'Patient5_Healthy':
+
+                ws_male = wb_20.get_sheet_by_name(i)
+                value_rectus_l_male.append(ws_male['B' + str(count)].value)
+                value_rectus_r_male.append(ws_male['C' + str(count)].value)
+                value_obliques_l_male.append(ws_male['B' + str(count + 1)].value)
+                value_obliques_r_male.append(ws_male['C' + str(count + 1)].value)
+                value_ilicostalis_l_male.append(ws_male['B' + str(count + 2)].value)
+                value_ilicostalis_r_male.append(ws_male['C' + str(count + 2)].value)
+                value_multi_l_male.append(ws_male['B' + str(count + 3)].value)
+                value_multi_r_male.append(ws_male['C' + str(count + 3)].value)
+
+
+        for i in wb_EA.sheetnames:
+            if i != 'Sheet1' and i != 'Patient10_EA' and i != 'Patient5_EA' and i != 'Patient4_EA'\
+                    and i != 'Patient9_EA':
+
+                ws_EA_over30 = wb_EA.get_sheet_by_name(i)
+                value_rectus_l_EA_over30.append(ws_EA_over30['B' + str(count)].value)
+                value_rectus_r_EA_over30.append(ws_EA_over30['C' + str(count)].value)
+                value_obliques_l_EA_over30.append(ws_EA_over30['B' + str(count+1)].value)
+                value_obliques_r_EA_over30.append(ws_EA_over30['C' + str(count+1)].value)
+                value_ilicostalis_l_EA_over30.append(ws_EA_over30['B' + str(count+2)].value)
+                value_ilicostalis_r_EA_over30.append(ws_EA_over30['C' + str(count+2)].value)
+                value_multi_l_EA_over30.append(ws_EA_over30['B' + str(count+3)].value)
+                value_multi_r_EA_over30.append(ws_EA_over30['C' + str(count+3)].value)
+
+            if i == 'Patient10_EA' or i == 'Patient5_EA':
+
+                ws_EA_under30 = wb_EA.get_sheet_by_name(i)
+                value_rectus_l_EA_under30.append(ws_EA_under30['B' + str(count)].value)
+                value_rectus_r_EA_under30.append(ws_EA_under30['C' + str(count)].value)
+                value_obliques_l_EA_under30.append(ws_EA_under30['B' + str(count+1)].value)
+                value_obliques_r_EA_under30.append(ws_EA_under30['C' + str(count+1)].value)
+                value_ilicostalis_l_EA_under30.append(ws_EA_under30['B' + str(count+2)].value)
+                value_ilicostalis_r_EA_under30.append(ws_EA_under30['C' + str(count+2)].value)
+                value_multi_l_EA_under30.append(ws_EA_under30['B' + str(count+3)].value)
+                value_multi_r_EA_under30.append(ws_EA_under30['C' + str(count+3)].value)
+
+            if i == 'Patient4_EA' or i == 'Patient9_EA':
+
+                ws_EA_evoluted = wb_EA.get_sheet_by_name(i)
+                value_rectus_l_EA_evoluted.append(ws_EA_evoluted['B' + str(count)].value)
+                value_rectus_r_EA_evoluted.append(ws_EA_evoluted['C' + str(count)].value)
+                value_obliques_l_EA_evoluted.append(ws_EA_evoluted['B' + str(count+1)].value)
+                value_obliques_r_EA_evoluted.append(ws_EA_evoluted['C' + str(count+1)].value)
+                value_ilicostalis_l_EA_evoluted.append(ws_EA_evoluted['B' + str(count+2)].value)
+                value_ilicostalis_r_EA_evoluted.append(ws_EA_evoluted['C' + str(count+2)].value)
+                value_multi_l_EA_evoluted.append(ws_EA_evoluted['B' + str(count+3)].value)
+                value_multi_r_EA_evoluted.append(ws_EA_evoluted['C' + str(count+3)].value)
+
+        count = count + 13
+
+        value_final_over30[task] = {"Rectus_L": value_rectus_l_over30,"Rectus_R": value_rectus_r_over30, "Obliques_L": value_obliques_l_over30,
+                             "Obliques_R": value_obliques_r_over30, "Ilicostalis_L": value_ilicostalis_l_over30, "Ilicostalis_R": value_ilicostalis_r_over30,
+                             "Multifidus_L": value_multi_l_over30, "Multifidus_R": value_multi_r_over30}
+
+        value_final_male[task] = {"Rectus_L": value_rectus_l_male, "Rectus_R": value_rectus_r_male,
+                                    "Obliques_L": value_obliques_l_male,
+                                    "Obliques_R": value_obliques_r_male, "Ilicostalis_L": value_ilicostalis_l_male,
+                                    "Ilicostalis_R": value_ilicostalis_r_male,
+                                    "Multifidus_L": value_multi_l_male, "Multifidus_R": value_multi_r_male}
+
+        value_final_female[task] = {"Rectus_L": value_rectus_l_female, "Rectus_R": value_rectus_r_female,
+                                    "Obliques_L": value_obliques_l_female,
+                                    "Obliques_R": value_obliques_r_female, "Ilicostalis_L": value_ilicostalis_l_female,
+                                    "Ilicostalis_R": value_ilicostalis_r_female,
+                                    "Multifidus_L": value_multi_l_female, "Multifidus_R": value_multi_r_female}
+
+        value_final_EA_over30[task] = {"Rectus_L": value_rectus_l_EA_over30, "Rectus_R": value_rectus_r_EA_over30,
+                                    "Obliques_L": value_obliques_l_EA_over30,
+                                    "Obliques_R": value_obliques_r_EA_over30, "Ilicostalis_L": value_ilicostalis_l_EA_over30,
+                                    "Ilicostalis_R": value_ilicostalis_r_EA_over30,
+                                    "Multifidus_L": value_multi_l_EA_over30, "Multifidus_R": value_multi_r_EA_over30}
+
+        value_final_EA_under30[task] = {"Rectus_L": value_rectus_l_EA_under30, "Rectus_R": value_rectus_r_EA_under30,
+                                "Obliques_L": value_obliques_l_EA_under30,
+                                "Obliques_R": value_obliques_r_EA_under30, "Ilicostalis_L": value_ilicostalis_l_EA_under30,
+                                "Ilicostalis_R": value_ilicostalis_r_EA_under30,
+                                "Multifidus_L": value_multi_l_EA_under30, "Multifidus_R": value_multi_r_EA_under30}
+
+        value_final_EA_evoluted[task] = {"Rectus_L": value_rectus_l_EA_evoluted, "Rectus_R": value_rectus_r_EA_evoluted,
+                                "Obliques_L": value_obliques_l_EA_evoluted,
+                                "Obliques_R": value_obliques_r_EA_evoluted, "Ilicostalis_L": value_ilicostalis_l_EA_evoluted,
+                                "Ilicostalis_R": value_ilicostalis_r_EA_evoluted,
+                                "Multifidus_L": value_multi_l_EA_evoluted, "Multifidus_R": value_multi_r_EA_evoluted}
+
+    return value_final_over30, value_final_male, value_final_female, value_final_EA_over30, value_final_EA_under30, value_final_EA_evoluted
+
+def get_value_mean_tonus_rest():
+    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
+    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
+    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
+
+    wb_over30 = load_workbook(file_excel_over30)
+    wb_20 = load_workbook(file_excel_20)
+    wb_EA = load_workbook(file_excel_EA)
+
+
+    count = 736
+
+    value_rectus_l_over30 = []
+    value_rectus_r_over30 = []
+    value_obliques_l_over30 = []
+    value_obliques_r_over30 = []
+    value_ilicostalis_l_over30 = []
+    value_ilicostalis_r_over30 = []
+    value_multi_l_over30 = []
+    value_multi_r_over30 = []
+
+    value_rectus_l_female = []
+    value_rectus_r_female = []
+    value_obliques_l_female = []
+    value_obliques_r_female = []
+    value_ilicostalis_l_female = []
+    value_ilicostalis_r_female = []
+    value_multi_l_female = []
+    value_multi_r_female = []
+
+    value_rectus_l_male = []
+    value_rectus_r_male = []
+    value_obliques_l_male = []
+    value_obliques_r_male = []
+    value_ilicostalis_l_male = []
+    value_ilicostalis_r_male = []
+    value_multi_l_male = []
+    value_multi_r_male = []
+
+    value_rectus_l_EA_over30 = []
+    value_rectus_r_EA_over30 = []
+    value_obliques_l_EA_over30 = []
+    value_obliques_r_EA_over30 = []
+    value_ilicostalis_l_EA_over30 = []
+    value_ilicostalis_r_EA_over30 = []
+    value_multi_l_EA_over30 = []
+    value_multi_r_EA_over30 = []
+
+    value_rectus_l_EA_under30 = []
+    value_rectus_r_EA_under30 = []
+    value_obliques_l_EA_under30 = []
+    value_obliques_r_EA_under30 = []
+    value_ilicostalis_l_EA_under30 = []
+    value_ilicostalis_r_EA_under30 = []
+    value_multi_l_EA_under30 = []
+    value_multi_r_EA_under30 = []
+
+    value_rectus_l_EA_evaluted = []
+    value_rectus_r_EA_evaluted = []
+    value_obliques_l_EA_evaluted = []
+    value_obliques_r_EA_evaluted = []
+    value_ilicostalis_l_EA_evaluted = []
+    value_ilicostalis_r_EA_evaluted = []
+    value_multi_l_EA_evaluted = []
+    value_multi_r_EA_evaluted = []
+
+    for i in wb_over30.sheetnames:
+        if i != 'Sheet1' and i != 'Statistical Analysis_20_Female' and i != 'Statistical Analysis_20_Male' \
+                and i != 'Statistical Analysis over 30' and i != 'Folha1':
+            ws_over30 = wb_over30.get_sheet_by_name(i)
+            value_rectus_l_over30.append(ws_over30['B' + str(count)].value)
+            value_rectus_r_over30.append(ws_over30['C' + str(count)].value)
+            value_obliques_l_over30.append(ws_over30['B' + str(count + 1)].value)
+            value_obliques_r_over30.append(ws_over30['C' + str(count + 1)].value)
+            value_ilicostalis_l_over30.append(ws_over30['B' + str(count + 2)].value)
+            value_ilicostalis_r_over30.append(ws_over30['C' + str(count + 2)].value)
+            value_multi_l_over30.append(ws_over30['B' + str(count + 3)].value)
+            value_multi_r_over30.append(ws_over30['C' + str(count + 3)].value)
+
+    for i in wb_20.sheetnames:
+        if i != 'Sheet1' and i != 'Statistical Analysis_20_Female' and i != 'Statistical Analysis_20_Male' \
+                and i != 'Statistical Analysis over 30' and i != 'Folha1' and i != 'Patient5_Healthy' \
+                and i != 'Patient8_Healthy' and i != 'Patient10_Healthy' and i != 'Patient13_Healthy' \
+                and i != 'Patient17_Healthy' and i != 'Patient18_Healthy' and i != 'Patient23_Healthy' \
+                and i != 'Patient25_Healthy' and i != 'Patient27_Healthy' and i != 'Patient30_Healthy':
+            ws_female = wb_20.get_sheet_by_name(i)
+            value_rectus_l_female.append(ws_female['B' + str(count)].value)
+            value_rectus_r_female.append(ws_female['C' + str(count)].value)
+            value_obliques_l_female.append(ws_female['B' + str(count + 1)].value)
+            value_obliques_r_female.append(ws_female['C' + str(count + 1)].value)
+            value_ilicostalis_l_female.append(ws_female['B' + str(count + 2)].value)
+            value_ilicostalis_r_female.append(ws_female['C' + str(count + 2)].value)
+            value_multi_l_female.append(ws_female['B' + str(count + 3)].value)
+            value_multi_r_female.append(ws_female['C' + str(count + 3)].value)
+
+        if i == 'Patient8_Healthy' or i == 'Patient10_Healthy' or i == 'Patient13_Healthy' \
+                or i == 'Patient17_Healthy' or i == 'Patient18_Healthy' or i == 'Patient23_Healthy' \
+                or i == 'Patient25_Healthy' or i == 'Patient27_Healthy' or i == 'Patient30_Healthy' or i == 'Patient5_Healthy':
+            ws_male = wb_20.get_sheet_by_name(i)
+            value_rectus_l_male.append(ws_male['B' + str(count)].value)
+            value_rectus_r_male.append(ws_male['C' + str(count)].value)
+            value_obliques_l_male.append(ws_male['B' + str(count + 1)].value)
+            value_obliques_r_male.append(ws_male['C' + str(count + 1)].value)
+            value_ilicostalis_l_male.append(ws_male['B' + str(count + 2)].value)
+            value_ilicostalis_r_male.append(ws_male['C' + str(count + 2)].value)
+            value_multi_l_male.append(ws_male['B' + str(count + 3)].value)
+            value_multi_r_male.append(ws_male['C' + str(count + 3)].value)
+
+    for i in wb_EA.sheetnames:
+        if i != 'Sheet1' and i != 'Patient10_EA' and i != 'Patient5_EA' and i != 'Patient4_EA' \
+                and i != 'Patient9_EA':
+            ws_EA_over30 = wb_EA.get_sheet_by_name(i)
+            value_rectus_l_EA_over30.append(ws_EA_over30['B' + str(count)].value)
+            value_rectus_r_EA_over30.append(ws_EA_over30['C' + str(count)].value)
+            value_obliques_l_EA_over30.append(ws_EA_over30['B' + str(count + 1)].value)
+            value_obliques_r_EA_over30.append(ws_EA_over30['C' + str(count + 1)].value)
+            value_ilicostalis_l_EA_over30.append(ws_EA_over30['B' + str(count + 2)].value)
+            value_ilicostalis_r_EA_over30.append(ws_EA_over30['C' + str(count + 2)].value)
+            value_multi_l_EA_over30.append(ws_EA_over30['B' + str(count + 3)].value)
+            value_multi_r_EA_over30.append(ws_EA_over30['C' + str(count + 3)].value)
+
+        if i == 'Patient10_EA' or i == 'Patient5_EA':
+            ws_EA_under30 = wb_EA.get_sheet_by_name(i)
+            value_rectus_l_EA_under30.append(ws_EA_under30['B' + str(count)].value)
+            value_rectus_r_EA_under30.append(ws_EA_under30['C' + str(count)].value)
+            value_obliques_l_EA_under30.append(ws_EA_under30['B' + str(count + 1)].value)
+            value_obliques_r_EA_under30.append(ws_EA_under30['C' + str(count + 1)].value)
+            value_ilicostalis_l_EA_under30.append(ws_EA_under30['B' + str(count + 2)].value)
+            value_ilicostalis_r_EA_under30.append(ws_EA_under30['C' + str(count + 2)].value)
+            value_multi_l_EA_under30.append(ws_EA_under30['B' + str(count + 3)].value)
+            value_multi_r_EA_under30.append(ws_EA_under30['C' + str(count + 3)].value)
+
+        if i == 'Patient4_EA' or i == 'Patient9_EA':
+            ws_EA_evaluted = wb_EA.get_sheet_by_name(i)
+            value_rectus_l_EA_evaluted.append(ws_EA_evaluted['B' + str(count)].value)
+            value_rectus_r_EA_evaluted.append(ws_EA_evaluted['C' + str(count)].value)
+            value_obliques_l_EA_evaluted.append(ws_EA_evaluted['B' + str(count + 1)].value)
+            value_obliques_r_EA_evaluted.append(ws_EA_evaluted['C' + str(count + 1)].value)
+            value_ilicostalis_l_EA_evaluted.append(ws_EA_evaluted['B' + str(count + 2)].value)
+            value_ilicostalis_r_EA_evaluted.append(ws_EA_evaluted['C' + str(count + 2)].value)
+            value_multi_l_EA_evaluted.append(ws_EA_evaluted['B' + str(count + 3)].value)
+            value_multi_r_EA_evaluted.append(ws_EA_evaluted['C' + str(count + 3)].value)
+
+
+    value_final_over30 = {"Rectus_L": value_rectus_l_over30, "Rectus_R": value_rectus_r_over30,
+                                "Obliques_L": value_obliques_l_over30,
+                                "Obliques_R": value_obliques_r_over30, "Ilicostalis_L": value_ilicostalis_l_over30,
+                                "Ilicostalis_R": value_ilicostalis_r_over30,
+                                "Multifidus_L": value_multi_l_over30, "Multifidus_R": value_multi_r_over30}
+
+    value_final_male = {"Rectus_L": value_rectus_l_male, "Rectus_R": value_rectus_r_male,
+                              "Obliques_L": value_obliques_l_male,
+                              "Obliques_R": value_obliques_r_male, "Ilicostalis_L": value_ilicostalis_l_male,
+                              "Ilicostalis_R": value_ilicostalis_r_male,
+                              "Multifidus_L": value_multi_l_male, "Multifidus_R": value_multi_r_male}
+
+    value_final_female = {"Rectus_L": value_rectus_l_female, "Rectus_R": value_rectus_r_female,
+                                "Obliques_L": value_obliques_l_female,
+                                "Obliques_R": value_obliques_r_female, "Ilicostalis_L": value_ilicostalis_l_female,
+                                "Ilicostalis_R": value_ilicostalis_r_female,
+                                "Multifidus_L": value_multi_l_female, "Multifidus_R": value_multi_r_female}
+
+    value_final_EA_over30 = {"Rectus_L": value_rectus_l_EA_over30, "Rectus_R": value_rectus_r_EA_over30,
+                            "Obliques_L": value_obliques_l_EA_over30,
+                            "Obliques_R": value_obliques_r_EA_over30, "Ilicostalis_L": value_ilicostalis_l_EA_over30,
+                            "Ilicostalis_R": value_ilicostalis_r_EA_over30,
+                            "Multifidus_L": value_multi_l_EA_over30, "Multifidus_R": value_multi_r_EA_over30}
+
+    value_final_EA_under30 = {"Rectus_L": value_rectus_l_EA_under30, "Rectus_R": value_rectus_r_EA_under30,
+                      "Obliques_L": value_obliques_l_EA_under30,
+                      "Obliques_R": value_obliques_r_EA_under30, "Ilicostalis_L": value_ilicostalis_l_EA_under30,
+                      "Ilicostalis_R": value_ilicostalis_r_EA_under30,
+                      "Multifidus_L": value_multi_l_EA_under30, "Multifidus_R": value_multi_r_EA_under30}
+
+    value_final_EA_evaluted = {"Rectus_L": value_rectus_l_EA_evaluted, "Rectus_R": value_rectus_r_EA_evaluted,
+                      "Obliques_L": value_obliques_l_EA_evaluted,
+                      "Obliques_R": value_obliques_r_EA_evaluted, "Ilicostalis_L": value_ilicostalis_l_EA_evaluted,
+                      "Ilicostalis_R": value_ilicostalis_r_EA_evaluted,
+                      "Multifidus_L": value_multi_l_EA_evaluted, "Multifidus_R": value_multi_r_EA_evaluted}
+
+
+    return value_final_over30, value_final_male, value_final_female, value_final_EA_over30, value_final_EA_under30, value_final_EA_evaluted

@@ -7,11 +7,11 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
-file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-patient = 'Patient20_Healthy'
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
+patient = 'Patient10_EA'
 
 def create_database():
-    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx')
+    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx')
 
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
@@ -1550,6 +1550,123 @@ def mean_std_COP_evolution(std, velocity, area):
             count = count + 17
             time = count + 4
             time2 = count + 3
+    wb2.save(file_excel)
+
+def mean_values_EMG(EMG_values):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+    count = 614
+    count2 = 616
+    count_col = 2
+    for i in EMG_values:
+        if i != 'Reach_Ground' and i != 'Arms_extension':
+            title = sheet1.cell('B' + str(count))
+            title.value = "Mean values of each muscle - " + str(i)
+            title.font = title.font.copy(bold=True)
+
+            first_col = sheet1.cell('A' + str(count + 1))
+            first_col.value = ''
+            first_col.font = first_col.font.copy(bold=True)
+
+
+            second_col = sheet1.cell('B' + str(count + 1))
+            second_col.value = 'Left'
+            second_col.font = second_col.font.copy(bold=True)
+
+
+            third_col = sheet1.cell('C' + str(count + 1))
+            third_col.value = 'Right'
+            third_col.font = third_col.font.copy(bold=True)
+
+
+            first_row = sheet1.cell('A' + str(count + 2))
+            first_row.value = 'Rectus_A'
+            first_row.font = first_row.font.copy(bold=True)
+
+
+            second_row = sheet1.cell('A' + str(count + 3))
+            second_row.value = 'Obliques'
+            second_row.font = second_row.font.copy(bold=True)
+
+
+            third_row = sheet1.cell('A' + str(count + 4))
+            third_row.value = 'Ilicostalis'
+            third_row.font = third_row.font.copy(bold=True)
+
+
+            fourth_row = sheet1.cell('A' + str(count + 5))
+            fourth_row.value = 'Multifidus'
+            fourth_row.font = fourth_row.font.copy(bold=True)
+
+
+
+            data = [[EMG_values[i][0], EMG_values[i][1]],
+                    [EMG_values[i][2], EMG_values[i][3]],
+                    [EMG_values[i][4], EMG_values[i][5]],
+                    [EMG_values[i][6], EMG_values[i][7]]
+                    ]
+            for row in data:
+                sheet1.cell(row=count2, column=count_col, value=row[0])
+                sheet1.cell(row=count2, column=count_col + 1, value=row[1])
+                count2 = count2 + 1
+
+            count = count + 13
+            count2 = count2 + 9
+    wb2.save(file_excel)
+
+def rest_mean_values(rest_array):
+    wb2 = load_workbook(file_excel)
+    sheet1 = wb2.get_sheet_by_name(patient)
+
+    count_max = 734
+    count2 = 736
+    count_col = 2
+
+    for i in rest_array:
+        if i == "Relax":
+
+            title = sheet1.cell('B' + str(count_max))
+            title.value = "Max values of each muscle - " + str(i)
+            title.font = title.font.copy(bold=True)
+
+            first_col = sheet1.cell('A' + str(count_max + 1))
+            first_col.value = ''
+            first_col.font = first_col.font.copy(bold=True)
+
+            second_col = sheet1.cell('B' + str(count_max + 1))
+            second_col.value = 'Left'
+            second_col.font = second_col.font.copy(bold=True)
+
+            third_col = sheet1.cell('C' + str(count_max + 1))
+            third_col.value = 'Right'
+            third_col.font = third_col.font.copy(bold=True)
+
+            first_row = sheet1.cell('A' + str(count_max + 2))
+            first_row.value = 'Rectus_A'
+            first_row.font = first_row.font.copy(bold=True)
+
+            second_row = sheet1.cell('A' + str(count_max + 3))
+            second_row.value = 'Obliques'
+            second_row.font = second_row.font.copy(bold=True)
+
+            third_row = sheet1.cell('A' + str(count_max + 4))
+            third_row.value = 'Ilicostalis'
+            third_row.font = third_row.font.copy(bold=True)
+
+            fourth_row = sheet1.cell('A' + str(count_max + 5))
+            fourth_row.value = 'Multifidus'
+            fourth_row.font = fourth_row.font.copy(bold=True)
+
+            data = [[rest_array[i][0], rest_array[i][1]],
+                    [rest_array[i][2], rest_array[i][3]],
+                    [rest_array[i][4], rest_array[i][5]],
+                    [rest_array[i][6], rest_array[i][7]]
+                    ]
+            for row in data:
+                sheet1.cell(row=count2, column=count_col, value=row[0])
+                sheet1.cell(row=count2, column=count_col + 1, value=row[1])
+                count2 = count2 + 1
+
     wb2.save(file_excel)
 
 
