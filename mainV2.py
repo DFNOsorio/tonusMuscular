@@ -35,9 +35,9 @@ patient1.EMG_normalization, patient1.EMG_max_values, patient1.EMG_mean_values = 
 print '\033[93m' + "NORM_END" + '\033[0m'
 
 
-# patient1.platformdata = RAW_2_mass(patient1.platform)
-# patient1.COP = mass_2_COP(patient1.platformdata)
-# print '\033[93m' + "COP_END" + '\033[0m'
+patient1.platformdata = RAW_2_mass(patient1.platform)
+patient1.COP = mass_2_COP(patient1.platformdata)
+print '\033[93m' + "COP_END" + '\033[0m'
 
 # patient1.std = std(patient1.COP)
 # print '\033[93m' + "STD_COP_END" + '\033[0m'
@@ -45,8 +45,8 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 # patient1.amplitude = amplitude(patient1.COP)
 # print '\033[93m' + "AMP_COP_END" + '\033[0m'
 #
-# patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
-# print '\033[93m' + "VELOCITY_END" + '\033[0m'
+patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
+print '\033[93m' + "VELOCITY_END" + '\033[0m'
 #
 # patient1.trajec = trajectory(patient1.COP)
 # print '\033[93m' + "TRAJ_END" + '\033[0m'
@@ -99,11 +99,11 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 # patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
 # print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 #
-# patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
-# print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
-#
-# patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
-# print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
+patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
+print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
+
+patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
+print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 
 
@@ -189,6 +189,12 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 
 # over30_rest_mean, male_rest_mean, female_rest_mean, EA_over30_rest_mean, EA_under30_rest_mean, EA_more_rest_mean = get_value_mean_tonus_rest()
 
+over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG = get_EMG_evolution(patient1.EMG_evolution)
+
+over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP = get_COP_evolution(patient1.area_e)
+
+over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolution_area(patient1.area_e)
+
 #tonus_boxplot(over30_tonus_new, male_tonus_new, female_tonus_new, EA_over30_tonus_new, EA_under30_tonus_new, EA_more_tonus_new)
 #EMG_freq_back_boxplot(over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new)
 #EMG_freq_front_boxplot(over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new)
@@ -196,4 +202,8 @@ print '\033[93m' + "NORM_END" + '\033[0m'
 #COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_under30_cop_freq, EA_more_cop_freq)
 #task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_under30_tonus_mean, EA_more_tonus_mean,over30_rest_mean, male_rest_mean, female_rest_mean, EA_over30_rest_mean, EA_under30_rest_mean, EA_more_rest_mean)
 
-get_EMG_evolution(patient1.EMG_normalization)
+plt.plot(EA_over30_area["Standing_EO"])
+plt.show()
+
+
+
