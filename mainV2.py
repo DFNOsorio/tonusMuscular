@@ -201,9 +201,10 @@ over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolutio
 #COP_parameters_boxplot(over30_cop, male_cop, female_cop, EA_over30_cop, EA_under30_cop, EA_more_cop)
 #COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_under30_cop_freq, EA_more_cop_freq)
 #task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_under30_tonus_mean, EA_more_tonus_mean,over30_rest_mean, male_rest_mean, female_rest_mean, EA_over30_rest_mean, EA_under30_rest_mean, EA_more_rest_mean)
+plot_evalution_graphs(over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG,
+                      over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP,
+                      over30_area, male_area, female_area, EA_over30_area, EA_more_area)
 
-plt.plot(EA_over30_area["Standing_EO"])
-plt.show()
 
 
 
