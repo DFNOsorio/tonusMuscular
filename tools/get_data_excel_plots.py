@@ -9,6 +9,7 @@ from openpyxl.styles import PatternFill
 import numpy as np
 from pylab import plot, show, savefig, xlim, figure,hold, ylim, legend, boxplot, setp, axes
 import matplotlib.gridspec as gridspec
+from matplotlib import pyplot as plt
 
 
 

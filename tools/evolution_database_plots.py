@@ -3,6 +3,9 @@ import xlsxwriter
 import xlrd
 from openpyxl import Workbook
 from openpyxl import load_workbook
+import matplotlib
+from matplotlib import pyplot as plt
+from pylab import *
 from openpyxl.utils import get_column_letter, column_index_from_string
 from xlrd import open_workbook
 from openpyxl.styles import Alignment
@@ -311,17 +314,20 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Rectus_L"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-
-            plt.xticks([0,1,2,3,4,5,6,7,8,9,10,11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                 "[10 - 12,5]s", "[12,5 - 15]s","[15 - 17,5]s", "[17,5 - 20]s",
-                                                 "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s", "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s","[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot1.set_title("Rectus Left", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot1.set_title("Rectus Left", fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
+
+
 
         plot2 = plt.subplot2grid((4, 4), (0, 1))
 
@@ -332,18 +338,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Obliques_L"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot2.set_title("Obliques Left", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot2.set_title("Obliques Left",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot3 = plt.subplot2grid((4, 4), (0, 2))
 
@@ -354,18 +360,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Rectus_R"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot3.set_title("Rectus Right", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot3.set_title("Rectus Right", fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot4 = plt.subplot2grid((4, 4), (0, 3))
 
@@ -376,18 +382,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Obliques_R"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot4.set_title("Obliques Right", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot4.set_title("Obliques Right",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot5 = plt.subplot2grid((4, 4), (1, 0))
 
@@ -398,18 +404,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Ilicostalis_L"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot5.set_title("Ilicostalis Left", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot5.set_title("Ilicostalis Left", fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot6 = plt.subplot2grid((4, 4), (1, 1))
 
@@ -420,18 +426,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Multi_L"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot6.set_title("Multifidus Left", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot6.set_title("Multifidus Left",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot7 = plt.subplot2grid((4, 4), (1, 2))
 
@@ -442,18 +448,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Ilicostalis_R"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot7.set_title("Ilicostalis Right", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot7.set_title("Ilicostalis Right",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot8 = plt.subplot2grid((4, 4), (1, 3))
 
@@ -464,18 +470,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(EMG_EA_evol[i]["Multi_R"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('EMG Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot8.set_title("Multifidus Right", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot8.set_title("Multifidus Right",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='royalblue', linewidth = 1))
 
         plot9 = plt.subplot2grid((4, 4), (2, 0))
 
@@ -486,18 +492,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(COP_EA_evol[i]["STD_X"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('STD COP X Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot9.set_title("STD X", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot9.set_title("STD X(mm)",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='mediumaquamarine', linewidth = 1))
 
         plot10 = plt.subplot2grid((4, 4), (2, 1))
 
@@ -508,18 +514,18 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(COP_EA_evol[i]["STD_Y"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('STD COP Y Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot10.set_title("STD Y", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot10.set_title("STD Y (mm)", fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='mediumaquamarine', linewidth = 1))
 
         plot11 = plt.subplot2grid((4, 4), (2, 2))
 
@@ -530,18 +536,17 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(COP_EA_evol[i]["Vel_X"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
-
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
         plt.ylabel('Velocity COP X Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot11.set_title("Velocity X", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot11.set_title("Velocity X (mm/s)",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='mediumaquamarine', linewidth = 1))
 
         plot12 = plt.subplot2grid((4, 4), (2, 3))
 
@@ -552,20 +557,67 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
         plt.plot(COP_EA_evol[i]["Vel_Y"], color='magenta', label="EA evolved")
 
         if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("[0 - 2,5]s", "[2,5 - 5]s", "[5 - 7,5]s", "[7,5 - 10]s",
-                                                                "[10 - 12,5]s", "[12,5 - 15]s", "[15 - 17,5]s",
-                                                                "[17,5 - 20]s",
-                                                                "[20 - 22,5]s", "[22,5 - 25]s", "[25 - 27,5]s",
-                                                                "[27,5 - 30]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
         if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
-            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("[0 - 1]s", "[1 - 2]s", "[2 - 3]s", "[3 - 4]s", "[4 - 5]s",
-                                                  "[5 - 6]s", "[6 - 7]s"), fontsize=5)
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
 
         plt.ylabel('Velocity COP Y Values', fontsize=10)
-        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot12.set_title("Velocity Y", fontsize=12)
+        #plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot12.set_title("Velocity Y (mm/s)",fontsize=12, bbox=dict(boxstyle="round, pad=0.3", fc="w", color ='mediumaquamarine', linewidth = 1))
 
-        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.95, hspace=0.68)
+        plot13 = plt.subplot2grid((4, 4), (3, 0), colspan=2, rowspan=1)
+
+        plt.plot(area_over30[i], color='blue', label="Over 30")
+        plt.plot(area_male[i], color='yellow', label="Male 20-30")
+        plt.plot(area_female[i], color='green', label="Female 20-30")
+        plt.plot(area_EA_over[i], color='red', label="EA Over 30")
+        plt.plot(area_EA_evol[i], color='magenta', label="EA evolved")
+
+        if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ("1st", "2nd", "3rd", "4th",
+                                                                "5th", "6th", "7th",
+                                                                "8th",
+                                                                "9th", "10th", "11th",
+                                                                "12th"), fontsize=8)
+        if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
+            plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ("1st", "2nd", "3rd", "4th", "5th",
+                                                  "6th", "7th"), fontsize=8)
+
+        plt.ylabel('Area Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.1, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot13.set_title("Area (mm2)", fontsize=12, bbox=dict(boxstyle="round, pad=1", fc="w", color ='mediumaquamarine', linewidth = 1))
+
+        plot14 = plt.subplot2grid((4, 4), (3, 2), colspan=2, rowspan=1)
+        plt.axis('off')
+
+        if i != "Reach_C" and i != "Reach_L" and i != "Reach_R":
+            plot14.annotate("Legend x axis: \n"
+                            "\n"
+                            "1st - [0 - 2,5]s       7th - [15 - 17,5]s \n"
+                            "2nd - [2,5 - 5]s       8th - [17,5 - 20]s \n"
+                            "3rd - [5 - 7,5]s       9th - [20 - 22,5]s \n"
+                            "4th - [7,5 - 10]s      10th - [22,5 - 25]s \n"
+                            "5th - [10 - 12,5]s     11th - [25 - 27,5]s \n"
+                            "6th - [12,5 - 15]s     12th - [27,5 - 30]s \n", (0.5, 0.5),
+                     xycoords="axes fraction", va="center", ha="left",
+                     bbox=dict(boxstyle="round, pad=1", fc="w"))
+        if i == "Reach_C" or i == "Reach_L" or i == "Reach_R":
+            plot14.annotate("Legend x axis: \n"
+                            "\n"
+                            "1st - [0 - 1]s         5th - [4 - 5]s \n"
+                            "2nd - [1 - 2]s         6th - [5 - 6]s \n"
+                            "3rd - [2 - 3]s         7th - [6 - 7]s \n", (0.5, 0.5),
+                            xycoords="axes fraction", va="center", ha="left",
+                            bbox=dict(boxstyle="round, pad=1", fc="w"))
+
+
+
+        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.37, hspace=0.68)
         plt.show()
         # pp.savefig(fig)
         # pp.close()

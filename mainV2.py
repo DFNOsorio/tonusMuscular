@@ -81,11 +81,11 @@ print '\033[93m' + "VELOCITY_END" + '\033[0m'
 # patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
 # print '\033[93m' + "CORR_END" + '\033[0m'
 
-# patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
-# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-#
-# patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
-# print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
+patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
+print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+
+patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
+print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
 #
 # patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
 # print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
@@ -171,7 +171,7 @@ print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 # over30_tonus, male_tonus, female_tonus, EA_over30_tonus, EA_under30_tonus, EA_more_tonus = get_value_tonus(patient1.EMG_normalization)
 #
-# over30_freq, male_freq, female_freq, EA_over30_freq, EA_under30_freq, EA_more_freq = get_value_freq(patient1.peak_EMG)
+over30_freq, male_freq, female_freq, EA_over30_freq, EA_under30_freq, EA_more_freq = get_value_freq(patient1.peak_EMG)
 #
 # over30_cop, male_cop, female_cop, EA_over30_cop, EA_under30_cop, EA_more_cop = get_values_COP(patient1.mean)
 #
@@ -181,7 +181,7 @@ print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 #
 # over30_tonus_rest, male_tonus_rest, female_tonus_rest, EA_over30_tonus_rest, EA_under30_tonus_rest, EA_more_tonus_rest = get_value_tonus_rest()
 #
-# over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new = delete_EMG_values_freqs(over30_freq, male_freq, female_freq, EA_over30_freq, EA_under30_freq, EA_more_freq)
+over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new = delete_EMG_values_freqs(over30_freq, male_freq, female_freq, EA_over30_freq, EA_under30_freq, EA_more_freq)
 
 # over30_tonus_new, male_tonus_new, female_tonus_new, EA_over30_tonus_new, EA_under30_tonus_new, EA_more_tonus_new = delete_EMG_values_tonus(over30_tonus, male_tonus, female_tonus, EA_over30_tonus, EA_under30_tonus, EA_more_tonus)
 
@@ -189,11 +189,11 @@ print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 # over30_rest_mean, male_rest_mean, female_rest_mean, EA_over30_rest_mean, EA_under30_rest_mean, EA_more_rest_mean = get_value_mean_tonus_rest()
 
-over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG = get_EMG_evolution(patient1.EMG_evolution)
+#over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG = get_EMG_evolution(patient1.EMG_evolution)
 
-over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP = get_COP_evolution(patient1.area_e)
+#over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP = get_COP_evolution(patient1.area_e)
 
-over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolution_area(patient1.area_e)
+#over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolution_area(patient1.area_e)
 
 #tonus_boxplot(over30_tonus_new, male_tonus_new, female_tonus_new, EA_over30_tonus_new, EA_under30_tonus_new, EA_more_tonus_new)
 #EMG_freq_back_boxplot(over30_freq_new, male_freq_new, female_freq_new, EA_over30_freq_new, EA_under30_freq_new, EA_more_freq_new)
@@ -201,9 +201,11 @@ over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolutio
 #COP_parameters_boxplot(over30_cop, male_cop, female_cop, EA_over30_cop, EA_under30_cop, EA_more_cop)
 #COP_freq_boxplot(over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_under30_cop_freq, EA_more_cop_freq)
 #task_vs_relax(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_under30_tonus_mean, EA_more_tonus_mean,over30_rest_mean, male_rest_mean, female_rest_mean, EA_over30_rest_mean, EA_under30_rest_mean, EA_more_rest_mean)
-plot_evalution_graphs(over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG,
-                      over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP,
-                      over30_area, male_area, female_area, EA_over30_area, EA_more_area)
+#plot_evalution_graphs(over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG,
+                      #over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP,
+                      #over30_area, male_area, female_area, EA_over30_area, EA_more_area)
+
+
 
 
 
