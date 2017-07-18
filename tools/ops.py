@@ -1,10 +1,10 @@
-import numpy as np
 import scipy.fftpack as fft
 import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.signal import butter, lfilter, freqz
 from scipy import integrate
 import novainstrumentation as ni
+import numpy as np
 
 
 
@@ -368,9 +368,10 @@ def normalization_subCOP(COP_array):
     norm_COP = (COP_array - min) / (max - min)
     return norm_COP
 
-def std(COP_array):
+def desviation(COP_array):
     dp = {}
     dp_array = {}
+
     for i in COP_array:
         for j in COP_array[i]:
             if j != "Total_W":
@@ -589,7 +590,7 @@ def evolution_EMG(max_values, EMG_array):
 
     return EMG_evolution
 
-def delete_EMG_values_freqs(over30, male, female, EA_over30, EA_under30, EA_evolved):
+def delete_EMG_values_freqs(over30, male, female, EA_over30, EA_evolved):
 
     for i in over30:
         EA_over30[i]["Ilicostalis_L"]["Peak"].pop(2)
@@ -606,6 +607,21 @@ def delete_EMG_values_freqs(over30, male, female, EA_over30, EA_under30, EA_evol
         over30[i]["Multi_L"]["Mean"].pop(3)
         over30[i]["Multi_L"]["Median"].pop(3)
         over30[i]["Multi_L"]["80_freq"].pop(3)
+
+        female[i]["Ilicostalis_L"]["Peak"].pop(20)
+        female[i]["Ilicostalis_L"]["Mean"].pop(20)
+        female[i]["Ilicostalis_L"]["Median"].pop(20)
+        female[i]["Ilicostalis_L"]["80_freq"].pop(20)
+
+        male[i]["Ilicostalis_L"]["Peak"].pop(11)
+        male[i]["Ilicostalis_L"]["Mean"].pop(11)
+        male[i]["Ilicostalis_L"]["Median"].pop(11)
+        male[i]["Ilicostalis_L"]["80_freq"].pop(11)
+
+        male[i]["Obliques_L"]["Peak"].pop(11)
+        male[i]["Obliques_L"]["Mean"].pop(11)
+        male[i]["Obliques_L"]["Median"].pop(11)
+        male[i]["Obliques_L"]["80_freq"].pop(11)
 
     for i in male["Reach_L"]:
         for n in male["Reach_L"][i]:
@@ -666,9 +682,9 @@ def delete_EMG_values_freqs(over30, male, female, EA_over30, EA_under30, EA_evol
     female["OneFootStanding_L_EO"]["Multi_R"]["Median"].pop(17)
     female["OneFootStanding_L_EO"]["Multi_R"]["80_freq"].pop(17)
 
-    return over30, male, female, EA_over30, EA_under30, EA_evolved
+    return over30, male, female, EA_over30, EA_evolved
 
-def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_under30, EA_evolved):
+def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_evolved):
 
     for i in over30:
         EA_over30[i]["Ilicostalis_L"].pop(2)
@@ -676,6 +692,12 @@ def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_under30, EA_evol
         EA_evolved[i]["Ilicostalis_R"].pop(0)
 
         over30[i]["Multifidus_L"].pop(3)
+
+        male[i]["Ilicostalis_L"].pop(11)
+
+        male[i]["Obliques_L"].pop(11)
+
+        female[i]["Ilicostalis_L"].pop(20)
 
     for n in male["Reach_L"]:
         male["OneFootStanding_R_EC"][n].pop(5)
@@ -703,6 +725,6 @@ def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_under30, EA_evol
     female["OneFootStanding_L_EO"]["Multifidus_R"].pop(17)
 
 
-    return over30, male, female, EA_over30, EA_under30, EA_evolved
+    return over30, male, female, EA_over30, EA_evolved
 
 
