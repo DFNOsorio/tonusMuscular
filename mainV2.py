@@ -6,7 +6,7 @@ import novainstrumentation as ni
 import matplotlib.pyplot as plt
 
 
-file = "Egas_Moniz_Segments/Patient18_Healthy.h5"
+file = "Egas_Moniz_Segments/Patient11_EA.h5"
 
 patient1 = Patient(file, platform=True, verbose=True)
 
@@ -47,40 +47,40 @@ print '\033[93m' + "AMP_COP_END" + '\033[0m'
 
 patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
 print '\033[93m' + "VELOCITY_END" + '\033[0m'
-#
-# patient1.trajec = trajectory(patient1.COP)
-# print '\033[93m' + "TRAJ_END" + '\033[0m'
-#
-# patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
-# print '\033[93m' + "COHERENCY_END" + '\033[0m'
-#
-# patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
-# print '\033[93m' + "V_RMS_END" + '\033[0m'
-#
-# patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
-# print '\033[93m' + "A_RMS_END" + '\033[0m'
-#
-# patient1.acel_norm = normalization_COP(patient1.RMS_acel)
-# print '\033[93m' + "A_NORM_END" + '\033[0m'
-#
-# patient1.v_norm = normalization_COP(patient1.RMS_velocity)
-# print '\033[93m' + "V_NORM_END" + '\033[0m'
-#
-# patient1.COP_norm = normalization_COP(patient1.COP)
-# print '\033[93m' + "COP_NORM_END" + '\033[0m'
-#
-# patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
-# print '\033[93m' + "RLCORR_END" + '\033[0m'
-#
-# patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
-# print '\033[93m' + "FBCORR_END" + '\033[0m'
-#
-# patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
-# print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
-#
-# patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
-# print '\033[93m' + "CORR_END" + '\033[0m'
-#
+
+patient1.trajec = trajectory(patient1.COP)
+print '\033[93m' + "TRAJ_END" + '\033[0m'
+
+patient1.c= coherence(patient1.COP, patient1.EMG_normalization)
+print '\033[93m' + "COHERENCY_END" + '\033[0m'
+
+patient1.RMS_velocity = RMS_velocity_whole_segment(patient1.velocity)
+print '\033[93m' + "V_RMS_END" + '\033[0m'
+
+patient1.RMS_acel = RMS_velocity_whole_segment(patient1.acelaration)
+print '\033[93m' + "A_RMS_END" + '\033[0m'
+
+patient1.acel_norm = normalization_COP(patient1.RMS_acel)
+print '\033[93m' + "A_NORM_END" + '\033[0m'
+
+patient1.v_norm = normalization_COP(patient1.RMS_velocity)
+print '\033[93m' + "V_NORM_END" + '\033[0m'
+
+patient1.COP_norm = normalization_COP(patient1.COP)
+print '\033[93m' + "COP_NORM_END" + '\033[0m'
+
+patient1.corr_RL = RL_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+print '\033[93m' + "RLCORR_END" + '\033[0m'
+
+patient1.corr_FB = FB_muscles_COP(patient1.COP, patient1.v_norm, patient1.acel_norm, patient1.EMG_normalization)
+print '\033[93m' + "FBCORR_END" + '\033[0m'
+
+patient1.corr_FB_cross = FB_muscles_COP_Cross(patient1.COP, patient1.EMG_normalization)
+print '\033[93m' + "FBCORR_CROSS_END" + '\033[0m'
+
+patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
+print '\033[93m' + "CORR_END" + '\033[0m'
+
 patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
 print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
 
@@ -113,22 +113,21 @@ print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 # # create_database()
 
-# personal_data(file)
-# parameters(patient1.EMG_max_values)
-# coherency(patient1.c)
-# COP_parameters(patient1.mean, patient1.COP, patient1.std, patient1.amplitude)
-# correlation_RL(patient1.corr_RL)
-# correlation_FB(patient1.corr_FB)
-# correlation_FB_cross(patient1.corr_FB_cross)
-# correlation(patient1.simple_corr)
-# fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
-# fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
-# rest_parameters(patient1.static_max_values,patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
-# mean_values_EMG(patient1.EMG_mean_values)
-# rest_mean_values(patient1.static_mean_values)
-#
-# evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_e, patient1.COP)
-# EMG_evolution(patient1.EMG_evolution)
+personal_data(file)
+parameters(patient1.EMG_max_values)
+coherency(patient1.c)
+COP_parameters(patient1.mean, patient1.COP, patient1.std, patient1.amplitude)
+correlation_RL(patient1.corr_RL)
+correlation_FB(patient1.corr_FB)
+correlation_FB_cross(patient1.corr_FB_cross)
+correlation(patient1.simple_corr)
+fourrier_parameters_EMG(patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG)
+fourrier_parameters_COP(patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP)
+rest_parameters(patient1.static_max_values,patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_50_EMG_rest, patient1.f_80_EMG_rest)
+mean_values_EMG(patient1.EMG_mean_values)
+rest_mean_values(patient1.static_mean_values)
+evolution_parameters_COP(patient1.std_evolution, patient1.velocity_evolution, patient1.area_e, patient1.COP)
+EMG_evolution(patient1.EMG_evolution)
 
 
 #mean_std(patient1.peak_COP)

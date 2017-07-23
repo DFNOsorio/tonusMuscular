@@ -7,11 +7,11 @@ import numpy as np
 from tools import *
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
-file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-patient = 'Patient41_Healthy'
+file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_obliques.xlsx'
+patient = 'Patient11_EA'
 
 def create_database():
-    workbook = xlsxwriter.Workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx')
+    workbook = xlsxwriter.Workbook(file_excel)
 
 def personal_data(file_name):
     file = h5py.File(file_name, 'r')
@@ -1103,20 +1103,20 @@ def rest_parameters(rest_array, peak_f, mean_f, median_f, f80):
             eigth_row.font = eigth_row.font.copy(bold=True)
             eigth_row.fill = fill
 
-            # data = [[peak_f[i][0, 0], mean_f[i][0, 0], median_f[i][0, 0], f80[i][0, 0]],
-            #         [peak_f[i][0, 1], mean_f[i][0, 1], median_f[i][0, 1], f80[i][0, 1]],
-            #         [peak_f[i][0, 2], mean_f[i][0, 2], median_f[i][0, 2], f80[i][0, 2]],
-            #         [peak_f[i][0, 3], mean_f[i][0, 3], median_f[i][0, 3], f80[i][0, 3]],
-            #         [peak_f[i][0, 4], mean_f[i][0, 4], median_f[i][0, 4], f80[i][0, 4]],
-            #         [peak_f[i][0, 5], mean_f[i][0, 5], median_f[i][0, 5], f80[i][0, 5]],
-            #         [peak_f[i][0, 6], mean_f[i][0, 6], median_f[i][0, 6], f80[i][0, 6]],
-            #         [peak_f[i][0, 7], mean_f[i][0, 7], median_f[i][0, 7], f80[i][0, 7]]]
-            # for row in data:
-            #     sheet1.cell(row=count2_freq, column=count_col, value=row[0])
-            #     sheet1.cell(row=count2_freq, column=count_col + 1, value=row[1])
-            #     sheet1.cell(row=count2_freq, column=count_col + 2, value=row[2])
-            #     sheet1.cell(row=count2_freq, column=count_col + 3, value=row[3])
-            #     count2_freq = count2_freq + 1
+            data = [[peak_f[i][0, 0], mean_f[i][0, 0], median_f[i][0, 0], f80[i][0, 0]],
+                    [peak_f[i][0, 1], mean_f[i][0, 1], median_f[i][0, 1], f80[i][0, 1]],
+                    [peak_f[i][0, 2], mean_f[i][0, 2], median_f[i][0, 2], f80[i][0, 2]],
+                    [peak_f[i][0, 3], mean_f[i][0, 3], median_f[i][0, 3], f80[i][0, 3]],
+                    [peak_f[i][0, 4], mean_f[i][0, 4], median_f[i][0, 4], f80[i][0, 4]],
+                    [peak_f[i][0, 5], mean_f[i][0, 5], median_f[i][0, 5], f80[i][0, 5]],
+                    [peak_f[i][0, 6], mean_f[i][0, 6], median_f[i][0, 6], f80[i][0, 6]],
+                    [peak_f[i][0, 7], mean_f[i][0, 7], median_f[i][0, 7], f80[i][0, 7]]]
+            for row in data:
+                sheet1.cell(row=count2_freq, column=count_col, value=row[0])
+                sheet1.cell(row=count2_freq, column=count_col + 1, value=row[1])
+                sheet1.cell(row=count2_freq, column=count_col + 2, value=row[2])
+                sheet1.cell(row=count2_freq, column=count_col + 3, value=row[3])
+                count2_freq = count2_freq + 1
 
     wb2.save(file_excel)
 

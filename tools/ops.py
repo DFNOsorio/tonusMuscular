@@ -111,8 +111,8 @@ def norm_whole_segment(test, max_back, max_rectus, max_RO, max_LO):
             new_new_avg[:, 0] = test[i][:, 0] / max_rectus[0]
             new_new_avg[:, 1] = test[i][:, 1] / max_rectus[1]
 
-            new_new_avg[:, 2] = test[i][:, 2] / max_LO[2]
-            new_new_avg[:, 3] = test[i][:, 3] / max_RO[3]
+            new_new_avg[:, 2] = test[i][:, 2] / max_LO[3]
+            new_new_avg[:, 3] = test[i][:, 3] / max_RO[2]
 
             new_new_avg[:, 4] = test[i][:, 4] / max_back[4]
             new_new_avg[:, 5] = test[i][:, 5] / max_back[5]
