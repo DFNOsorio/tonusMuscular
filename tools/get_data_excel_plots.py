@@ -11,13 +11,13 @@ from pylab import plot, show, savefig, xlim, figure,hold, ylim, legend, boxplot,
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 
+file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _obliques.xlsx'
+file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_obliques.xlsx'
+file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_obliques.xlsx'
 
 
 
 def get_value_tonus(EMG_array):
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -127,7 +127,7 @@ def get_value_tonus(EMG_array):
 
 
         for i in wb_EA.sheetnames:
-            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' and i != 'Patient11_EA'\
                     and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
 
                 ws_EA_over30 = wb_EA.get_sheet_by_name(i)
@@ -140,7 +140,7 @@ def get_value_tonus(EMG_array):
                 value_multi_l_EA_over30.append(ws_EA_over30['B' + str(count+3)].value)
                 value_multi_r_EA_over30.append(ws_EA_over30['C' + str(count+3)].value)
 
-            if i == 'Patient4_EA' or i == 'Patient8_EA':
+            if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
 
                 ws_EA_evoluted = wb_EA.get_sheet_by_name(i)
                 value_rectus_l_EA_evoluted.append(ws_EA_evoluted['B' + str(count)].value)
@@ -188,9 +188,6 @@ def get_value_tonus(EMG_array):
 
 
 def get_value_freq(freq_array):
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -276,7 +273,7 @@ def get_value_freq(freq_array):
                     eighty_value_male.append(ws_20['E' + str(l)].value)
 
             for i in wb_EA.sheetnames:
-                if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+                if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' and i !='Patient11_EA' \
                         and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
                     ws_EA_over30 = wb_EA.get_sheet_by_name(i)
 
@@ -285,7 +282,7 @@ def get_value_freq(freq_array):
                     median_EA_over30.append(ws_EA_over30['D' + str(l)].value)
                     eighty_value_EA_over30.append(ws_EA_over30['E' + str(l)].value)
 
-                if i == 'Patient4_EA' or i == 'Patient8_EA':
+                if i == 'Patient4_EA' or i == 'Patient8_EA' or i =='Patient11_EA':
                     ws_EA_evoluted = wb_EA.get_sheet_by_name(i)
                     peak_EA_evoluted.append(ws_EA_evoluted['B' + str(l)].value)
                     mean_EA_evoluted.append(ws_EA_evoluted['C' + str(l)].value)
@@ -402,9 +399,6 @@ def get_value_freq(freq_array):
 
 
 def get_values_COP(mean_velocity):
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -505,7 +499,7 @@ def get_values_COP(mean_velocity):
                 area_value_male.append(ws_20['Q' + str(count + 5)].value)
 
         for i in wb_EA.sheetnames:
-            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA'  and i != 'Patient11_EA'\
                     and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
                 ws_EA_over30 = wb_EA.get_sheet_by_name(i)
                 mean_v_x_EA_over30.append(ws_EA_over30['Q' + str(count)].value)
@@ -516,7 +510,7 @@ def get_values_COP(mean_velocity):
                 amp_y_EA_over30.append(ws_EA_over30['R' + str(count + 2)].value)
                 area_value_EA_over30.append(ws_EA_over30['Q' + str(count + 5)].value)
 
-            if i == 'Patient4_EA' or i == 'Patient8_EA':
+            if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
                 ws_EA_evoluted = wb_EA.get_sheet_by_name(i)
                 mean_v_x_EA_evaluted.append(ws_EA_evoluted['Q' + str(count)].value)
                 mean_v_y_EA_evaluted.append(ws_EA_evoluted['R' + str(count)].value)
@@ -558,9 +552,6 @@ def get_values_COP(mean_velocity):
 
 
 def get_values_COP_freq(COP_freq):
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -676,7 +667,7 @@ def get_values_COP_freq(COP_freq):
                 eighty_male_copy.append(ws_20['N' + str(count + 1)].value)
 
         for i in wb_EA.sheetnames:
-            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' and i != 'Patient11_EA' \
                     and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
                 ws_EA_over30 = wb_EA.get_sheet_by_name(i)
 
@@ -689,7 +680,7 @@ def get_values_COP_freq(COP_freq):
                 eighty_EA_copx_over30.append(ws_EA_over30['N' + str(count)].value)
                 eighty_EA_copy_over30.append(ws_EA_over30['N' + str(count + 1)].value)
 
-            if i == 'Patient4_EA' or i == 'Patient8_EA':
+            if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
                 ws_EA_evoluted = wb_EA.get_sheet_by_name(i)
                 peak_EA_copx_evaluted.append(ws_EA_evoluted['K' + str(count)].value)
                 peak_EA_copy_evaluted.append(ws_EA_evoluted['K' + str(count + 1)].value)
@@ -733,9 +724,6 @@ def get_values_COP_freq(COP_freq):
 
 
 def get_value_freq_rest():
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -816,7 +804,7 @@ def get_value_freq_rest():
                     eighty_value_male.append(ws_20['E' + str(count)].value)
 
         for i in wb_EA.sheetnames:
-            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA'  and i != 'Patient11_EA'\
                     and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
                 ws_EA_over30 = wb_EA.get_sheet_by_name(i)
                 if ws_EA_over30['B' + str(count)].value != None:
@@ -826,7 +814,7 @@ def get_value_freq_rest():
                     median_EA_over30.append(ws_EA_over30['D' + str(count)].value)
                     eighty_value_EA_over30.append(ws_EA_over30['E' + str(count)].value)
 
-                if i == 'Patient4_EA' or i == 'Patient8_EA':
+                if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
                     ws_EA_evaluted = wb_EA.get_sheet_by_name(i)
                     if ws_EA_evaluted['B' + str(count)].value != None:
                         peak_EA_evaluted.append(ws_EA_evaluted['B' + str(count)].value)
@@ -935,9 +923,6 @@ def get_value_freq_rest():
 
 
 def get_value_tonus_rest():
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -1036,7 +1021,7 @@ def get_value_tonus_rest():
             value_multi_r_male.append(ws_male['C' + str(count + 3)].value)
 
     for i in wb_EA.sheetnames:
-        if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+        if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA'  and i != 'Patient11_EA'\
                 and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
             ws_EA_over30 = wb_EA.get_sheet_by_name(i)
             value_rectus_l_EA_over30.append(ws_EA_over30['B' + str(count)].value)
@@ -1048,7 +1033,7 @@ def get_value_tonus_rest():
             value_multi_l_EA_over30.append(ws_EA_over30['B' + str(count + 3)].value)
             value_multi_r_EA_over30.append(ws_EA_over30['C' + str(count + 3)].value)
 
-        if i == 'Patient4_EA' or i == 'Patient8_EA':
+        if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
             ws_EA_evaluted = wb_EA.get_sheet_by_name(i)
             value_rectus_l_EA_evaluted.append(ws_EA_evaluted['B' + str(count)].value)
             value_rectus_r_EA_evaluted.append(ws_EA_evaluted['C' + str(count)].value)
@@ -1097,13 +1082,13 @@ def get_value_tonus_rest():
 
 def EMG_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
     l = 0
-    #pp = PdfPages('Tonus_Muscular_BoxPlot_Analysis.pdf')
+    pp = PdfPages('Tonus_Muscular_BoxPlot_Analysis_Healthy_EA.pdf')
 
     for i in over30_tonus:
 
         fig = plt.figure(l)
         l = l + 1
-        fig.suptitle(str(i) + " - Muscular Tonus", fontsize=21)
+        fig.suptitle(str(i) + " - Max Value of normalized EMG", fontsize=21)
 
         plot1 = plt.subplot2grid((4, 2), (0, 0))
         data_rectus_l = [[male_tonus[i]["Rectus_L"]], [female_tonus[i]["Rectus_L"]],
@@ -1150,7 +1135,7 @@ def EMG_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA
         plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA under30", "EA more evolve"),
                    fontsize=8)
         plt.ylim([0, 140])
-        plot5.set_title("Ilicostalis Left", fontsize=12)
+        plot5.set_title("Iliocostalis Left", fontsize=12)
 
         plot6 = plt.subplot2grid((4, 2), (2, 1))
         data_ilicostalis_r = [[male_tonus[i]["Ilicostalis_R"]], [female_tonus[i]["Ilicostalis_R"]],
@@ -1160,7 +1145,7 @@ def EMG_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA
         plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
                    fontsize=8)
         plt.ylim([0, 140])
-        plot6.set_title("Ilicostalis Right", fontsize=12)
+        plot6.set_title("Iliocostalis Right", fontsize=12)
 
         plot7 = plt.subplot2grid((4, 2), (3, 0))
         data_multi_l = [[male_tonus[i]["Multifidus_L"]], [female_tonus[i]["Multifidus_L"]],
@@ -1184,14 +1169,14 @@ def EMG_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
         plt.show()
-        #pp.savefig(fig)
-    #pp.close()
+        pp.savefig(fig)
+    pp.close()
 
 
 
 def EMG_freq_front_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_more_freq):
     l = 0
-    #pp = PdfPages('EMG_Freqs_BoxPlot_Analysis.pdf')
+    pp = PdfPages('EMG_Freqs_BoxPlot_Analysis.pdf')
 
     for i in over30_freq:
         fig = plt.figure(l)
@@ -1289,12 +1274,12 @@ def EMG_freq_front_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA
 
         plt.subplots_adjust(top=0.89, bottom=0.05, left=0.12, right=0.90, wspace=0.56, hspace=0.67)
         plt.show()
-        #pp.savefig(fig)
-    #pp.close()
+        pp.savefig(fig)
+    pp.close()
 
 def COP_parameters_boxplot(over_30, male, female, EA_over, EA_more):
     l = 0
-    #pp = PdfPages('COP_Parameters_BoxPlot_Analysis.pdf')
+    pp = PdfPages('COP_Parameters_BoxPlot_Analysis_Healthy_EA.pdf')
 
     for i in over_30:
         fig = plt.figure(l)
@@ -1373,13 +1358,13 @@ def COP_parameters_boxplot(over_30, male, female, EA_over, EA_more):
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.31, hspace=0.27)
         plt.show()
-        #pp.savefig(fig)
-    #pp.close()
+        pp.savefig(fig)
+    pp.close()
 
 
 def COP_freq_boxplot(over30, male, female, EA_over, EA_more):
     l = 0
-    #pp = PdfPages('COP_Freqs_BoxPlot_Analysis.pdf')
+    pp = PdfPages('COP_Freqs_BoxPlot_Analysis_Healthy_EA.pdf')
 
     for i in over30:
         fig = plt.figure(l)
@@ -1468,19 +1453,19 @@ def COP_freq_boxplot(over30, male, female, EA_over, EA_more):
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.31, hspace=0.27)
         plt.show()
-        #pp.savefig(fig)
-    #pp.close()
+        pp.savefig(fig)
+    pp.close()
 
 def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_more,mean_rest_over30, mean_rest_male, mean_rest_female, mean_rest_EA_over, mean_rest_EA_more):
 
     l = 0
-    #pp = PdfPages('RelaxVSTask_Analysis.pdf')
+    pp = PdfPages('RelaxVSTask_MaxValues_Analysis_Healthy_EA.pdf')
 
     for i in mean_over30:
 
         fig = plt.figure(l)
         l = l + 1
-        fig.suptitle("Relax VS Task - " + str(i), fontsize=21)
+        fig.suptitle("Relax VS Task (Max Value) - " + str(i), fontsize=21)
 
         plot1 = plt.subplot2grid((2, 4), (0, 0))
 
@@ -1490,10 +1475,10 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_over["Rectus_L"], mean_EA_over[i]["Rectus_L"], 'ro', color='red', label = "EA Over 30")
         plt.plot(mean_rest_EA_more["Rectus_L"], mean_EA_more[i]["Rectus_L"], 'ro', color='magenta', label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
         plt.xlim([0,50])
-        plt.ylim([0, 50])
-        plt.ylabel('Rectus Left Values', fontsize=10)
+        plt.ylim([0, 140])
+        plt.ylabel('Rectus Left max Values', fontsize=10)
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot1.set_title("Rectus Left", fontsize=12)
 
@@ -1505,10 +1490,10 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_over["Rectus_R"], mean_EA_over[i]["Rectus_R"], 'ro', color='red', label="EA Over 30")
         plt.plot(mean_rest_EA_more["Rectus_R"], mean_EA_more[i]["Rectus_R"], 'ro', color='magenta', label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Rectus Right Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Rectus Right max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot2.set_title("Rectus Right", fontsize=12)
 
@@ -1520,10 +1505,10 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_over["Obliques_L"], mean_EA_over[i]["Obliques_L"], 'ro', color='red', label="EA Over 30")
         plt.plot(mean_rest_EA_more["Obliques_L"], mean_EA_more[i]["Obliques_L"], 'ro', color='magenta', label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Obliques Left Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Obliques Left max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot3.set_title("Obliques Left", fontsize=12)
 
@@ -1536,10 +1521,10 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_more["Obliques_R"], mean_EA_more[i]["Obliques_R"], 'ro', color='magenta',
                  label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Obliques Right Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Obliques Right max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot4.set_title("Obliques Right", fontsize=12)
 
@@ -1553,12 +1538,12 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_more["Ilicostalis_L"], mean_EA_more[i]["Ilicostalis_L"], 'ro', color='magenta',
                  label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Ilicostalis Left Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Iliocostalis Left max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot5.set_title("Ilicostalis Left", fontsize=12)
+        plot5.set_title("Iliocostalis Left", fontsize=12)
 
         plot6 = plt.subplot2grid((2, 4), (1, 1))
 
@@ -1573,12 +1558,12 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_more["Ilicostalis_R"], mean_EA_more[i]["Ilicostalis_R"], 'ro', color='magenta',
                  label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Ilicostalis Right Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Iliocostalis Right max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
-        plot6.set_title("Ilicostalis Right", fontsize=12)
+        plot6.set_title("Iliocostalis Right", fontsize=12)
 
         plot7 = plt.subplot2grid((2, 4), (1, 2))
 
@@ -1593,10 +1578,10 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_more["Multifidus_L"], mean_EA_more[i]["Multifidus_L"], 'ro', color='magenta',
                  label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Multifidus Left Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Multifidus Left max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot7.set_title("Multifidus Left", fontsize=12)
 
@@ -1613,17 +1598,17 @@ def task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_mor
         plt.plot(mean_rest_EA_more["Multifidus_R"], mean_EA_more[i]["Multifidus_R"], 'ro', color='magenta',
                  label="EA evolved")
 
-        plt.xlabel('Rest Values', fontsize=10)
-        plt.ylabel('Multifidus Right Values', fontsize=10)
+        plt.xlabel('Rest max Values', fontsize=10)
+        plt.ylabel('Multifidus Right max Values', fontsize=10)
         plt.xlim([0, 50])
-        plt.ylim([0, 50])
+        plt.ylim([0, 140])
         plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
         plot8.set_title("Multifidus Right", fontsize=12)
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.95, hspace=0.68)
         plt.show()
-        #pp.savefig(fig)
-    #pp.close()
+        pp.savefig(fig)
+    pp.close()
 
 
 def means_database(over30, male, female, EA,rest_over30, restmale, restfemale, restEA):
@@ -1686,7 +1671,7 @@ def means_database(over30, male, female, EA,rest_over30, restmale, restfemale, r
 
 def EMG_freq_back_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_more_freq):
     l = 0
-    #pp = PdfPages('EMG_Freqs_Back_BoxPlot_Analysis.pdf')
+    pp = PdfPages('EMG_Freqs_Back_BoxPlot_Analysis_Healthy_EA.pdf')
 
     for i in over30_freq:
         fig = plt.figure(l)
@@ -1787,14 +1772,11 @@ def EMG_freq_back_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_
 
         plt.subplots_adjust(top=0.89, bottom=0.05, left=0.12, right=0.90, wspace=0.56, hspace=0.67)
         plt.show()
-        #pp.savefig(fig)
-    #pp.close()
+        pp.savefig(fig)
+    pp.close()
 
 
 def get_value_mean_tonus(EMG_array):
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -1904,7 +1886,7 @@ def get_value_mean_tonus(EMG_array):
 
 
         for i in wb_EA.sheetnames:
-            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+            if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' and i != 'Patient11_EA'\
                     and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
 
                 ws_EA_over30 = wb_EA.get_sheet_by_name(i)
@@ -1917,7 +1899,7 @@ def get_value_mean_tonus(EMG_array):
                 value_multi_l_EA_over30.append(ws_EA_over30['B' + str(count+3)].value)
                 value_multi_r_EA_over30.append(ws_EA_over30['C' + str(count+3)].value)
 
-            if i == 'Patient4_EA' or i == 'Patient8_EA':
+            if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
 
                 ws_EA_evoluted = wb_EA.get_sheet_by_name(i)
                 value_rectus_l_EA_evoluted.append(ws_EA_evoluted['B' + str(count)].value)
@@ -1962,9 +1944,6 @@ def get_value_mean_tonus(EMG_array):
     return value_final_over30, value_final_male, value_final_female, value_final_EA_over30,value_final_EA_evoluted
 
 def get_value_mean_tonus_rest():
-    file_excel_over30 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_over30 _final.xlsx'
-    file_excel_20 = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_20-30_final.xlsx'
-    file_excel_EA = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_final.xlsx'
 
     wb_over30 = load_workbook(file_excel_over30)
     wb_20 = load_workbook(file_excel_20)
@@ -2008,15 +1987,6 @@ def get_value_mean_tonus_rest():
     value_ilicostalis_r_EA_over30 = []
     value_multi_l_EA_over30 = []
     value_multi_r_EA_over30 = []
-
-    value_rectus_l_EA_under30 = []
-    value_rectus_r_EA_under30 = []
-    value_obliques_l_EA_under30 = []
-    value_obliques_r_EA_under30 = []
-    value_ilicostalis_l_EA_under30 = []
-    value_ilicostalis_r_EA_under30 = []
-    value_multi_l_EA_under30 = []
-    value_multi_r_EA_under30 = []
 
     value_rectus_l_EA_evaluted = []
     value_rectus_r_EA_evaluted = []
@@ -2072,7 +2042,7 @@ def get_value_mean_tonus_rest():
             value_multi_r_male.append(ws_male['C' + str(count + 3)].value)
 
     for i in wb_EA.sheetnames:
-        if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' \
+        if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA' and i != 'Patient11_EA'\
                 and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
             ws_EA_over30 = wb_EA.get_sheet_by_name(i)
             value_rectus_l_EA_over30.append(ws_EA_over30['B' + str(count)].value)
@@ -2084,7 +2054,7 @@ def get_value_mean_tonus_rest():
             value_multi_l_EA_over30.append(ws_EA_over30['B' + str(count + 3)].value)
             value_multi_r_EA_over30.append(ws_EA_over30['C' + str(count + 3)].value)
 
-        if i == 'Patient4_EA' or i == 'Patient8_EA':
+        if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
             ws_EA_evaluted = wb_EA.get_sheet_by_name(i)
             value_rectus_l_EA_evaluted.append(ws_EA_evaluted['B' + str(count)].value)
             value_rectus_r_EA_evaluted.append(ws_EA_evaluted['C' + str(count)].value)
@@ -2120,12 +2090,6 @@ def get_value_mean_tonus_rest():
                             "Ilicostalis_R": value_ilicostalis_r_EA_over30,
                             "Multifidus_L": value_multi_l_EA_over30, "Multifidus_R": value_multi_r_EA_over30}
 
-    value_final_EA_under30 = {"Rectus_L": value_rectus_l_EA_under30, "Rectus_R": value_rectus_r_EA_under30,
-                      "Obliques_L": value_obliques_l_EA_under30,
-                      "Obliques_R": value_obliques_r_EA_under30, "Ilicostalis_L": value_ilicostalis_l_EA_under30,
-                      "Ilicostalis_R": value_ilicostalis_r_EA_under30,
-                      "Multifidus_L": value_multi_l_EA_under30, "Multifidus_R": value_multi_r_EA_under30}
-
     value_final_EA_evaluted = {"Rectus_L": value_rectus_l_EA_evaluted, "Rectus_R": value_rectus_r_EA_evaluted,
                       "Obliques_L": value_obliques_l_EA_evaluted,
                       "Obliques_R": value_obliques_r_EA_evaluted, "Ilicostalis_L": value_ilicostalis_l_EA_evaluted,
@@ -2133,4 +2097,250 @@ def get_value_mean_tonus_rest():
                       "Multifidus_L": value_multi_l_EA_evaluted, "Multifidus_R": value_multi_r_EA_evaluted}
 
 
-    return value_final_over30, value_final_male, value_final_female, value_final_EA_over30, value_final_EA_under30, value_final_EA_evaluted
+    return value_final_over30, value_final_male, value_final_female, value_final_EA_over30, value_final_EA_evaluted
+
+def EMG_mean_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
+    l = 0
+    pp = PdfPages('Tonus_Muscular_BoxPlot_Analysis_Healthy_EA.pdf')
+
+    for i in over30_tonus:
+
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle(str(i) + " - Mean Value of normalized EMG", fontsize=21)
+
+        plot1 = plt.subplot2grid((4, 2), (0, 0))
+        data_rectus_l = [[male_tonus[i]["Rectus_L"]], [female_tonus[i]["Rectus_L"]],
+                         [over30_tonus[i]["Rectus_L"]], [EA_over_tonus[i]["Rectus_L"]],
+                         [EA_more_tonus[i]["Rectus_L"]]]
+        plt.boxplot(data_rectus_l, positions = [1,2,3,4,5], widths = 0.6, showmeans= True)
+        plt.xticks([1,2,3,4,5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"), fontsize=8)
+        plt.ylim([0, 140])
+        plot1.set_title("Rectus Left", fontsize=12)
+
+        plot2 = plt.subplot2grid((4, 2), (0, 1))
+        data_rectus_R = [[male_tonus[i]["Rectus_R"]], [female_tonus[i]["Rectus_R"]], [over30_tonus[i]["Rectus_R"]],
+                         [EA_over_tonus[i]["Rectus_R"]], [EA_more_tonus[i]["Rectus_R"]]]
+        plt.boxplot(data_rectus_R, positions = [1,2,3,4,5], widths=0.6, showmeans= True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot2.set_title("Rectus Right", fontsize=12)
+
+        plot3 = plt.subplot2grid((4, 2), (1, 0))
+        data_obliques_l = [[male_tonus[i]["Obliques_L"]], [female_tonus[i]["Obliques_L"]],
+                           [over30_tonus[i]["Obliques_L"]],[EA_over_tonus[i]["Rectus_R"]], [EA_more_tonus[i]["Obliques_L"]]]
+        plt.boxplot(data_obliques_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot3.set_title("Obliques Left", fontsize=12)
+
+        plot4 = plt.subplot2grid((4, 2), (1, 1))
+        data_obliques_r = [[male_tonus[i]["Obliques_R"]], [female_tonus[i]["Obliques_R"]],
+                           [over30_tonus[i]["Obliques_R"]],
+                           [EA_over_tonus[i]["Obliques_R"]], [EA_more_tonus[i]["Obliques_R"]]]
+        plt.boxplot(data_obliques_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot4.set_title("Obliques Right", fontsize=12)
+
+        plot5 = plt.subplot2grid((4, 2), (2, 0))
+        data_ilicostalis_l = [[male_tonus[i]["Ilicostalis_L"]], [female_tonus[i]["Ilicostalis_L"]],
+                              [over30_tonus[i]["Ilicostalis_L"]],
+                              [EA_over_tonus[i]["Ilicostalis_L"]], [EA_more_tonus[i]["Ilicostalis_L"]]]
+        plt.boxplot(data_ilicostalis_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA under30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot5.set_title("Iliocostalis Left", fontsize=12)
+
+        plot6 = plt.subplot2grid((4, 2), (2, 1))
+        data_ilicostalis_r = [[male_tonus[i]["Ilicostalis_R"]], [female_tonus[i]["Ilicostalis_R"]],
+                              [over30_tonus[i]["Ilicostalis_R"]],
+                              [EA_over_tonus[i]["Ilicostalis_R"]], [EA_more_tonus[i]["Ilicostalis_R"]]]
+        plt.boxplot(data_ilicostalis_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot6.set_title("Iliocostalis Right", fontsize=12)
+
+        plot7 = plt.subplot2grid((4, 2), (3, 0))
+        data_multi_l = [[male_tonus[i]["Multifidus_L"]], [female_tonus[i]["Multifidus_L"]],
+                        [over30_tonus[i]["Multifidus_L"]],
+                        [EA_over_tonus[i]["Multifidus_L"]], [EA_more_tonus[i]["Multifidus_L"]]]
+        plt.boxplot(data_multi_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot7.set_title("Multifidus Left", fontsize=12)
+
+        plot8 = plt.subplot2grid((4, 2), (3, 1))
+        data_multi_r = [[male_tonus[i]["Multifidus_R"]], [female_tonus[i]["Multifidus_R"]],
+                        [over30_tonus[i]["Multifidus_R"]],
+                        [EA_over_tonus[i]["Multifidus_R"]], [EA_more_tonus[i]["Multifidus_R"]]]
+        plt.boxplot(data_multi_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+        plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+        plt.ylim([0, 140])
+        plot8.set_title("Multifidus Right", fontsize=12)
+
+        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
+        plt.show()
+        pp.savefig(fig)
+    pp.close()
+
+def mean_task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_EA_more,mean_rest_over30, mean_rest_male, mean_rest_female, mean_rest_EA_over, mean_rest_EA_more):
+
+    l = 0
+    pp = PdfPages('RelaxVSTask_MeanValues_Analysis_Healthy_EA.pdf')
+
+    for i in mean_over30:
+
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle("Relax VS Task (Mean Value) - " + str(i), fontsize=21)
+
+        plot1 = plt.subplot2grid((2, 4), (0, 0))
+
+        plt.plot(mean_rest_over30["Rectus_L"], mean_over30[i]["Rectus_L"], 'ro', color='blue', label = "Over 30")
+        plt.plot(mean_rest_male["Rectus_L"], mean_male[i]["Rectus_L"], 'ro', color='yellow', label = "Male 20-30")
+        plt.plot(mean_rest_female["Rectus_L"], mean_female[i]["Rectus_L"], 'ro', color='green', label = "Female 20-30")
+        plt.plot(mean_rest_EA_over["Rectus_L"], mean_EA_over[i]["Rectus_L"], 'ro', color='red', label = "EA Over 30")
+        plt.plot(mean_rest_EA_more["Rectus_L"], mean_EA_more[i]["Rectus_L"], 'ro', color='magenta', label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.xlim([0,50])
+        plt.ylim([0, 50])
+        plt.ylabel('Rectus Left mean Values', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot1.set_title("Rectus Left", fontsize=12)
+
+        plot2 = plt.subplot2grid((2, 4), (0, 1))
+
+        plt.plot(mean_rest_over30["Rectus_R"], mean_over30[i]["Rectus_R"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Rectus_R"], mean_male[i]["Rectus_R"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Rectus_R"], mean_female[i]["Rectus_R"], 'ro', color='green', label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Rectus_R"], mean_EA_over[i]["Rectus_R"], 'ro', color='red', label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Rectus_R"], mean_EA_more[i]["Rectus_R"], 'ro', color='magenta', label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Rectus Right mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot2.set_title("Rectus Right", fontsize=12)
+
+        plot3 = plt.subplot2grid((2, 4), (0, 2))
+
+        plt.plot(mean_rest_over30["Obliques_L"], mean_over30[i]["Obliques_L"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Obliques_L"], mean_male[i]["Obliques_L"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Obliques_L"], mean_female[i]["Obliques_L"], 'ro', color='green', label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Obliques_L"], mean_EA_over[i]["Obliques_L"], 'ro', color='red', label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Obliques_L"], mean_EA_more[i]["Obliques_L"], 'ro', color='magenta', label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Obliques Left mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot3.set_title("Obliques Left", fontsize=12)
+
+        plot4 = plt.subplot2grid((2, 4), (0, 3))
+        plt.plot(mean_rest_over30["Obliques_R"], mean_over30[i]["Obliques_R"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Obliques_R"], mean_male[i]["Obliques_R"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Obliques_R"], mean_female[i]["Obliques_R"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Obliques_R"], mean_EA_over[i]["Obliques_R"], 'ro', color='red', label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Obliques_R"], mean_EA_more[i]["Obliques_R"], 'ro', color='magenta',
+                 label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Obliques Right mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot4.set_title("Obliques Right", fontsize=12)
+
+        plot5 = plt.subplot2grid((2, 4), (1, 0))
+
+        plt.plot(mean_rest_over30["Ilicostalis_L"], mean_over30[i]["Ilicostalis_L"], 'ro', color='blue', label="Over 30")
+        plt.plot(mean_rest_male["Ilicostalis_L"], mean_male[i]["Ilicostalis_L"], 'ro', color='yellow', label="Male 20-30")
+        plt.plot(mean_rest_female["Ilicostalis_L"], mean_female[i]["Ilicostalis_L"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Ilicostalis_L"], mean_EA_over[i]["Ilicostalis_L"], 'ro', color='red', label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Ilicostalis_L"], mean_EA_more[i]["Ilicostalis_L"], 'ro', color='magenta',
+                 label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Iliocostalis Left mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot5.set_title("Iliocostalis Left", fontsize=12)
+
+        plot6 = plt.subplot2grid((2, 4), (1, 1))
+
+        plt.plot(mean_rest_over30["Ilicostalis_R"], mean_over30[i]["Ilicostalis_R"], 'ro', color='blue',
+                 label="Over 30")
+        plt.plot(mean_rest_male["Ilicostalis_R"], mean_male[i]["Ilicostalis_R"], 'ro', color='yellow',
+                 label="Male 20-30")
+        plt.plot(mean_rest_female["Ilicostalis_R"], mean_female[i]["Ilicostalis_R"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Ilicostalis_R"], mean_EA_over[i]["Ilicostalis_R"], 'ro', color='red',
+                 label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Ilicostalis_R"], mean_EA_more[i]["Ilicostalis_R"], 'ro', color='magenta',
+                 label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Iliocostalis Right mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot6.set_title("Iliocostalis Right", fontsize=12)
+
+        plot7 = plt.subplot2grid((2, 4), (1, 2))
+
+        plt.plot(mean_rest_over30["Multifidus_L"], mean_over30[i]["Multifidus_L"], 'ro', color='blue',
+                 label="Over 30")
+        plt.plot(mean_rest_male["Multifidus_L"], mean_male[i]["Multifidus_L"], 'ro', color='yellow',
+                 label="Male 20-30")
+        plt.plot(mean_rest_female["Multifidus_L"], mean_female[i]["Multifidus_L"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Multifidus_L"], mean_EA_over[i]["Multifidus_L"], 'ro', color='red',
+                 label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Multifidus_L"], mean_EA_more[i]["Multifidus_L"], 'ro', color='magenta',
+                 label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Multifidus Left mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot7.set_title("Multifidus Left", fontsize=12)
+
+        plot8 = plt.subplot2grid((2, 4), (1, 3))
+
+        plt.plot(mean_rest_over30["Multifidus_R"], mean_over30[i]["Multifidus_R"], 'ro', color='blue',
+                 label="Over 30")
+        plt.plot(mean_rest_male["Multifidus_R"], mean_male[i]["Multifidus_R"], 'ro', color='yellow',
+                 label="Male 20-30")
+        plt.plot(mean_rest_female["Multifidus_R"], mean_female[i]["Multifidus_R"], 'ro', color='green',
+                 label="Female 20-30")
+        plt.plot(mean_rest_EA_over["Multifidus_R"], mean_EA_over[i]["Multifidus_R"], 'ro', color='red',
+                 label="EA Over 30")
+        plt.plot(mean_rest_EA_more["Multifidus_R"], mean_EA_more[i]["Multifidus_R"], 'ro', color='magenta',
+                 label="EA evolved")
+
+        plt.xlabel('Rest mean Values', fontsize=10)
+        plt.ylabel('Multifidus Right mean Values', fontsize=10)
+        plt.xlim([0, 50])
+        plt.ylim([0, 50])
+        plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
+        plot8.set_title("Multifidus Right", fontsize=12)
+
+        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.95, hspace=0.68)
+        plt.show()
+        pp.savefig(fig)
+    pp.close()
