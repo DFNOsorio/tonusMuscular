@@ -298,7 +298,7 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
                           COP_over30, COP_male, COP_female, COP_EA_over, COP_EA_evol,
                           area_over30, area_male, area_female, area_EA_over, area_EA_evol):
     l = 0
-    #pp = PdfPages('Evalution_EMG_COP.pdf')
+    pp = PdfPages('Evalution_EMG_COP.pdf')
 
     for i in EMG_over30:
         fig = plt.figure(l)
@@ -619,5 +619,5 @@ def plot_evalution_graphs(EMG_over30, EMG_male, EMG_female, EMG_EA_over, EMG_EA_
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.07, right=0.86, wspace=0.37, hspace=0.68)
         plt.show()
-        # pp.savefig(fig)
-        # pp.close()
+        pp.savefig(fig)
+    pp.close()

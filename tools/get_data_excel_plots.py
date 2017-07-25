@@ -814,7 +814,7 @@ def get_value_freq_rest():
                     median_EA_over30.append(ws_EA_over30['D' + str(count)].value)
                     eighty_value_EA_over30.append(ws_EA_over30['E' + str(count)].value)
 
-                if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
+            if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
                     ws_EA_evaluted = wb_EA.get_sheet_by_name(i)
                     if ws_EA_evaluted['B' + str(count)].value != None:
                         peak_EA_evaluted.append(ws_EA_evaluted['B' + str(count)].value)
@@ -2344,3 +2344,575 @@ def mean_task_vs_relax(mean_over30, mean_male, mean_female, mean_EA_over, mean_E
         plt.show()
         pp.savefig(fig)
     pp.close()
+
+    def EMG_freq_back_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_more_freq):
+        l = 0
+        pp = PdfPages('EMG_Freqs_Back_BoxPlot_Analysis_Healthy_EA.pdf')
+
+        for i in over30_freq:
+            fig = plt.figure(l)
+            l = l + 1
+            fig.suptitle(str(i) + " - EMG Frequencies Back Muscles", fontsize=21)
+
+            row_peak_mean = 0
+            col_peak_mean = 0
+            row_80_median = 2
+            col_80_median = 0
+
+            colors = ['blue', 'green']
+            color_index = 0
+            plt.figtext(0.29, 0.91, "Peak Frequency", horizontalalignment='center', multialignment='center', size=18,
+                        clip_on=True)
+            plt.figtext(0.71, 0.91, "Mean Frequency", horizontalalignment='center', multialignment='center', size=18,
+                        clip_on=True)
+            plt.figtext(0.29, 0.46, "80% Frequency", horizontalalignment='center', multialignment='center', size=18,
+                        clip_on=True)
+            plt.figtext(0.71, 0.46, "Median Frequency", horizontalalignment='center', multialignment='center', size=18,
+                        clip_on=True)
+
+            for freq in over30_freq[i]["Rectus_L"]:
+                if freq == "Peak" or freq == "Mean":
+                    row_l = row_peak_mean
+                    col_l = col_peak_mean
+                    row_r = row_peak_mean
+                    col_r = col_peak_mean + 1
+
+                    for muscle in over30_freq[i]:
+                        if muscle == "Ilicostalis_L" or muscle == "Multi_L":
+                            plot = plt.subplot2grid((4, 4), (row_l, col_l))
+                            data = [[male_freq[i][muscle][freq]], [female_freq[i][muscle][freq]],
+                                    [over30_freq[i][muscle][freq]],
+                                    [EA_over_freq[i][muscle][freq]],
+                                    [EA_more_freq[i][muscle][freq]]]
+                            box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                            plt.xticks([1, 2, 3, 4, 5],
+                                       ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                       fontsize=7)
+                            plot.set_title(str(muscle), fontsize=12, style='italic')
+                            row_l = row_l + 1
+
+                        if muscle == "Ilicostalis_R" or muscle == "Multi_R":
+                            plot = plt.subplot2grid((4, 4), (row_r, col_r))
+                            data = [[male_freq[i][muscle][freq]], [female_freq[i][muscle][freq]],
+                                    [over30_freq[i][muscle][freq]],
+                                    [EA_over_freq[i][muscle][freq]],
+                                    [EA_more_freq[i][muscle][freq]]]
+                            box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                            plt.xticks([1, 2, 3, 4, 5],
+                                       ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                       fontsize=7)
+                            plot.set_title(str(muscle), fontsize=12, style='italic')
+                            row_r = row_r + 1
+
+                    col_peak_mean = col_peak_mean + 2
+                    color_index = color_index + 1
+
+                if freq == "Median" or freq == "80_freq":
+                    row_l = row_80_median
+                    col_l = col_80_median
+                    row_r = row_80_median
+                    col_r = col_80_median + 1
+
+                    for muscle in over30_freq[i]:
+                        if muscle == "Ilicostalis_L" or muscle == "Multi_L":
+                            plot = plt.subplot2grid((4, 4), (row_l, col_l))
+                            data = [[male_freq[i][muscle][freq]], [female_freq[i][muscle][freq]],
+                                    [over30_freq[i][muscle][freq]],
+                                    [EA_over_freq[i][muscle][freq]],
+                                    [EA_more_freq[i][muscle][freq]]]
+                            box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                            plt.xticks([1, 2, 3, 4, 5],
+                                       ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                       fontsize=7)
+                            plot.set_title(str(muscle), fontsize=12, style='italic')
+                            row_l = row_l + 1
+
+                        if muscle == "Ilicostalis_R" or muscle == "Multi_R":
+                            plot = plt.subplot2grid((4, 4), (row_r, col_r))
+                            data = [[male_freq[i][muscle][freq]], [female_freq[i][muscle][freq]],
+                                    [over30_freq[i][muscle][freq]],
+                                    [EA_over_freq[i][muscle][freq]],
+                                    [EA_more_freq[i][muscle][freq]]]
+                            box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                            plt.xticks([1, 2, 3, 4, 5],
+                                       ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                       fontsize=7)
+                            plt.xticks([1, 2, 3, 4, 5],
+                                       ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                       fontsize=7)
+                            plot.set_title(str(muscle), fontsize=12, style='italic')
+                            row_r = row_r + 1
+
+                    col_80_median = col_80_median + 2
+                    color_index = color_index + 1
+
+            plt.subplots_adjust(top=0.89, bottom=0.05, left=0.12, right=0.90, wspace=0.56, hspace=0.67)
+            plt.show()
+            pp.savefig(fig)
+        pp.close()
+
+def EMG_freq_rest_back_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_more_freq):
+    l = 0
+    pp = PdfPages('EMG_Freqs_Rest_Back_BoxPlot_Analysis_Healthy_EA.pdf')
+
+    fig = plt.figure(l)
+    fig.suptitle("EMG Frequencies Back Muscles during Rest", fontsize=21)
+
+    row_peak_mean = 0
+    col_peak_mean = 0
+    row_80_median = 2
+    col_80_median = 0
+
+    colors = ['blue', 'green']
+    color_index = 0
+    plt.figtext(0.29, 0.91, "Peak Frequency", horizontalalignment = 'center', multialignment = 'center', size = 18,
+                    clip_on = True)
+    plt.figtext(0.71, 0.91, "Mean Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+    plt.figtext(0.29, 0.46, "80% Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+    plt.figtext(0.71, 0.46, "Median Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+
+    for freq in over30_freq["Rectus_L"]:
+        if freq == "Peak" or freq == "Mean":
+            row_l = row_peak_mean
+            col_l = col_peak_mean
+            row_r = row_peak_mean
+            col_r = col_peak_mean + 1
+
+            for muscle in over30_freq:
+                if muscle == "Ilicostalis_L" or muscle == "Multi_L":
+                    plot = plt.subplot2grid((4, 4), (row_l, col_l))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style = 'italic')
+                    row_l = row_l + 1
+
+                if muscle == "Ilicostalis_R" or muscle == "Multi_R":
+                    plot = plt.subplot2grid((4, 4), (row_r, col_r))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style='italic')
+                    row_r = row_r + 1
+
+            col_peak_mean = col_peak_mean + 2
+            color_index = color_index + 1
+
+        if freq == "Median" or freq == "80_freq":
+            row_l = row_80_median
+            col_l = col_80_median
+            row_r = row_80_median
+            col_r = col_80_median + 1
+
+            for muscle in over30_freq:
+                if muscle == "Ilicostalis_L" or muscle == "Multi_L":
+                    plot = plt.subplot2grid((4, 4), (row_l, col_l))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style='italic')
+                    row_l = row_l + 1
+
+                if muscle == "Ilicostalis_R" or muscle == "Multi_R":
+                    plot = plt.subplot2grid((4, 4), (row_r, col_r))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style='italic')
+                    row_r = row_r + 1
+
+            col_80_median = col_80_median + 2
+            color_index = color_index + 1
+
+    plt.subplots_adjust(top=0.89, bottom=0.05, left=0.12, right=0.90, wspace=0.56, hspace=0.67)
+    plt.show()
+    pp.savefig(fig)
+    pp.close()
+
+def EMG_freq_rest_front_boxplot(over30_freq, male_freq, female_freq, EA_over_freq, EA_more_freq):
+    l = 0
+    pp = PdfPages('EMG_Freqs_Rest_Front_BoxPlot_Analysis.pdf')
+
+
+    fig = plt.figure(l)
+    fig.suptitle("EMG Frequencies Front Muscles during Rest", fontsize=21)
+
+    row_peak_mean = 0
+    col_peak_mean = 0
+    row_80_median = 2
+    col_80_median = 0
+
+    colors = ['blue', 'green']
+    color_index = 0
+    plt.figtext(0.29, 0.91, "Peak Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+    plt.figtext(0.71, 0.91, "Mean Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+    plt.figtext(0.29, 0.46, "80% Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+    plt.figtext(0.71, 0.46, "Median Frequency", horizontalalignment='center', multialignment='center', size=18,
+                    clip_on=True)
+
+    for freq in over30_freq["Rectus_L"]:
+        if freq == "Peak" or freq == "Mean":
+            row_l = row_peak_mean
+            col_l = col_peak_mean
+            row_r = row_peak_mean
+            col_r = col_peak_mean + 1
+
+            for muscle in over30_freq:
+                if muscle == "Rectus_L" or muscle == "Obliques_L":
+                    plot = plt.subplot2grid((4, 4), (row_l, col_l))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style = 'italic')
+                    row_l = row_l + 1
+
+                if muscle == "Rectus_R" or muscle == "Obliques_R":
+                    plot = plt.subplot2grid((4, 4), (row_r, col_r))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style='italic')
+                    row_r = row_r + 1
+
+            col_peak_mean = col_peak_mean + 2
+            color_index = color_index + 1
+
+        if freq == "Median" or freq == "80_freq":
+            row_l = row_80_median
+            col_l = col_80_median
+            row_r = row_80_median
+            col_r = col_80_median + 1
+
+            for muscle in over30_freq:
+                if muscle == "Rectus_L" or muscle == "Obliques_L":
+                    plot = plt.subplot2grid((4, 4), (row_l, col_l))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style='italic')
+                    row_l = row_l + 1
+
+                if muscle == "Rectus_R" or muscle == "Obliques_R":
+                    plot = plt.subplot2grid((4, 4), (row_r, col_r))
+                    data = [[male_freq[muscle][freq]], [female_freq[muscle][freq]],
+                                [over30_freq[muscle][freq]],
+                                [EA_over_freq[muscle][freq]],
+                                [EA_more_freq[muscle][freq]]]
+                    box = plt.boxplot(data, positions=[1, 2, 3, 4, 5], widths=0.6, showmeans=True)
+                    plt.xticks([1, 2, 3, 4, 5],
+                                   ("Male", "Female", ">30", "EA >30", "EA\n envolved"),
+                                   fontsize=7)
+                    plot.set_title(str(muscle), fontsize=12, style='italic')
+                    row_r = row_r + 1
+
+            col_80_median = col_80_median + 2
+            color_index = color_index + 1
+
+    plt.subplots_adjust(top=0.89, bottom=0.05, left=0.12, right=0.90, wspace=0.56, hspace=0.67)
+    plt.show()
+    pp.savefig(fig)
+    pp.close()
+
+
+def EMG_rest_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
+    l = 0
+    pp = PdfPages('Tonus_Muscular_Rest_BoxPlot_Analysis_Healthy_EA.pdf')
+
+    fig = plt.figure(l)
+    fig.suptitle("Max Value of normalized EMG during Rest", fontsize=21)
+
+    plot1 = plt.subplot2grid((4, 2), (0, 0))
+    data_rectus_l = [[male_tonus["Rectus_L"]], [female_tonus["Rectus_L"]],
+                         [over30_tonus["Rectus_L"]], [EA_over_tonus["Rectus_L"]],
+                         [EA_more_tonus["Rectus_L"]]]
+    plt.boxplot(data_rectus_l, positions = [1,2,3,4,5], widths = 0.6, showmeans= True)
+    plt.xticks([1,2,3,4,5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"), fontsize=8)
+    plt.ylim([0,80])
+    plot1.set_title("Rectus Left", fontsize=12)
+
+    plot2 = plt.subplot2grid((4, 2), (0, 1))
+    data_rectus_R = [[male_tonus["Rectus_R"]], [female_tonus["Rectus_R"]], [over30_tonus["Rectus_R"]],
+                         [EA_over_tonus["Rectus_R"]], [EA_more_tonus["Rectus_R"]]]
+    plt.boxplot(data_rectus_R, positions = [1,2,3,4,5], widths=0.6, showmeans= True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot2.set_title("Rectus Right", fontsize=12)
+
+    plot3 = plt.subplot2grid((4, 2), (1, 0))
+    data_obliques_l = [[male_tonus["Obliques_L"]], [female_tonus["Obliques_L"]],
+                           [over30_tonus["Obliques_L"]],[EA_over_tonus["Rectus_R"]], [EA_more_tonus["Obliques_L"]]]
+    plt.boxplot(data_obliques_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot3.set_title("Obliques Left", fontsize=12)
+
+    plot4 = plt.subplot2grid((4, 2), (1, 1))
+    data_obliques_r = [[male_tonus["Obliques_R"]], [female_tonus["Obliques_R"]],
+                           [over30_tonus["Obliques_R"]],
+                           [EA_over_tonus["Obliques_R"]], [EA_more_tonus["Obliques_R"]]]
+    plt.boxplot(data_obliques_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot4.set_title("Obliques Right", fontsize=12)
+
+    plot5 = plt.subplot2grid((4, 2), (2, 0))
+    data_ilicostalis_l = [[male_tonus["Ilicostalis_L"]], [female_tonus["Ilicostalis_L"]],
+                              [over30_tonus["Ilicostalis_L"]],
+                              [EA_over_tonus["Ilicostalis_L"]], [EA_more_tonus["Ilicostalis_L"]]]
+    plt.boxplot(data_ilicostalis_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA under30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot5.set_title("Iliocostalis Left", fontsize=12)
+
+    plot6 = plt.subplot2grid((4, 2), (2, 1))
+    data_ilicostalis_r = [[male_tonus["Ilicostalis_R"]], [female_tonus["Ilicostalis_R"]],
+                              [over30_tonus["Ilicostalis_R"]],
+                              [EA_over_tonus["Ilicostalis_R"]], [EA_more_tonus["Ilicostalis_R"]]]
+    plt.boxplot(data_ilicostalis_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot6.set_title("Iliocostalis Right", fontsize=12)
+
+    plot7 = plt.subplot2grid((4, 2), (3, 0))
+    data_multi_l = [[male_tonus["Multifidus_L"]], [female_tonus["Multifidus_L"]],
+                        [over30_tonus["Multifidus_L"]],
+                        [EA_over_tonus["Multifidus_L"]], [EA_more_tonus["Multifidus_L"]]]
+    plt.boxplot(data_multi_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot7.set_title("Multifidus Left", fontsize=12)
+
+    plot8 = plt.subplot2grid((4, 2), (3, 1))
+    data_multi_r = [[male_tonus["Multifidus_R"]], [female_tonus["Multifidus_R"]],
+                        [over30_tonus["Multifidus_R"]],
+                        [EA_over_tonus["Multifidus_R"]], [EA_more_tonus["Multifidus_R"]]]
+    plt.boxplot(data_multi_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 80])
+    plot8.set_title("Multifidus Right", fontsize=12)
+
+    plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
+    plt.show()
+    pp.savefig(fig)
+    pp.close()
+
+def EMG_rest_meanvalues_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
+    l = 0
+    pp = PdfPages('Tonus_Muscular_Rest_BoxPlot_Analysis_Healthy_EA.pdf')
+
+    fig = plt.figure(l)
+    fig.suptitle("Mean Value of normalized EMG during Rest", fontsize=21)
+
+    plot1 = plt.subplot2grid((4, 2), (0, 0))
+    data_rectus_l = [[male_tonus["Rectus_L"]], [female_tonus["Rectus_L"]],
+                         [over30_tonus["Rectus_L"]], [EA_over_tonus["Rectus_L"]],
+                         [EA_more_tonus["Rectus_L"]]]
+    plt.boxplot(data_rectus_l, positions = [1,2,3,4,5], widths = 0.6, showmeans= True)
+    plt.xticks([1,2,3,4,5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"), fontsize=8)
+    plt.ylim([0,50])
+    plot1.set_title("Rectus Left", fontsize=12)
+
+    plot2 = plt.subplot2grid((4, 2), (0, 1))
+    data_rectus_R = [[male_tonus["Rectus_R"]], [female_tonus["Rectus_R"]], [over30_tonus["Rectus_R"]],
+                         [EA_over_tonus["Rectus_R"]], [EA_more_tonus["Rectus_R"]]]
+    plt.boxplot(data_rectus_R, positions = [1,2,3,4,5], widths=0.6, showmeans= True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot2.set_title("Rectus Right", fontsize=12)
+
+    plot3 = plt.subplot2grid((4, 2), (1, 0))
+    data_obliques_l = [[male_tonus["Obliques_L"]], [female_tonus["Obliques_L"]],
+                           [over30_tonus["Obliques_L"]],[EA_over_tonus["Rectus_R"]], [EA_more_tonus["Obliques_L"]]]
+    plt.boxplot(data_obliques_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot3.set_title("Obliques Left", fontsize=12)
+
+    plot4 = plt.subplot2grid((4, 2), (1, 1))
+    data_obliques_r = [[male_tonus["Obliques_R"]], [female_tonus["Obliques_R"]],
+                           [over30_tonus["Obliques_R"]],
+                           [EA_over_tonus["Obliques_R"]], [EA_more_tonus["Obliques_R"]]]
+    plt.boxplot(data_obliques_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot4.set_title("Obliques Right", fontsize=12)
+
+    plot5 = plt.subplot2grid((4, 2), (2, 0))
+    data_ilicostalis_l = [[male_tonus["Ilicostalis_L"]], [female_tonus["Ilicostalis_L"]],
+                              [over30_tonus["Ilicostalis_L"]],
+                              [EA_over_tonus["Ilicostalis_L"]], [EA_more_tonus["Ilicostalis_L"]]]
+    plt.boxplot(data_ilicostalis_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA under30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot5.set_title("Iliocostalis Left", fontsize=12)
+
+    plot6 = plt.subplot2grid((4, 2), (2, 1))
+    data_ilicostalis_r = [[male_tonus["Ilicostalis_R"]], [female_tonus["Ilicostalis_R"]],
+                              [over30_tonus["Ilicostalis_R"]],
+                              [EA_over_tonus["Ilicostalis_R"]], [EA_more_tonus["Ilicostalis_R"]]]
+    plt.boxplot(data_ilicostalis_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot6.set_title("Iliocostalis Right", fontsize=12)
+
+    plot7 = plt.subplot2grid((4, 2), (3, 0))
+    data_multi_l = [[male_tonus["Multifidus_L"]], [female_tonus["Multifidus_L"]],
+                        [over30_tonus["Multifidus_L"]],
+                        [EA_over_tonus["Multifidus_L"]], [EA_more_tonus["Multifidus_L"]]]
+    plt.boxplot(data_multi_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot7.set_title("Multifidus Left", fontsize=12)
+
+    plot8 = plt.subplot2grid((4, 2), (3, 1))
+    data_multi_r = [[male_tonus["Multifidus_R"]], [female_tonus["Multifidus_R"]],
+                        [over30_tonus["Multifidus_R"]],
+                        [EA_over_tonus["Multifidus_R"]], [EA_more_tonus["Multifidus_R"]]]
+    plt.boxplot(data_multi_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 50])
+    plot8.set_title("Multifidus Right", fontsize=12)
+
+    plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
+    plt.show()
+    pp.savefig(fig)
+    pp.close()
+
+def get_IMC():
+
+    wb_over30 = load_workbook(file_excel_over30)
+    wb_20 = load_workbook(file_excel_20)
+    wb_EA = load_workbook(file_excel_EA)
+
+
+    count = 1
+    count2 = 2
+
+    hight_over30 = []
+    weight_over30 = []
+
+    hight_female = []
+    weight_female = []
+
+    hight_male = []
+    weight_male = []
+
+    hight_EA_over30 = []
+    weight_EA_over30 = []
+
+    hight_EA_evaluted = []
+    weight_EA_evaluted = []
+
+    for i in wb_over30.sheetnames:
+        if i != 'Sheet1' and i != 'Statistical Analysis_20_Female' and i != 'Statistical Analysis_20_Male' \
+                and i != 'Statistical Analysis over 30' and i != 'Folha1':
+            ws_over30 = wb_over30.get_sheet_by_name(i)
+            hight_over30.append(ws_over30['D' + str(count)].value)
+            weight_over30.append(ws_over30['D' + str(count2)].value)
+
+
+    for i in wb_20.sheetnames:
+        if i != 'Sheet1' and i != 'Statistical Analysis_20_Female' and i != 'Statistical Analysis_20_Male' \
+                and i != 'Statistical Analysis over 30' and i != 'Folha1' and i != 'Patient5_Healthy' \
+                and i != 'Patient8_Healthy' and i != 'Patient10_Healthy' and i != 'Patient13_Healthy' \
+                and i != 'Patient17_Healthy' and i != 'Patient18_Healthy' and i != 'Patient23_Healthy' \
+                and i != 'Patient25_Healthy' and i != 'Patient27_Healthy' and i != 'Patient30_Healthy' \
+                and i != 'Patient37_Healthy' and i != 'Patient38_Healthy':
+            ws_female = wb_20.get_sheet_by_name(i)
+            hight_female.append(ws_female['D' + str(count)].value)
+            weight_female.append(ws_female['D' + str(count2)].value)
+
+
+        if i == 'Patient8_Healthy' or i == 'Patient10_Healthy' or i == 'Patient13_Healthy' \
+                or i == 'Patient17_Healthy' or i == 'Patient18_Healthy' or i == 'Patient23_Healthy' \
+                or i == 'Patient25_Healthy' or i == 'Patient27_Healthy' or i == 'Patient30_Healthy' \
+                or i == 'Patient5_Healthy' or i == 'Patient37_Healthy' or i == 'Patient38_Healthy':
+            ws_male = wb_20.get_sheet_by_name(i)
+            hight_male.append(ws_male['D' + str(count)].value)
+            weight_male.append(ws_male['D' + str(count2)].value)
+
+
+    for i in wb_EA.sheetnames:
+        if i != 'Sheet1' and i != 'Patient4_EA' and i != 'Patient8_EA'  and i != 'Patient11_EA'\
+                and i != "Statistical Analysis - EA evol" and i != "Statistical Analysis - EA over3":
+            ws_EA_over30 = wb_EA.get_sheet_by_name(i)
+            hight_EA_over30.append(ws_EA_over30['D' + str(count)].value)
+            weight_EA_over30.append(ws_EA_over30['D' + str(count2)].value)
+
+        if i == 'Patient4_EA' or i == 'Patient8_EA' or i == 'Patient11_EA':
+            ws_EA_evaluted = wb_EA.get_sheet_by_name(i)
+            hight_EA_evaluted.append(ws_EA_evaluted['D' + str(count)].value)
+            weight_EA_evaluted.append(ws_EA_evaluted['D' + str(count2)].value)
+
+
+    value_final_over30 = {"Height": hight_over30, "Weight": weight_over30}
+
+    value_final_male = {"Height": hight_male, "Weight": weight_male}
+
+    value_final_female = {"Height": hight_female, "Weight": weight_female}
+
+    value_final_EA_over30 = {"Height": hight_EA_over30, "Weight": weight_EA_over30}
+
+    value_final_EA_evaluted = {"Height": hight_EA_evaluted, "Weight": weight_EA_evaluted}
+
+    return value_final_over30, value_final_male, value_final_female, value_final_EA_over30, value_final_EA_evaluted
+
+

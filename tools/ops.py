@@ -727,4 +727,66 @@ def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_evolved):
 
     return over30, male, female, EA_over30, EA_evolved
 
+def eliminate_none_freqs(over30, male, female, EA_over30, EA_more):
+    for muscle in over30:
+        for freq in over30[muscle]:
+            for i in range(0, len(over30[muscle][freq])-1):
+                if over30[muscle][freq][i] == None:
+                    over30[muscle][freq].pop(i)
 
+            for n in range(0, len(male[muscle][freq])-1):
+                if male[muscle][freq][n] == None:
+                    male[muscle][freq].pop(n)
+
+            for x in range(0, len(female[muscle][freq])-1):
+                if female[muscle][freq][x] == None:
+                    female[muscle][freq].pop(x)
+
+            for y in range(0, len(EA_over30[muscle][freq])-1):
+                if EA_over30[muscle][freq][y] == None:
+                    EA_over30[muscle][freq].pop(y)
+
+            for z in range(0, len(EA_more[muscle][freq])-1):
+                if EA_more[muscle][freq][z] == None:
+                    EA_more[muscle][freq].pop(z)
+
+    return over30, male, female, EA_over30, EA_more
+
+def IMC_calculater(over30, male, female, EA_over30, EA_more):
+    IMC_over30 =[]
+    IMC_male = []
+    IMC_female = []
+    IMC_EA_over30 = []
+    IMC_more = []
+
+    for i in range (0, len(over30["Weight"])):
+        height = (over30["Height"][i]) * 0.01
+        weight = over30["Weight"][i]
+        IMC = weight / (height * height)
+        IMC_over30.append(IMC)
+
+    for n in range (0, len(male["Weight"])):
+        height = (male["Height"][n]) * 0.01
+        weight = male["Weight"][n]
+        IMC = weight / (height * height)
+        IMC_male.append(IMC)
+
+    for x in range(0, len(female["Weight"])):
+        height = (female["Height"][x]) * 0.01
+        weight = female["Weight"][x]
+        IMC = weight / (height * height)
+        IMC_female.append(IMC)
+
+    for y in range(0, len(EA_over30["Weight"])):
+        height = (EA_over30["Height"][y]) * 0.01
+        weight = EA_over30["Weight"][y]
+        IMC = weight / (height * height)
+        IMC_EA_over30.append(IMC)
+
+    for z in range(0, len(EA_more["Weight"])):
+        height = (EA_more["Height"][z]) * 0.01
+        weight = EA_more["Weight"][z]
+        IMC = weight / (height * height)
+        IMC_more.append(IMC)
+
+    return IMC_over30, IMC_male, IMC_female, IMC_EA_over30, IMC_more
