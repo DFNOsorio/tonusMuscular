@@ -2660,99 +2660,10 @@ def EMG_freq_rest_front_boxplot(over30_freq, male_freq, female_freq, EA_over_fre
 
 def EMG_rest_values_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
     l = 0
-    pp = PdfPages('Tonus_Muscular_Rest_BoxPlot_Analysis_Healthy_EA.pdf')
+    pp = PdfPages('PeakValue_Muscular_Rest_BoxPlot_Analysis_Healthy_EA.pdf')
 
     fig = plt.figure(l)
     fig.suptitle("Max Value of normalized EMG during Rest", fontsize=21)
-
-    plot1 = plt.subplot2grid((4, 2), (0, 0))
-    data_rectus_l = [[male_tonus["Rectus_L"]], [female_tonus["Rectus_L"]],
-                         [over30_tonus["Rectus_L"]], [EA_over_tonus["Rectus_L"]],
-                         [EA_more_tonus["Rectus_L"]]]
-    plt.boxplot(data_rectus_l, positions = [1,2,3,4,5], widths = 0.6, showmeans= True)
-    plt.xticks([1,2,3,4,5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"), fontsize=8)
-    plt.ylim([0,80])
-    plot1.set_title("Rectus Left", fontsize=12)
-
-    plot2 = plt.subplot2grid((4, 2), (0, 1))
-    data_rectus_R = [[male_tonus["Rectus_R"]], [female_tonus["Rectus_R"]], [over30_tonus["Rectus_R"]],
-                         [EA_over_tonus["Rectus_R"]], [EA_more_tonus["Rectus_R"]]]
-    plt.boxplot(data_rectus_R, positions = [1,2,3,4,5], widths=0.6, showmeans= True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot2.set_title("Rectus Right", fontsize=12)
-
-    plot3 = plt.subplot2grid((4, 2), (1, 0))
-    data_obliques_l = [[male_tonus["Obliques_L"]], [female_tonus["Obliques_L"]],
-                           [over30_tonus["Obliques_L"]],[EA_over_tonus["Rectus_R"]], [EA_more_tonus["Obliques_L"]]]
-    plt.boxplot(data_obliques_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot3.set_title("Obliques Left", fontsize=12)
-
-    plot4 = plt.subplot2grid((4, 2), (1, 1))
-    data_obliques_r = [[male_tonus["Obliques_R"]], [female_tonus["Obliques_R"]],
-                           [over30_tonus["Obliques_R"]],
-                           [EA_over_tonus["Obliques_R"]], [EA_more_tonus["Obliques_R"]]]
-    plt.boxplot(data_obliques_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot4.set_title("Obliques Right", fontsize=12)
-
-    plot5 = plt.subplot2grid((4, 2), (2, 0))
-    data_ilicostalis_l = [[male_tonus["Ilicostalis_L"]], [female_tonus["Ilicostalis_L"]],
-                              [over30_tonus["Ilicostalis_L"]],
-                              [EA_over_tonus["Ilicostalis_L"]], [EA_more_tonus["Ilicostalis_L"]]]
-    plt.boxplot(data_ilicostalis_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA under30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot5.set_title("Iliocostalis Left", fontsize=12)
-
-    plot6 = plt.subplot2grid((4, 2), (2, 1))
-    data_ilicostalis_r = [[male_tonus["Ilicostalis_R"]], [female_tonus["Ilicostalis_R"]],
-                              [over30_tonus["Ilicostalis_R"]],
-                              [EA_over_tonus["Ilicostalis_R"]], [EA_more_tonus["Ilicostalis_R"]]]
-    plt.boxplot(data_ilicostalis_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot6.set_title("Iliocostalis Right", fontsize=12)
-
-    plot7 = plt.subplot2grid((4, 2), (3, 0))
-    data_multi_l = [[male_tonus["Multifidus_L"]], [female_tonus["Multifidus_L"]],
-                        [over30_tonus["Multifidus_L"]],
-                        [EA_over_tonus["Multifidus_L"]], [EA_more_tonus["Multifidus_L"]]]
-    plt.boxplot(data_multi_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot7.set_title("Multifidus Left", fontsize=12)
-
-    plot8 = plt.subplot2grid((4, 2), (3, 1))
-    data_multi_r = [[male_tonus["Multifidus_R"]], [female_tonus["Multifidus_R"]],
-                        [over30_tonus["Multifidus_R"]],
-                        [EA_over_tonus["Multifidus_R"]], [EA_more_tonus["Multifidus_R"]]]
-    plt.boxplot(data_multi_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
-    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
-                   fontsize=8)
-    plt.ylim([0, 80])
-    plot8.set_title("Multifidus Right", fontsize=12)
-
-    plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
-    plt.show()
-    pp.savefig(fig)
-    pp.close()
-
-def EMG_rest_meanvalues_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
-    l = 0
-    pp = PdfPages('Tonus_Muscular_Rest_BoxPlot_Analysis_Healthy_EA.pdf')
-
-    fig = plt.figure(l)
-    fig.suptitle("Mean Value of normalized EMG during Rest", fontsize=21)
 
     plot1 = plt.subplot2grid((4, 2), (0, 0))
     data_rectus_l = [[male_tonus["Rectus_L"]], [female_tonus["Rectus_L"]],
@@ -2829,6 +2740,95 @@ def EMG_rest_meanvalues_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_
     plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
                    fontsize=8)
     plt.ylim([0, 50])
+    plot8.set_title("Multifidus Right", fontsize=12)
+
+    plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
+    plt.show()
+    pp.savefig(fig)
+    pp.close()
+
+def EMG_rest_meanvalues_boxplot(over30_tonus, male_tonus, female_tonus, EA_over_tonus, EA_more_tonus):
+    l = 0
+    pp = PdfPages('MeanValue_Muscular_Rest_BoxPlot_Analysis_Healthy_EA.pdf')
+
+    fig = plt.figure(l)
+    fig.suptitle("Mean Value of normalized EMG during Rest", fontsize=21)
+
+    plot1 = plt.subplot2grid((4, 2), (0, 0))
+    data_rectus_l = [[male_tonus["Rectus_L"]], [female_tonus["Rectus_L"]],
+                         [over30_tonus["Rectus_L"]], [EA_over_tonus["Rectus_L"]],
+                         [EA_more_tonus["Rectus_L"]]]
+    plt.boxplot(data_rectus_l, positions = [1,2,3,4,5], widths = 0.6, showmeans= True)
+    plt.xticks([1,2,3,4,5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"), fontsize=8)
+    plt.ylim([0,30])
+    plot1.set_title("Rectus Left", fontsize=12)
+
+    plot2 = plt.subplot2grid((4, 2), (0, 1))
+    data_rectus_R = [[male_tonus["Rectus_R"]], [female_tonus["Rectus_R"]], [over30_tonus["Rectus_R"]],
+                         [EA_over_tonus["Rectus_R"]], [EA_more_tonus["Rectus_R"]]]
+    plt.boxplot(data_rectus_R, positions = [1,2,3,4,5], widths=0.6, showmeans= True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
+    plot2.set_title("Rectus Right", fontsize=12)
+
+    plot3 = plt.subplot2grid((4, 2), (1, 0))
+    data_obliques_l = [[male_tonus["Obliques_L"]], [female_tonus["Obliques_L"]],
+                           [over30_tonus["Obliques_L"]],[EA_over_tonus["Rectus_R"]], [EA_more_tonus["Obliques_L"]]]
+    plt.boxplot(data_obliques_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
+    plot3.set_title("Obliques Left", fontsize=12)
+
+    plot4 = plt.subplot2grid((4, 2), (1, 1))
+    data_obliques_r = [[male_tonus["Obliques_R"]], [female_tonus["Obliques_R"]],
+                           [over30_tonus["Obliques_R"]],
+                           [EA_over_tonus["Obliques_R"]], [EA_more_tonus["Obliques_R"]]]
+    plt.boxplot(data_obliques_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
+    plot4.set_title("Obliques Right", fontsize=12)
+
+    plot5 = plt.subplot2grid((4, 2), (2, 0))
+    data_ilicostalis_l = [[male_tonus["Ilicostalis_L"]], [female_tonus["Ilicostalis_L"]],
+                              [over30_tonus["Ilicostalis_L"]],
+                              [EA_over_tonus["Ilicostalis_L"]], [EA_more_tonus["Ilicostalis_L"]]]
+    plt.boxplot(data_ilicostalis_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA under30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
+    plot5.set_title("Iliocostalis Left", fontsize=12)
+
+    plot6 = plt.subplot2grid((4, 2), (2, 1))
+    data_ilicostalis_r = [[male_tonus["Ilicostalis_R"]], [female_tonus["Ilicostalis_R"]],
+                              [over30_tonus["Ilicostalis_R"]],
+                              [EA_over_tonus["Ilicostalis_R"]], [EA_more_tonus["Ilicostalis_R"]]]
+    plt.boxplot(data_ilicostalis_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
+    plot6.set_title("Iliocostalis Right", fontsize=12)
+
+    plot7 = plt.subplot2grid((4, 2), (3, 0))
+    data_multi_l = [[male_tonus["Multifidus_L"]], [female_tonus["Multifidus_L"]],
+                        [over30_tonus["Multifidus_L"]],
+                        [EA_over_tonus["Multifidus_L"]], [EA_more_tonus["Multifidus_L"]]]
+    plt.boxplot(data_multi_l, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
+    plot7.set_title("Multifidus Left", fontsize=12)
+
+    plot8 = plt.subplot2grid((4, 2), (3, 1))
+    data_multi_r = [[male_tonus["Multifidus_R"]], [female_tonus["Multifidus_R"]],
+                        [over30_tonus["Multifidus_R"]],
+                        [EA_over_tonus["Multifidus_R"]], [EA_more_tonus["Multifidus_R"]]]
+    plt.boxplot(data_multi_r, positions = [1,2,3,4,5], widths=0.6, showmeans=True)
+    plt.xticks([1, 2, 3, 4, 5], ("Male", "Female", "Over 30", "EA over30", "EA more evolve"),
+                   fontsize=8)
+    plt.ylim([0, 30])
     plot8.set_title("Multifidus Right", fontsize=12)
 
     plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)

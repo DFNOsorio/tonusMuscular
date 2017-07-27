@@ -5,6 +5,7 @@ from openpyxl.styles import Alignment
 from openpyxl.styles import PatternFill
 import numpy as np
 from tools import *
+from scipy import stats
 #from openpyxl.worksheet.table import Table, TableStyleInfo
 
 file_excel = 'C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/database_posturography_EA1_obliques.xlsx'
@@ -1669,6 +1670,211 @@ def rest_mean_values(rest_array):
 
     wb2.save(file_excel)
 
+def correlation_muscles(array):
+    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/Statistical_Analysis.xlsx')
+    sheet1 = wb2.get_sheet_by_name('Folha1')
+    count = 2
+    count1 = 5
+    count_col = 2
+
+    for i in array:
+
+        title = sheet1.cell('B' + str(count))
+        title.value = "Spearman Correlation for each task between each muscle for people over 30years - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('B' + str(count1))
+        first_col.value = 'Rectus Left'
+        first_col.font = first_col.font.copy(bold=True)
+
+        second_col = sheet1.cell('C' + str(count1))
+        second_col.value = 'Rectus Right'
+        second_col.font = second_col.font.copy(bold=True)
+
+        third_col = sheet1.cell('D' + str(count1))
+        third_col.value = 'Obliques Left'
+        third_col.font = third_col.font.copy(bold=True)
+
+        fourth_col = sheet1.cell('E' + str(count1))
+        fourth_col.value = 'Obliques Right'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+
+        fifth_col = sheet1.cell('F' + str(count1))
+        fifth_col.value = 'Iliocostalis Left'
+        fifth_col.font = fifth_col.font.copy(bold=True)
+
+        sixth_col = sheet1.cell('G' + str(count1))
+        sixth_col.value = 'Iliocostalis Right'
+        sixth_col.font = sixth_col.font.copy(bold=True)
+
+        seventh_col = sheet1.cell('H' + str(count1))
+        seventh_col.value = 'Multifidus Left'
+        seventh_col.font = seventh_col.font.copy(bold=True)
+
+        eight_col = sheet1.cell('I' + str(count1))
+        eight_col.value = 'Multifidus Right'
+        eight_col.font = eight_col.font.copy(bold=True)
+
+
+
+        first_row = sheet1.cell('A' + str(count1 + 1))
+        first_row.value = 'Rectus Left'
+        first_row.font = first_row.font.copy(bold=True)
+
+        second_row = sheet1.cell('A' + str(count1 + 2))
+        second_row.value = 'Rectus Right'
+        second_row.font = second_row.font.copy(bold=True)
+
+        third_row = sheet1.cell('A' + str(count1 + 3))
+        third_row.value = 'Obliques Left'
+        third_row.font = third_row.font.copy(bold=True)
+
+        fourth_row = sheet1.cell('A' + str(count1 + 4))
+        fourth_row.value = 'Obliques Right'
+        fourth_row.font = fourth_col.font.copy(bold=True)
+
+        fifth_row = sheet1.cell('A' + str(count1 + 5))
+        fifth_row.value = 'Iliocostalis Left'
+        fifth_row.font = fifth_row.font.copy(bold=True)
+
+        sixth_row = sheet1.cell('A' + str(count1 + 6))
+        sixth_row.value = 'Iliocostalis Right'
+        sixth_row.font = sixth_row.font.copy(bold=True)
+
+        seventh_row = sheet1.cell('A' + str(count1 + 7))
+        seventh_row.value = 'Multifidus Left'
+        seventh_row.font = seventh_row.font.copy(bold=True)
+
+        eight_row = sheet1.cell('A' + str(count1 + 8))
+        eight_row.value = 'Multifidus Right'
+        eight_row.font = eight_row.font.copy(bold=True)
+
+        data, p_value = stats.spearmanr(array[i])
+
+        for row in data:
+            sheet1.cell(row=count1 + 1, column=count_col, value=row[0])
+            sheet1.cell(row=count1 + 1, column=count_col + 1, value=row[1])
+            sheet1.cell(row=count1 + 1, column=count_col + 2, value=row[2])
+            sheet1.cell(row=count1 + 1, column=count_col + 3, value=row[3])
+            sheet1.cell(row=count1 + 1, column=count_col + 4, value=row[4])
+            sheet1.cell(row=count1 + 1, column=count_col + 5, value=row[5])
+            sheet1.cell(row=count1 + 1, column=count_col + 6, value=row[6])
+            sheet1.cell(row=count1 + 1, column=count_col + 7, value=row[7])
+            count1 = count1 + 1
+
+        count = count + 13
+        count1 = count1 + 5
+
+
+    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/Statistical_Analysis.xlsx')
+
+
+def correlation_tasks(array):
+    wb2 = load_workbook('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/Statistical_Analysis.xlsx')
+    sheet1 = wb2.get_sheet_by_name('Folha1')
+    count = 152
+    count1 = 154
+    count_col = 35
+
+    for i in array:
+
+        title = sheet1.cell('AH' + str(count))
+        title.value = "Spearman Correlation for each muscle between each task for EA over 30 - " + str(i)
+        title.font = title.font.copy(bold=True)
+
+        first_col = sheet1.cell('AI' + str(count1))
+        first_col.value = 'Standing EO'
+        first_col.font = first_col.font.copy(bold=True)
+
+        second_col = sheet1.cell('AJ' + str(count1))
+        second_col.value = 'Standing EC'
+        second_col.font = second_col.font.copy(bold=True)
+
+        third_col = sheet1.cell('AK' + str(count1))
+        third_col.value = 'One Foot Standing R EO'
+        third_col.font = third_col.font.copy(bold=True)
+
+        fourth_col = sheet1.cell('AL' + str(count1))
+        fourth_col.value = 'One Foot Standing R EC'
+        fourth_col.font = fourth_col.font.copy(bold=True)
+
+        fifth_col = sheet1.cell('AM' + str(count1))
+        fifth_col.value = 'One Foot Standing L EO'
+        fifth_col.font = fifth_col.font.copy(bold=True)
+
+        sixth_col = sheet1.cell('AN' + str(count1))
+        sixth_col.value = 'One Foot Standing L EC'
+        sixth_col.font = sixth_col.font.copy(bold=True)
+
+        seventh_col = sheet1.cell('AO' + str(count1))
+        seventh_col.value = 'Reach R'
+        seventh_col.font = seventh_col.font.copy(bold=True)
+
+        eight_col = sheet1.cell('AP' + str(count1))
+        eight_col.value = 'Reach L'
+        eight_col.font = eight_col.font.copy(bold=True)
+
+        nineth_col = sheet1.cell('AQ' + str(count1))
+        nineth_col.value = 'Reach C'
+        nineth_col.font = nineth_col.font.copy(bold=True)
+
+
+
+        first_row = sheet1.cell('AH' + str(count1 + 1))
+        first_row.value = 'Standing EO'
+        first_row.font = first_row.font.copy(bold=True)
+
+        second_row = sheet1.cell('AH' + str(count1 + 2))
+        second_row.value = 'Standing EC'
+        second_row.font = second_row.font.copy(bold=True)
+
+        third_row = sheet1.cell('AH' + str(count1 + 3))
+        third_row.value = 'One Foot Standing R EO'
+        third_row.font = third_row.font.copy(bold=True)
+
+        fourth_row = sheet1.cell('AH' + str(count1 + 4))
+        fourth_row.value = 'One Foot Standing R EC'
+        fourth_row.font = fourth_col.font.copy(bold=True)
+
+        fifth_row = sheet1.cell('AH' + str(count1 + 5))
+        fifth_row.value = 'One Foot Standing L EO'
+        fifth_row.font = fifth_row.font.copy(bold=True)
+
+        sixth_row = sheet1.cell('AH' + str(count1 + 6))
+        sixth_row.value = 'One Foot Standing L EC'
+        sixth_row.font = sixth_row.font.copy(bold=True)
+
+        seventh_row = sheet1.cell('AH' + str(count1 + 7))
+        seventh_row.value = 'Reach R'
+        seventh_row.font = seventh_row.font.copy(bold=True)
+
+        eight_row = sheet1.cell('AH' + str(count1 + 8))
+        eight_row.value = 'Reach L'
+        eight_row.font = eight_row.font.copy(bold=True)
+
+        nineht_row = sheet1.cell('AH' + str(count1 + 9))
+        nineht_row.value = 'Reach L'
+        nineht_row.font = nineht_row.font.copy(bold=True)
+
+        data, p_value = stats.spearmanr(array[i])
+
+        for row in data:
+            sheet1.cell(row=count1 + 1, column=count_col, value=row[0])
+            sheet1.cell(row=count1 + 1, column=count_col + 1, value=row[1])
+            sheet1.cell(row=count1 + 1, column=count_col + 2, value=row[2])
+            sheet1.cell(row=count1 + 1, column=count_col + 3, value=row[3])
+            sheet1.cell(row=count1 + 1, column=count_col + 4, value=row[4])
+            sheet1.cell(row=count1 + 1, column=count_col + 5, value=row[5])
+            sheet1.cell(row=count1 + 1, column=count_col + 6, value=row[6])
+            sheet1.cell(row=count1 + 1, column=count_col + 7, value=row[7])
+            sheet1.cell(row=count1 + 1, column=count_col + 8, value=row[8])
+            count1 = count1 + 1
+
+        count = count + 14
+        count1 = count1 + 5
+
+
+    wb2.save('C:/Users/Rita/PycharmProjects/tonusMuscular/Excel_database/Statistical_Analysis.xlsx')
 
 
 

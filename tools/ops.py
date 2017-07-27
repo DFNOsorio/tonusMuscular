@@ -790,3 +790,260 @@ def IMC_calculater(over30, male, female, EA_over30, EA_more):
         IMC_more.append(IMC)
 
     return IMC_over30, IMC_male, IMC_female, IMC_EA_over30, IMC_more
+
+def mean_muscles_correlation(over30, male, female, EA_over30, EA_more):
+    mean_over30 = {}
+    mean_male = {}
+    mean_female = {}
+    mean_EAover30 = {}
+    mean_EAmore = {}
+
+
+    for task in over30:
+        muscle_mean_over30 = np.zeros((6, 8))
+        muscle_mean_male = np.zeros((12, 8))
+        muscle_mean_female = np.zeros((21, 8))
+        muscle_mean_EAover30 = np.zeros((7, 8))
+        muscle_mean_EAmore = np.zeros((3, 8))
+
+        muscle_mean_over30[:, 0] = over30[task]["Rectus_L"]
+        muscle_mean_over30[:, 1] = over30[task]["Rectus_R"]
+        muscle_mean_over30[:, 2] = over30[task]["Obliques_L"]
+        muscle_mean_over30[:, 3] = over30[task]["Obliques_R"]
+        muscle_mean_over30[:, 4] = over30[task]["Ilicostalis_L"]
+        muscle_mean_over30[:, 5] = over30[task]["Ilicostalis_R"]
+        muscle_mean_over30[:, 6] = over30[task]["Multifidus_L"]
+        muscle_mean_over30[:, 7] = over30[task]["Multifidus_R"]
+
+        muscle_mean_male[:, 0] = male[task]["Rectus_L"]
+        muscle_mean_male[:, 1] = male[task]["Rectus_R"]
+        muscle_mean_male[:, 2] = male[task]["Obliques_L"]
+        muscle_mean_male[:, 3] = male[task]["Obliques_R"]
+        muscle_mean_male[:, 4] = male[task]["Ilicostalis_L"]
+        muscle_mean_male[:, 5] = male[task]["Ilicostalis_R"]
+        muscle_mean_male[:, 6] = male[task]["Multifidus_L"]
+        muscle_mean_male[:, 7] = male[task]["Multifidus_R"]
+
+        muscle_mean_female[:, 0] = female[task]["Rectus_L"]
+        muscle_mean_female[:, 1] = female[task]["Rectus_R"]
+        muscle_mean_female[:, 2] = female[task]["Obliques_L"]
+        muscle_mean_female[:, 3] = female[task]["Obliques_R"]
+        muscle_mean_female[:, 4] = female[task]["Ilicostalis_L"]
+        muscle_mean_female[:, 5] = female[task]["Ilicostalis_R"]
+        muscle_mean_female[:, 6] = female[task]["Multifidus_L"]
+        muscle_mean_female[:, 7] = female[task]["Multifidus_R"]
+
+        muscle_mean_EAover30[:, 0] = EA_over30[task]["Rectus_L"]
+        muscle_mean_EAover30[:, 1] = EA_over30[task]["Rectus_R"]
+        muscle_mean_EAover30[:, 2] = EA_over30[task]["Obliques_L"]
+        muscle_mean_EAover30[:, 3] = EA_over30[task]["Obliques_R"]
+        muscle_mean_EAover30[:, 4] = EA_over30[task]["Ilicostalis_L"]
+        muscle_mean_EAover30[:, 5] = EA_over30[task]["Ilicostalis_R"]
+        muscle_mean_EAover30[:, 6] = EA_over30[task]["Multifidus_L"]
+        muscle_mean_EAover30[:, 7] = EA_over30[task]["Multifidus_R"]
+
+        muscle_mean_EAmore[:, 0] = EA_more[task]["Rectus_L"]
+        muscle_mean_EAmore[:, 1] = EA_more[task]["Rectus_R"]
+        muscle_mean_EAmore[:, 2] = EA_more[task]["Obliques_L"]
+        muscle_mean_EAmore[:, 3] = EA_more[task]["Obliques_R"]
+        muscle_mean_EAmore[:, 4] = EA_more[task]["Ilicostalis_L"]
+        muscle_mean_EAmore[:, 5] = EA_more[task]["Ilicostalis_R"]
+        muscle_mean_EAmore[:, 6] = EA_more[task]["Multifidus_L"]
+        muscle_mean_EAmore[:, 7] = EA_more[task]["Multifidus_R"]
+
+        mean_over30[task] = muscle_mean_over30
+        mean_male[task] = muscle_mean_male
+        mean_female[task] = muscle_mean_female
+        mean_EAover30[task] = muscle_mean_EAover30
+        mean_EAmore[task] = muscle_mean_EAmore
+
+    return mean_over30, mean_male, mean_female, mean_EAover30, mean_EAmore
+
+def correlation_samemuscle_tasks(over30, male, female, EA_over30, EA_more):
+    over30_corr = {}
+    male_corr = {}
+    female_corr = {}
+    EA_over30_corr ={}
+    EA_more_corr = {}
+
+
+    for muscle in over30["Standing_EO"]:
+        task_over30 = np.zeros((6, 9))
+        task_male = np.zeros((12, 9))
+        task_female = np.zeros((21, 9))
+        task_EAover30 = np.zeros((7, 9))
+        task_EAmore = np.zeros((3, 9))
+
+        task_over30[:, 0] = over30["Standing_EO"][muscle]
+        task_over30[:, 1] = over30["Standing_EC"][muscle]
+        task_over30[:, 2] = over30["OneFootStanding_R_EO"][muscle]
+        task_over30[:, 3] = over30["OneFootStanding_R_EC"][muscle]
+        task_over30[:, 4] = over30["OneFootStanding_L_EO"][muscle]
+        task_over30[:, 5] = over30["OneFootStanding_L_EC"][muscle]
+        task_over30[:, 6] = over30["Reach_R"][muscle]
+        task_over30[:, 7] = over30["Reach_L"][muscle]
+        task_over30[:, 8] = over30["Reach_C"][muscle]
+
+        task_male[:, 0] = male["Standing_EO"][muscle]
+        task_male[:, 1] = male["Standing_EC"][muscle]
+        task_male[:, 2] = male["OneFootStanding_R_EO"][muscle]
+        task_male[:, 3] = male["OneFootStanding_R_EC"][muscle]
+        task_male[:, 4] = male["OneFootStanding_L_EO"][muscle]
+        task_male[:, 5] = male["OneFootStanding_L_EC"][muscle]
+        task_male[:, 6] = male["Reach_R"][muscle]
+        task_male[:, 7] = male["Reach_L"][muscle]
+        task_male[:, 8] = male["Reach_C"][muscle]
+
+        task_female[:, 0] = female["Standing_EO"][muscle]
+        task_female[:, 1] = female["Standing_EC"][muscle]
+        task_female[:, 2] = female["OneFootStanding_R_EO"][muscle]
+        task_female[:, 3] = female["OneFootStanding_R_EC"][muscle]
+        task_female[:, 4] = female["OneFootStanding_L_EO"][muscle]
+        task_female[:, 5] = female["OneFootStanding_L_EC"][muscle]
+        task_female[:, 6] = female["Reach_R"][muscle]
+        task_female[:, 7] = female["Reach_L"][muscle]
+        task_female[:, 8] = female["Reach_C"][muscle]
+
+        task_EAover30[:, 0] = EA_over30["Standing_EO"][muscle]
+        task_EAover30[:, 1] = EA_over30["Standing_EC"][muscle]
+        task_EAover30[:, 2] = EA_over30["OneFootStanding_R_EO"][muscle]
+        task_EAover30[:, 3] = EA_over30["OneFootStanding_R_EC"][muscle]
+        task_EAover30[:, 4] = EA_over30["OneFootStanding_L_EO"][muscle]
+        task_EAover30[:, 5] = EA_over30["OneFootStanding_L_EC"][muscle]
+        task_EAover30[:, 6] = EA_over30["Reach_R"][muscle]
+        task_EAover30[:, 7] = EA_over30["Reach_L"][muscle]
+        task_EAover30[:, 8] = EA_over30["Reach_C"][muscle]
+
+        task_EAmore[:, 0] = EA_more["Standing_EO"][muscle]
+        task_EAmore[:, 1] = EA_more["Standing_EC"][muscle]
+        task_EAmore[:, 2] = EA_more["OneFootStanding_R_EO"][muscle]
+        task_EAmore[:, 3] = EA_more["OneFootStanding_R_EC"][muscle]
+        task_EAmore[:, 4] = EA_more["OneFootStanding_L_EO"][muscle]
+        task_EAmore[:, 5] = EA_more["OneFootStanding_L_EC"][muscle]
+        task_EAmore[:, 6] = EA_more["Reach_R"][muscle]
+        task_EAmore[:, 7] = EA_more["Reach_L"][muscle]
+        task_EAmore[:, 8] = EA_more["Reach_C"][muscle]
+
+        over30_corr[muscle] = task_over30
+        male_corr[muscle] = task_male
+        female_corr[muscle] = task_female
+        EA_over30_corr[muscle] = task_EAover30
+        EA_more_corr[muscle] = task_EAmore
+
+    return over30_corr, male_corr, female_corr, EA_over30_corr, EA_more_corr
+
+def eliminate_rest_values(over30, male, female, EAover30, EAmore):
+
+    over30["Multifidus_L"].pop(3)
+    EAover30["Ilicostalis_L"].pop(2)
+    EAmore["Ilicostalis_R"].pop(0)
+    male["Ilicostalis_R"].pop(6)
+    male["Multifidus_R"].pop(6)
+    male["Multifidus_L"].pop(11)
+    male["Ilicostalis_L"].pop(11)
+    male["Obliques_L"].pop(11)
+
+    for muscle in female:
+        female[muscle].pop(15)
+
+    female["Obliques_L"].pop(15)
+    female["Ilicostalis_L"].pop(15)
+
+    female["Obliques_R"].pop(17)
+    female["Rectus_L"].pop(17)
+    female["Obliques_L"].pop(16)
+
+    female["Obliques_L"].pop(17)
+    female["Ilicostalis_L"].pop(18)
+    female["Obliques_R"].pop(18)
+    female["Multifidus_R"].pop(19)
+
+    return over30, male, female, EAover30, EAmore
+
+def eliminate_rest_freqs(over30, male, female, EAover30, EAmore):
+
+    over30["Multi_L"]["80_freq"].pop(3)
+    over30["Multi_L"]["Median"].pop(3)
+    over30["Multi_L"]["Mean"].pop(3)
+    over30["Multi_L"]["Peak"].pop(3)
+
+    EAover30["Ilicostalis_L"]["80_freq"].pop(2)
+    EAover30["Ilicostalis_L"]["Median"].pop(2)
+    EAover30["Ilicostalis_L"]["Mean"].pop(2)
+    EAover30["Ilicostalis_L"]["Peak"].pop(2)
+
+    EAmore["Ilicostalis_R"]["80_freq"].pop(0)
+    EAmore["Ilicostalis_R"]["Median"].pop(0)
+    EAmore["Ilicostalis_R"]["Mean"].pop(0)
+    EAmore["Ilicostalis_R"]["Peak"].pop(0)
+
+    male["Ilicostalis_R"]["80_freq"].pop(6)
+    male["Ilicostalis_R"]["Median"].pop(6)
+    male["Ilicostalis_R"]["Mean"].pop(6)
+    male["Ilicostalis_R"]["Peak"].pop(6)
+    male["Multi_R"]["80_freq"].pop(6)
+    male["Multi_R"]["Median"].pop(6)
+    male["Multi_R"]["Mean"].pop(6)
+    male["Multi_R"]["Peak"].pop(6)
+
+    male["Multi_L"]["80_freq"].pop(11)
+    male["Multi_L"]["Median"].pop(11)
+    male["Multi_L"]["Mean"].pop(11)
+    male["Multi_L"]["Peak"].pop(11)
+    male["Ilicostalis_L"]["80_freq"].pop(11)
+    male["Ilicostalis_L"]["Median"].pop(11)
+    male["Ilicostalis_L"]["Mean"].pop(11)
+    male["Ilicostalis_L"]["Peak"].pop(11)
+    male["Obliques_L"]["80_freq"].pop(11)
+    male["Obliques_L"]["Median"].pop(11)
+    male["Obliques_L"]["Mean"].pop(11)
+    male["Obliques_L"]["Peak"].pop(11)
+
+    for muscle in female:
+        female[muscle]["80_freq"].pop(15)
+        female[muscle]["Median"].pop(15)
+        female[muscle]["Mean"].pop(15)
+        female[muscle]["Peak"].pop(15)
+
+    female["Obliques_L"]["80_freq"].pop(15)
+    female["Obliques_L"]["Median"].pop(15)
+    female["Obliques_L"]["Mean"].pop(15)
+    female["Obliques_L"]["Peak"].pop(15)
+    female["Ilicostalis_L"]["80_freq"].pop(15)
+    female["Ilicostalis_L"]["Median"].pop(15)
+    female["Ilicostalis_L"]["Mean"].pop(15)
+    female["Ilicostalis_L"]["Peak"].pop(15)
+
+    female["Obliques_R"]["80_freq"].pop(17)
+    female["Obliques_R"]["Median"].pop(17)
+    female["Obliques_R"]["Mean"].pop(17)
+    female["Obliques_R"]["Peak"].pop(17)
+    female["Rectus_L"]["80_freq"].pop(17)
+    female["Rectus_L"]["Median"].pop(17)
+    female["Rectus_L"]["Mean"].pop(17)
+    female["Rectus_L"]["Peak"].pop(17)
+    female["Obliques_L"]["80_freq"].pop(16)
+    female["Obliques_L"]["Median"].pop(16)
+    female["Obliques_L"]["Mean"].pop(16)
+    female["Obliques_L"]["Peak"].pop(16)
+
+    female["Obliques_L"]["80_freq"].pop(14)
+    female["Obliques_L"]["Median"].pop(14)
+    female["Obliques_L"]["Mean"].pop(14)
+    female["Obliques_L"]["Peak"].pop(14)
+    female["Ilicostalis_L"]["80_freq"].pop(16)
+    female["Ilicostalis_L"]["Median"].pop(16)
+    female["Ilicostalis_L"]["Mean"].pop(16)
+    female["Ilicostalis_L"]["Peak"].pop(16)
+    female["Obliques_R"]["80_freq"].pop(16)
+    female["Obliques_R"]["Median"].pop(16)
+    female["Obliques_R"]["Mean"].pop(16)
+    female["Obliques_R"]["Peak"].pop(16)
+    female["Multi_R"]["80_freq"].pop(17)
+    female["Multi_R"]["Median"].pop(17)
+    female["Multi_R"]["Mean"].pop(17)
+    female["Multi_R"]["Peak"].pop(17)
+
+    return over30, male, female, EAover30, EAmore
+
+
