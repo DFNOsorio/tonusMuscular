@@ -1,12 +1,6 @@
-from tools import *
-from scipy import signal
-from scipy import stats
-import numpy as np
-import matplotlib.pyplot as plt
-import novainstrumentation as ni
-import matplotlib.pyplot as plt
-from sklearn import datasets, linear_model
+from scipy.stats import ttest_ind
 
+from tools import *
 
 file = "Egas_Moniz_Segments/Patient1_EA.h5"
 
@@ -47,8 +41,8 @@ print '\033[93m' + "COP_END" + '\033[0m'
 # patient1.amplitude = amplitude(patient1.COP)
 # print '\033[93m' + "AMP_COP_END" + '\033[0m'
 #
-patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
-print '\033[93m' + "VELOCITY_END" + '\033[0m'
+# patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
+# print '\033[93m' + "VELOCITY_END" + '\033[0m'
 
 # patient1.trajec = trajectory(patient1.COP)
 # print '\033[93m' + "TRAJ_END" + '\033[0m'
@@ -83,11 +77,11 @@ print '\033[93m' + "VELOCITY_END" + '\033[0m'
 # patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
 # print '\033[93m' + "CORR_END" + '\033[0m'
 
-patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
-print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
+# patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
+# print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
 #
 # patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
 # print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
@@ -95,11 +89,11 @@ print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
 # patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_80_EMG_rest, patient1.f_50_EMG_rest = parameters_fourier_EMG(patient1.fre_EMG_rest, patient1.pxx_EMG_rest)
 # print '\033[93m' + "FOURRIER_EMG_REST_PARAMETERS_END" + '\033[0m'
 #
-patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
-print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-
-patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
-print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
+# patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
+# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+#
+# patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
+# print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
 # patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
 # print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
@@ -144,21 +138,20 @@ print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
 #####################################################################################################
 
-over30_cop, male_cop, female_cop, EA_over30_cop, EA_more_cop = get_values_COP(patient1.mean)
+over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean = get_value_mean_tonus(patient1.EMG_normalization)
 
-over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_more_cop_freq = get_values_COP_freq(patient1.peak_COP)
+over30_mean_tonus_new, male_mean_tonus_new, female_mean_tonus_new, EA_over30_mean_tonus_new, EA_more_mean_tonus_new = delete_EMG_values_tonus(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean)
 
-healthy_cop = append_arrays_healthy(male_cop, female_cop, over30_cop)
+healthy_meanEMG = append_arrays_healthy(male_mean_tonus_new, female_mean_tonus_new,over30_mean_tonus_new)
 
-EA_cop = append_arrays_EA(EA_over30_cop, EA_more_cop)
+same_task_diferent_muscle_boxplot(healthy_meanEMG)
 
-healthy_cop_freqs = append_arrays_healthy(male_cop_freq, female_cop_freq, over30_cop_freq)
+mean, std = mean_std_values_EMG(healthy_meanEMG)
 
-EA_cop_freqs = append_arrays_EA(EA_over30_cop_freq, EA_more_cop_freq)
+t, p = ttest_ind(healthy_meanEMG["OneFootStanding_L_EC"]["Rectus_L"], healthy_meanEMG["OneFootStanding_L_EO"]["Rectus_L"])
+print p
 
-COP_parameters_boxplot_HealthyvsSA(healthy_cop, EA_cop)
+same_muscle_diferent_task_barerror(mean, std)
+same_task_diferent_muscle_barerror(mean, std)
 
-COP_freq_boxplot_HealthyvsSA(healthy_cop_freqs, EA_cop_freqs)
-
-
-
+print over30_mean_tonus_new["Standing_EO"]
