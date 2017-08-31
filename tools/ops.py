@@ -721,6 +721,10 @@ def delete_EMG_values_tonus(over30, male, female, EA_over30, EA_evolved):
 
     female["OneFootStanding_L_EO"]["Multifidus_R"].pop(17)
 
+    female["Reach_R"]["Multifidus_L"].pop(11)
+
+    over30["Reach_C"]["Ilicostalis_L"].pop(1)
+
 
     return over30, male, female, EA_over30, EA_evolved
 
@@ -1042,5 +1046,48 @@ def eliminate_rest_freqs(over30, male, female, EAover30, EAmore):
     female["Multi_R"]["Peak"].pop(17)
 
     return over30, male, female, EAover30, EAmore
+
+def mean_muscles_correlation_single(EMG):
+    array = {}
+
+    for task in EMG:
+        muscle = np.zeros((39,8))
+
+        muscle[:, 0] = EMG[task]["Rectus_L"]
+        muscle[:, 1] = EMG[task]["Rectus_R"]
+        muscle[:, 2] = EMG[task]["Obliques_L"]
+        muscle[:, 3] = EMG[task]["Obliques_R"]
+        muscle[:, 4] = EMG[task]["Ilicostalis_L"]
+        muscle[:, 5] = EMG[task]["Ilicostalis_R"]
+        muscle[:, 6] = EMG[task]["Multifidus_L"]
+        muscle[:, 7] = EMG[task]["Multifidus_R"]
+
+        array[task] = muscle
+
+    return array
+
+def correlation_samemuscle_tasks_single(EMG):
+    array = {}
+
+
+    for muscle in EMG["Standing_EO"]:
+        task_matrix = np.zeros((39, 9))
+
+        task_matrix[:, 0] = EMG["Standing_EO"][muscle]
+        task_matrix[:, 1] = EMG["Standing_EC"][muscle]
+        task_matrix[:, 2] = EMG["OneFootStanding_R_EO"][muscle]
+        task_matrix[:, 3] = EMG["OneFootStanding_R_EC"][muscle]
+        task_matrix[:, 4] = EMG["OneFootStanding_L_EO"][muscle]
+        task_matrix[:, 5] = EMG["OneFootStanding_L_EC"][muscle]
+        task_matrix[:, 6] = EMG["Reach_R"][muscle]
+        task_matrix[:, 7] = EMG["Reach_L"][muscle]
+        task_matrix[:, 8] = EMG["Reach_C"][muscle]
+
+
+
+        array[muscle] = task_matrix
+
+
+    return array
 
 

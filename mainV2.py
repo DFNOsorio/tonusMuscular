@@ -142,16 +142,23 @@ over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_
 
 over30_mean_tonus_new, male_mean_tonus_new, female_mean_tonus_new, EA_over30_mean_tonus_new, EA_more_mean_tonus_new = delete_EMG_values_tonus(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean)
 
-healthy_meanEMG = append_arrays_healthy(male_mean_tonus_new, female_mean_tonus_new,over30_mean_tonus_new)
+healthy_EMG = append_arrays_healthy(male_mean_tonus_new, female_mean_tonus_new,over30_mean_tonus_new)
 
-same_task_diferent_muscle_boxplot(healthy_meanEMG)
+healthy_EMG_all = append_arrays_healthy(over30_tonus_mean, male_tonus_mean, female_tonus_mean)
 
-mean, std = mean_std_values_EMG(healthy_meanEMG)
+same_muscle_diferent_task_boxplot(healthy_EMG)
 
-t, p = ttest_ind(healthy_meanEMG["OneFootStanding_L_EC"]["Rectus_L"], healthy_meanEMG["OneFootStanding_L_EO"]["Rectus_L"])
-print p
+same_task_diferent_muscle_boxplot(healthy_EMG)
+
+mean, std = mean_std_values_EMG(healthy_EMG)
 
 same_muscle_diferent_task_barerror(mean, std)
 same_task_diferent_muscle_barerror(mean, std)
 
-print over30_mean_tonus_new["Standing_EO"]
+EMG_values_hitogram(healthy_EMG)
+
+
+# healthy_muscle_correlation = mean_muscles_correlation_single(healthy_EMG_all)
+# healthy_task_correlation = correlation_samemuscle_tasks_single(healthy_EMG_all)
+# correlation_muscles(healthy_muscle_correlation)
+# correlation_tasks(healthy_task_correlation)

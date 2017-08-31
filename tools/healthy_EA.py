@@ -1260,3 +1260,66 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
     plt.show()
     #pp.savefig(fig)
     #pp.close()
+
+def EMG_values_hitogram(EMG):
+    l = 0
+    #pp = PdfPages('EMG_Mean-Healthy_vs_SA.pdf')
+
+    for i in EMG:
+
+        fig = plt.figure(l)
+        l = l + 1
+        fig.suptitle(str(i) + " - Mean Value of normalized EMG", fontsize=21)
+
+        plot1 = plt.subplot2grid((4, 2), (0, 0))
+        plt.hist(EMG[i]["Rectus_L"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot1.set_title("Rectus Left", fontsize=12)
+
+        plot2 = plt.subplot2grid((4, 2), (0, 1))
+        plt.hist(EMG[i]["Rectus_R"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot2.set_title("Rectus Right", fontsize=12)
+
+        plot3 = plt.subplot2grid((4, 2), (1, 0))
+        plt.hist(EMG[i]["Obliques_L"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot3.set_title("Obliques Left", fontsize=12)
+
+        plot4 = plt.subplot2grid((4, 2), (1, 1))
+        plt.hist(EMG[i]["Obliques_R"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot4.set_title("Obliques Right", fontsize=12)
+
+        plot5 = plt.subplot2grid((4, 2), (2, 0))
+        plt.hist(EMG[i]["Ilicostalis_L"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot5.set_title("Iliocostalis Left", fontsize=12)
+
+        plot6 = plt.subplot2grid((4, 2), (2, 1))
+        plt.hist(EMG[i]["Ilicostalis_R"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot6.set_title("Iliocostalis Right", fontsize=12)
+
+        plot7 = plt.subplot2grid((4, 2), (3, 0))
+        plt.hist(EMG[i]["Multifidus_L"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot7.set_title("Multifidus Left", fontsize=12)
+
+        plot8 = plt.subplot2grid((4, 2), (3, 1))
+        plt.hist(EMG[i]["Multifidus_R"])
+        plt.ylabel("Frequency", fontsize=8)
+        plt.xlabel("Percentage from MVC (%)", fontsize=8)
+        plot8.set_title("Multifidus Right", fontsize=12)
+
+        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.59)
+        plt.show()
+        #pp.savefig(fig)
+    #pp.close()
