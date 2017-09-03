@@ -41,8 +41,8 @@ print '\033[93m' + "COP_END" + '\033[0m'
 # patient1.amplitude = amplitude(patient1.COP)
 # print '\033[93m' + "AMP_COP_END" + '\033[0m'
 #
-# patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
-# print '\033[93m' + "VELOCITY_END" + '\033[0m'
+patient1.velocity, patient1.mean, patient1.acelaration = velocity_COP(patient1.COP)
+print '\033[93m' + "VELOCITY_END" + '\033[0m'
 
 # patient1.trajec = trajectory(patient1.COP)
 # print '\033[93m' + "TRAJ_END" + '\033[0m'
@@ -138,27 +138,11 @@ print '\033[93m' + "COP_END" + '\033[0m'
 
 #####################################################################################################
 
-over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean = get_value_mean_tonus(patient1.EMG_normalization)
+over30_cop, male_cop, female_cop, EA_over30_cop, EA_more_cop = get_values_COP(patient1.mean)
 
-over30_mean_tonus_new, male_mean_tonus_new, female_mean_tonus_new, EA_over30_mean_tonus_new, EA_more_mean_tonus_new = delete_EMG_values_tonus(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean)
+healthy_cop_parameters = append_arrays_healthy(male_cop, female_cop, over30_cop)
 
-healthy_EMG = append_arrays_healthy(male_mean_tonus_new, female_mean_tonus_new,over30_mean_tonus_new)
-
-healthy_EMG_all = append_arrays_healthy(over30_tonus_mean, male_tonus_mean, female_tonus_mean)
-
-same_muscle_diferent_task_boxplot(healthy_EMG)
-
-same_task_diferent_muscle_boxplot(healthy_EMG)
-
-mean, std = mean_std_values_EMG(healthy_EMG)
-
-same_muscle_diferent_task_barerror(mean, std)
-same_task_diferent_muscle_barerror(mean, std)
-
-EMG_values_hitogram(healthy_EMG)
+mean, std, median = mean_std_values_EMG(healthy_cop_parameters)
 
 
-# healthy_muscle_correlation = mean_muscles_correlation_single(healthy_EMG_all)
-# healthy_task_correlation = correlation_samemuscle_tasks_single(healthy_EMG_all)
-# correlation_muscles(healthy_muscle_correlation)
-# correlation_tasks(healthy_task_correlation)
+cop_parameters_same_parameter(mean, std, median)

@@ -79,22 +79,54 @@ def append_arrays_freqEMG_EA(EA, EA_over):
 
     return array
 
+def append_arrays_healthy_rest(male, female, over30):
+
+    array ={}
+
+    for muscle in male:
+        merged_list = []
+        merged_list.extend(male[muscle])
+        merged_list.extend(female[muscle])
+
+        array[muscle] = merged_list
+
+    return array
+
 def mean_std_values_EMG(EMG_array):
 
     mean_values = {}
     std_values = {}
+    median_values = {}
 
     for task in EMG_array:
         muscle_mean = {}
         muscle_std = {}
+        muscle_median = {}
         for muscle in EMG_array[task]:
             muscle_mean[muscle] = np.mean(EMG_array[task][muscle])
             muscle_std[muscle] = np.std(EMG_array[task][muscle])
+            muscle_median[muscle] = np.median(EMG_array[task][muscle])
 
         mean_values[task] = muscle_mean
         std_values[task] = muscle_std
+        median_values[task] = muscle_median
 
-    return mean_values, std_values
+    return mean_values, std_values, median_values
+
+def mean_std_values_EMG_rest(EMG_array):
+
+    mean_values = {}
+    std_values = {}
+    median_values = {}
+
+
+    for muscle in EMG_array:
+        mean_values[muscle] = np.mean(EMG_array[muscle])
+        std_values[muscle] = np.std(EMG_array[muscle])
+        median_values[muscle] = np.median(EMG_array[muscle])
+
+
+    return mean_values, std_values, median_values
 
 
 def EMG_values_boxplot_healthy_vs_EA(EMG_healthy, EMG_EA):
@@ -522,9 +554,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                      [EMG_healthy["Reach_R"]["Rectus_L"]], [EMG_healthy["Reach_L"]["Rectus_L"]],
                      [EMG_healthy["Reach_C"]["Rectus_L"]]]
     plt.boxplot(data_rectus_l, positions = [1,2,3,4,5,6,7,8,9], widths = 0.6)
-    plt.xticks([1,2,3,4,5,6,7,8,9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                     "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                     "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1,2,3,4,5,6,7,8,9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 20])
     plot1.set_title("Rectus Left", fontsize=12)
@@ -536,9 +566,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                      [EMG_healthy["Reach_R"]["Rectus_R"]], [EMG_healthy["Reach_L"]["Rectus_R"]],
                      [EMG_healthy["Reach_C"]["Rectus_R"]]]
     plt.boxplot(data_rectus_r, positions = [1,2,3,4,5,6,7,8,9], widths = 0.6)
-    plt.xticks([1,2,3,4,5,6,7,8,9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                     "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                     "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1,2,3,4,5,6,7,8,9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 20])
     plot2.set_title("Rectus Right", fontsize=12)
@@ -550,9 +578,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                      [EMG_healthy["Reach_R"]["Obliques_L"]], [EMG_healthy["Reach_L"]["Obliques_L"]],
                      [EMG_healthy["Reach_C"]["Obliques_L"]]]
     plt.boxplot(data_obliques_l, positions = [1,2,3,4,5,6,7,8,9], widths = 0.6)
-    plt.xticks([1,2,3,4,5,6,7,8,9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                     "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                     "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1,2,3,4,5,6,7,8,9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 60])
     plot3.set_title("Obliques Left", fontsize=12)
@@ -564,9 +590,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                      [EMG_healthy["Reach_R"]["Obliques_R"]], [EMG_healthy["Reach_L"]["Obliques_R"]],
                      [EMG_healthy["Reach_C"]["Obliques_R"]]]
     plt.boxplot(data_obliques_r, positions = [1,2,3,4,5,6,7,8,9], widths = 0.6)
-    plt.xticks([1,2,3,4,5,6,7,8,9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                     "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                     "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1,2,3,4,5,6,7,8,9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 60])
     plot4.set_title("Obliques Right", fontsize=12)
@@ -578,9 +602,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                      [EMG_healthy["Reach_R"]["Ilicostalis_L"]], [EMG_healthy["Reach_L"]["Ilicostalis_L"]],
                      [EMG_healthy["Reach_C"]["Ilicostalis_L"]]]
     plt.boxplot(data_ilicostalis_l, positions = [1,2,3,4,5,6,7,8,9], widths = 0.6)
-    plt.xticks([1,2,3,4,5,6,7,8,9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                     "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                     "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1,2,3,4,5,6,7,8,9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
     plot5.set_title("Iliocostalis Left", fontsize=12)
@@ -594,9 +616,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                           [EMG_healthy["Reach_R"]["Ilicostalis_R"]], [EMG_healthy["Reach_L"]["Ilicostalis_R"]],
                           [EMG_healthy["Reach_C"]["Ilicostalis_R"]]]
     plt.boxplot(data_ilicostalis_r, positions=[1, 2, 3, 4, 5, 6, 7, 8, 9], widths=0.6)
-    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                             "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                             "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
     plot6.set_title("Iliocostalis Right", fontsize=12)
@@ -610,9 +630,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                           [EMG_healthy["Reach_R"]["Multifidus_L"]], [EMG_healthy["Reach_L"]["Multifidus_L"]],
                           [EMG_healthy["Reach_C"]["Multifidus_L"]]]
     plt.boxplot(data_multi_l, positions=[1, 2, 3, 4, 5, 6, 7, 8, 9], widths=0.6)
-    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                             "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                             "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 20])
     plot7.set_title("Multifidus Left", fontsize=12)
@@ -626,9 +644,7 @@ def same_muscle_diferent_task_boxplot(EMG_healthy):
                           [EMG_healthy["Reach_R"]["Multifidus_R"]], [EMG_healthy["Reach_L"]["Multifidus_R"]],
                           [EMG_healthy["Reach_C"]["Multifidus_R"]]]
     plt.boxplot(data_multi_r, positions=[1, 2, 3, 4, 5, 6, 7, 8, 9], widths=0.6)
-    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9], ("2Feet_EO", "2Feet_EC", "1Foot_Right_EO", "1Foot_Right_EC",
-                                             "1Foot_Left_EO", "1Foot_Left_EC", "Reach_Right",
-                                             "Reach_Left", "Reach_Center"), fontsize=8)
+    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 20])
     plot8.set_title("Multifidus Right", fontsize=12)
@@ -794,7 +810,7 @@ def same_task_diferent_muscle_boxplot(EMG_healthy):
     #pp.close()
 
 
-def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
+def same_muscle_diferent_task_barerror(EMG_mean, EMG_std, EMG_median):
     l = 0
     #pp = PdfPages('EMG_Mean-Healthy_vs_SA.pdf')
 
@@ -822,15 +838,24 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                      EMG_std["Reach_R"]["Rectus_L"], EMG_std["Reach_L"]["Rectus_L"],
                      EMG_std["Reach_C"]["Rectus_L"]]
 
+    median_rectus_l = [EMG_median["Standing_EO"]["Rectus_L"], EMG_median["Standing_EC"]["Rectus_L"],
+                       EMG_median["OneFootStanding_R_EO"]["Rectus_L"], EMG_median["OneFootStanding_R_EC"]["Rectus_L"],
+                       EMG_median["OneFootStanding_L_EO"]["Rectus_L"], EMG_median["OneFootStanding_L_EC"]["Rectus_L"],
+                       EMG_median["Reach_R"]["Rectus_L"], EMG_median["Reach_L"]["Rectus_L"],
+                       EMG_median["Reach_C"]["Rectus_L"]]
+
     rects1 = plt.bar(index,mean_rectus_l, bar_width,
                      alpha=opacity,
                      color='b',
                      yerr=std_rectus_l,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_rectus_l, 'ro', color='b', label='Median Value')
+
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-    plt.ylim([0, 20])
+    plt.ylim([0, 25])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot1.set_title("Rectus Left", fontsize=12)
 
     plot2 = plt.subplot2grid((4, 2), (0, 1))
@@ -846,16 +871,24 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                     EMG_std["Reach_R"]["Rectus_R"], EMG_std["Reach_L"]["Rectus_R"],
                     EMG_std["Reach_C"]["Rectus_R"]]
 
+    median_rectus_r = [EMG_median["Standing_EO"]["Rectus_R"], EMG_median["Standing_EC"]["Rectus_R"],
+                       EMG_median["OneFootStanding_R_EO"]["Rectus_R"], EMG_median["OneFootStanding_R_EC"]["Rectus_R"],
+                       EMG_median["OneFootStanding_L_EO"]["Rectus_R"], EMG_median["OneFootStanding_L_EC"]["Rectus_R"],
+                       EMG_median["Reach_R"]["Rectus_R"], EMG_median["Reach_L"]["Rectus_R"],
+                       EMG_median["Reach_C"]["Rectus_R"]]
+
     rects1 = plt.bar(index, mean_rectus_r, bar_width,
                      alpha=opacity,
                      color='r',
                      yerr=std_rectus_r,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+
+    plt.plot(index + 0.18, median_rectus_r, 'ro', color='r', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-    plt.ylim([0, 40])
+    plt.ylim([0, 25])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot2.set_title("Rectus Right", fontsize=12)
 
     plot3 = plt.subplot2grid((4, 2), (1, 0))
@@ -871,16 +904,24 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                     EMG_std["Reach_R"]["Obliques_L"], EMG_std["Reach_L"]["Obliques_L"],
                     EMG_std["Reach_C"]["Obliques_L"]]
 
+    median_obliques_l = [EMG_median["Standing_EO"]["Obliques_L"], EMG_median["Standing_EC"]["Obliques_L"],
+                         EMG_median["OneFootStanding_R_EO"]["Obliques_L"], EMG_median["OneFootStanding_R_EC"]["Obliques_L"],
+                         EMG_median["OneFootStanding_L_EO"]["Obliques_L"], EMG_median["OneFootStanding_L_EC"]["Obliques_L"],
+                         EMG_median["Reach_R"]["Obliques_L"], EMG_median["Reach_L"]["Obliques_L"],
+                         EMG_median["Reach_C"]["Obliques_L"]]
+
     rects1 = plt.bar(index, mean_obliques_l, bar_width,
                      alpha=opacity,
                      color='g',
                      yerr=std_obliques_l,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+
+    plt.plot(index + 0.18, median_obliques_l, 'ro', color='g', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot3.set_title("Obliques Left", fontsize=12)
 
     plot4 = plt.subplot2grid((4, 2), (1, 1))
@@ -896,16 +937,23 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                       EMG_std["Reach_R"]["Obliques_R"], EMG_std["Reach_L"]["Obliques_R"],
                       EMG_std["Reach_C"]["Obliques_R"]]
 
+    median_obliques_r = [EMG_median["Standing_EO"]["Obliques_R"], EMG_median["Standing_EC"]["Obliques_R"],
+                         EMG_median["OneFootStanding_R_EO"]["Obliques_R"], EMG_median["OneFootStanding_R_EC"]["Obliques_R"],
+                         EMG_median["OneFootStanding_L_EO"]["Obliques_R"], EMG_median["OneFootStanding_L_EC"]["Obliques_R"],
+                         EMG_median["Reach_R"]["Obliques_R"], EMG_median["Reach_L"]["Obliques_R"],
+                         EMG_median["Reach_C"]["Obliques_R"]]
+
     rects1 = plt.bar(index, mean_obliques_r, bar_width,
                      alpha=opacity,
                      color='c',
                      yerr=std_obliques_r,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+    plt.plot(index + 0.18, median_obliques_r, 'ro', color='g', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot4.set_title("Obliques Right", fontsize=12)
 
     plot5 = plt.subplot2grid((4, 2), (2, 0))
@@ -921,16 +969,26 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                       EMG_std["Reach_R"]["Ilicostalis_L"], EMG_std["Reach_L"]["Ilicostalis_L"],
                       EMG_std["Reach_C"]["Ilicostalis_L"]]
 
+    median_ilicostalis_l = [EMG_median["Standing_EO"]["Ilicostalis_L"], EMG_median["Standing_EC"]["Ilicostalis_L"],
+                            EMG_median["OneFootStanding_R_EO"]["Ilicostalis_L"],
+                            EMG_median["OneFootStanding_R_EC"]["Ilicostalis_L"],
+                            EMG_median["OneFootStanding_L_EO"]["Ilicostalis_L"],
+                            EMG_median["OneFootStanding_L_EC"]["Ilicostalis_L"],
+                            EMG_median["Reach_R"]["Ilicostalis_L"], EMG_median["Reach_L"]["Ilicostalis_L"],
+                            EMG_median["Reach_C"]["Ilicostalis_L"]]
+
     rects1 = plt.bar(index, mean_ilicostalis_l, bar_width,
                      alpha=opacity,
                      color='m',
                      yerr=std_ilicostalis_l,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+
+    plt.plot(index + 0.18, median_ilicostalis_l, 'ro', color='m', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 50])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot5.set_title("Iliocostalis Left", fontsize=12)
 
     plot6 = plt.subplot2grid((4, 2), (2, 1))
@@ -950,16 +1008,26 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                          EMG_std["Reach_R"]["Ilicostalis_R"], EMG_std["Reach_L"]["Ilicostalis_R"],
                          EMG_std["Reach_C"]["Ilicostalis_R"]]
 
+    median_ilicostalis_r = [EMG_median["Standing_EO"]["Ilicostalis_R"], EMG_median["Standing_EC"]["Ilicostalis_R"],
+                            EMG_median["OneFootStanding_R_EO"]["Ilicostalis_R"],
+                            EMG_median["OneFootStanding_R_EC"]["Ilicostalis_R"],
+                            EMG_median["OneFootStanding_L_EO"]["Ilicostalis_R"],
+                            EMG_median["OneFootStanding_L_EC"]["Ilicostalis_R"],
+                            EMG_median["Reach_R"]["Ilicostalis_R"], EMG_median["Reach_L"]["Ilicostalis_R"],
+                            EMG_median["Reach_C"]["Ilicostalis_R"]]
+
     rects1 = plt.bar(index, mean_ilicostalis_r, bar_width,
                      alpha=opacity,
                      color='y',
                      yerr=std_ilicostalis_r,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+
+    plt.plot(index + 0.18, median_ilicostalis_r, 'ro', color='y', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 25])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot6.set_title("Iliocostalis Right", fontsize=12)
 
     plot7 = plt.subplot2grid((4, 2), (3, 0))
@@ -979,16 +1047,26 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                          EMG_std["Reach_R"]["Multifidus_L"], EMG_std["Reach_L"]["Multifidus_L"],
                          EMG_std["Reach_C"]["Multifidus_L"]]
 
+    median_multi_l = [EMG_median["Standing_EO"]["Multifidus_L"], EMG_median["Standing_EC"]["Multifidus_L"],
+                      EMG_median["OneFootStanding_R_EO"]["Multifidus_L"],
+                      EMG_median["OneFootStanding_R_EC"]["Multifidus_L"],
+                      EMG_median["OneFootStanding_L_EO"]["Multifidus_L"],
+                      EMG_median["OneFootStanding_L_EC"]["Multifidus_L"],
+                      EMG_median["Reach_R"]["Multifidus_L"], EMG_median["Reach_L"]["Multifidus_L"],
+                      EMG_median["Reach_C"]["Multifidus_L"]]
+
     rects1 = plt.bar(index, mean_multi_l, bar_width,
                      alpha=opacity,
                      color='teal',
                      yerr=std_multi_l,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+
+    plt.plot(index + 0.18, median_multi_l, 'ro', color='teal', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot7.set_title("Multifidus Left", fontsize=12)
 
     plot8 = plt.subplot2grid((4, 2), (3, 1))
@@ -1008,16 +1086,26 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
                    EMG_std["Reach_R"]["Multifidus_R"], EMG_std["Reach_L"]["Multifidus_R"],
                    EMG_std["Reach_C"]["Multifidus_R"]]
 
+    median_multi_r = [EMG_median["Standing_EO"]["Multifidus_R"], EMG_median["Standing_EC"]["Multifidus_R"],
+                      EMG_median["OneFootStanding_R_EO"]["Multifidus_R"],
+                      EMG_median["OneFootStanding_R_EC"]["Multifidus_R"],
+                      EMG_median["OneFootStanding_L_EO"]["Multifidus_R"],
+                      EMG_median["OneFootStanding_L_EC"]["Multifidus_R"],
+                      EMG_median["Reach_R"]["Multifidus_R"], EMG_median["Reach_L"]["Multifidus_R"],
+                      EMG_median["Reach_C"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_multi_r, bar_width,
                      alpha=opacity,
                      color='skyblue',
                      yerr=std_multi_r,
-                     error_kw=error_config,
-                     label='Men')
+                     error_kw=error_config)
+
+    plt.plot(index + 0.18, median_multi_r, 'ro', color='skyblue', label='Median Value')
 
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot8.set_title("Multifidus Right", fontsize=12)
 
     plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
@@ -1025,7 +1113,7 @@ def same_muscle_diferent_task_barerror(EMG_mean, EMG_std):
     #pp.savefig(fig)
     #pp.close()
 
-def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
+def same_task_diferent_muscle_barerror(EMG_mean, EMG_std, EMG_median):
     l = 0
     #pp = PdfPages('EMG_Mean-Healthy_vs_SA.pdf')
 
@@ -1051,15 +1139,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                        EMG_std["Standing_EO"]["Ilicostalis_L"], EMG_std["Standing_EO"]["Ilicostalis_R"],
                        EMG_std["Standing_EO"]["Multifidus_L"], EMG_std["Standing_EO"]["Multifidus_R"]]
 
+    median_standing_eo = [EMG_median["Standing_EO"]["Rectus_L"], EMG_median["Standing_EO"]["Rectus_R"],
+                       EMG_median["Standing_EO"]["Obliques_L"], EMG_median["Standing_EO"]["Obliques_R"],
+                       EMG_median["Standing_EO"]["Ilicostalis_L"], EMG_median["Standing_EO"]["Ilicostalis_R"],
+                       EMG_median["Standing_EO"]["Multifidus_L"], EMG_median["Standing_EO"]["Multifidus_R"]]
+
     rects1 = plt.bar(index,mean_standing_eo, bar_width,
                      alpha=opacity,
                      color='b',
                      yerr=std_standing_eo,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_standing_eo,'ro', color = 'b', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 20])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot1.set_title("Standing Eyes Open", fontsize=12)
 
     plot2 = plt.subplot2grid((5, 2), (0, 1))
@@ -1073,15 +1169,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                        EMG_std["Standing_EC"]["Ilicostalis_L"], EMG_std["Standing_EC"]["Ilicostalis_R"],
                        EMG_std["Standing_EC"]["Multifidus_L"], EMG_std["Standing_EC"]["Multifidus_R"]]
 
+    median_standing_ec = [EMG_median["Standing_EC"]["Rectus_L"], EMG_median["Standing_EC"]["Rectus_R"],
+                          EMG_median["Standing_EC"]["Obliques_L"], EMG_median["Standing_EC"]["Obliques_R"],
+                          EMG_median["Standing_EC"]["Ilicostalis_L"], EMG_median["Standing_EC"]["Ilicostalis_R"],
+                          EMG_median["Standing_EC"]["Multifidus_L"], EMG_median["Standing_EC"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_standing_ec, bar_width,
                      alpha=opacity,
                      color='r',
                      yerr=std_standing_ec,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_standing_ec, 'ro', color='r', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 20])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot2.set_title("Standing Eyes Close", fontsize=12)
 
     plot3 = plt.subplot2grid((5, 2), (1, 0))
@@ -1095,15 +1199,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                        EMG_std["OneFootStanding_R_EO"]["Ilicostalis_L"], EMG_std["OneFootStanding_R_EO"]["Ilicostalis_R"],
                        EMG_std["OneFootStanding_R_EO"]["Multifidus_L"], EMG_std["OneFootStanding_R_EO"]["Multifidus_R"]]
 
+    median_rf_eo = [EMG_median["OneFootStanding_R_EO"]["Rectus_L"], EMG_median["OneFootStanding_R_EO"]["Rectus_R"],
+                    EMG_median["OneFootStanding_R_EO"]["Obliques_L"], EMG_median["OneFootStanding_R_EO"]["Obliques_R"],
+                    EMG_median["OneFootStanding_R_EO"]["Ilicostalis_L"], EMG_median["OneFootStanding_R_EO"]["Ilicostalis_R"],
+                    EMG_median["OneFootStanding_R_EO"]["Multifidus_L"], EMG_median["OneFootStanding_R_EO"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_rf_eo, bar_width,
                      alpha=opacity,
                      color='g',
                      yerr=std_rf_eo,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_rf_eo, 'ro', color='g', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot3.set_title("Right Foot Standind Eyes Open", fontsize=12)
 
     plot4 = plt.subplot2grid((5, 2), (1, 1))
@@ -1117,15 +1229,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                        EMG_std["OneFootStanding_R_EC"]["Ilicostalis_L"], EMG_std["OneFootStanding_R_EC"]["Ilicostalis_R"],
                        EMG_std["OneFootStanding_R_EC"]["Multifidus_L"], EMG_std["OneFootStanding_R_EC"]["Multifidus_R"]]
 
+    median_rf_ec = [EMG_median["OneFootStanding_R_EC"]["Rectus_L"], EMG_median["OneFootStanding_R_EC"]["Rectus_R"],
+                    EMG_median["OneFootStanding_R_EC"]["Obliques_L"], EMG_median["OneFootStanding_R_EC"]["Obliques_R"],
+                    EMG_median["OneFootStanding_R_EC"]["Ilicostalis_L"], EMG_median["OneFootStanding_R_EC"]["Ilicostalis_R"],
+                    EMG_median["OneFootStanding_R_EC"]["Multifidus_L"], EMG_median["OneFootStanding_R_EC"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_rf_ec, bar_width,
                      alpha=opacity,
                      color='c',
                      yerr=std_rf_ec,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_rf_ec, 'ro', color='c', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot4.set_title("Right Foot Standing Eyes Close", fontsize=12)
 
     plot5 = plt.subplot2grid((5, 2), (2, 0))
@@ -1139,15 +1259,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                  EMG_std["OneFootStanding_L_EO"]["Ilicostalis_L"], EMG_std["OneFootStanding_L_EO"]["Ilicostalis_R"],
                  EMG_std["OneFootStanding_L_EO"]["Multifidus_L"], EMG_std["OneFootStanding_L_EO"]["Multifidus_R"]]
 
+    median_lf_eo = [EMG_median["OneFootStanding_L_EO"]["Rectus_L"], EMG_median["OneFootStanding_L_EO"]["Rectus_R"],
+                 EMG_median["OneFootStanding_L_EO"]["Obliques_L"], EMG_median["OneFootStanding_L_EO"]["Obliques_R"],
+                 EMG_median["OneFootStanding_L_EO"]["Ilicostalis_L"], EMG_median["OneFootStanding_L_EO"]["Ilicostalis_R"],
+                 EMG_median["OneFootStanding_L_EO"]["Multifidus_L"], EMG_median["OneFootStanding_L_EO"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_lf_eo, bar_width,
                      alpha=opacity,
                      color='m',
                      yerr=std_lf_eo,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_lf_eo, 'ro', color='m', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot5.set_title("Left Foot Eyes Open", fontsize=12)
 
     plot6 = plt.subplot2grid((5, 2), (2, 1))
@@ -1166,15 +1294,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                  EMG_std["OneFootStanding_L_EC"]["Ilicostalis_L"], EMG_std["OneFootStanding_L_EC"]["Ilicostalis_R"],
                  EMG_std["OneFootStanding_L_EC"]["Multifidus_L"], EMG_std["OneFootStanding_L_EC"]["Multifidus_R"]]
 
+    median_lf_ec = [EMG_median["OneFootStanding_L_EC"]["Rectus_L"], EMG_median["OneFootStanding_L_EC"]["Rectus_R"],
+                    EMG_median["OneFootStanding_L_EC"]["Obliques_L"], EMG_median["OneFootStanding_L_EC"]["Obliques_R"],
+                    EMG_median["OneFootStanding_L_EC"]["Ilicostalis_L"], EMG_median["OneFootStanding_L_EC"]["Ilicostalis_R"],
+                    EMG_median["OneFootStanding_L_EC"]["Multifidus_L"], EMG_median["OneFootStanding_L_EC"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_lf_ec, bar_width,
                      alpha=opacity,
                      color='y',
                      yerr=std_lf_ec,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_lf_ec, 'ro', color='y', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot6.set_title("Left Foot Eyes Close", fontsize=12)
 
     plot7 = plt.subplot2grid((5, 2), (3, 0))
@@ -1192,15 +1328,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                  EMG_std["Reach_R"]["Ilicostalis_L"], EMG_std["Reach_R"]["Ilicostalis_R"],
                  EMG_std["Reach_R"]["Multifidus_L"], EMG_std["Reach_R"]["Multifidus_R"]]
 
+    median_reach_r = [EMG_median["Reach_R"]["Rectus_L"], EMG_median["Reach_R"]["Rectus_R"],
+                      EMG_median["Reach_R"]["Obliques_L"], EMG_median["Reach_R"]["Obliques_R"],
+                      EMG_median["Reach_R"]["Ilicostalis_L"], EMG_median["Reach_R"]["Ilicostalis_R"],
+                      EMG_median["Reach_R"]["Multifidus_L"], EMG_median["Reach_R"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_reach_r, bar_width,
                      alpha=opacity,
                      color='teal',
                      yerr=std_reach_r,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_reach_r, 'ro', color='teal', label = 'Median Value')
+
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 60])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot7.set_title("Reach Right", fontsize=12)
 
     plot8 = plt.subplot2grid((5, 2), (3, 1))
@@ -1218,16 +1362,23 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                    EMG_std["Reach_L"]["Ilicostalis_L"], EMG_std["Reach_L"]["Ilicostalis_R"],
                    EMG_std["Reach_L"]["Multifidus_L"], EMG_std["Reach_L"]["Multifidus_R"]]
 
-    rects1 = plt.bar(index, mean_reach_l, bar_width,
+    median_reach_l = [EMG_std["Reach_L"]["Rectus_L"], EMG_std["Reach_L"]["Rectus_R"],
+                   EMG_std["Reach_L"]["Obliques_L"], EMG_std["Reach_L"]["Obliques_R"],
+                   EMG_std["Reach_L"]["Ilicostalis_L"], EMG_std["Reach_L"]["Ilicostalis_R"],
+                   EMG_std["Reach_L"]["Multifidus_L"], EMG_std["Reach_L"]["Multifidus_R"]]
+
+    rects1 = plt.bar(index, median_reach_l, bar_width,
                      alpha=opacity,
                      color='skyblue',
                      yerr=std_reach_l,
                      error_kw=error_config)
 
+    plt.plot(index + 0.18, median_reach_l, 'ro', color='skyblue', label = 'Median Value')
 
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 25])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot8.set_title("Reach Left", fontsize=12)
 
     plot9 = plt.subplot2grid((5, 2), (4, 0))
@@ -1245,15 +1396,22 @@ def same_task_diferent_muscle_barerror(EMG_mean, EMG_std):
                    EMG_std["Reach_C"]["Ilicostalis_L"], EMG_std["Reach_C"]["Ilicostalis_R"],
                    EMG_std["Reach_C"]["Multifidus_L"], EMG_std["Reach_C"]["Multifidus_R"]]
 
+    median_reach_c = [EMG_median["Reach_C"]["Rectus_L"], EMG_median["Reach_C"]["Rectus_R"],
+                      EMG_median["Reach_C"]["Obliques_L"], EMG_median["Reach_C"]["Obliques_R"],
+                      EMG_median["Reach_C"]["Ilicostalis_L"], EMG_median["Reach_C"]["Ilicostalis_R"],
+                      EMG_median["Reach_C"]["Multifidus_L"], EMG_median["Reach_C"]["Multifidus_R"]]
+
     rects1 = plt.bar(index, mean_reach_c, bar_width,
                      alpha=opacity,
-                     color='skyblue',
+                     color='darkmagenta',
                      yerr=std_reach_c,
                      error_kw=error_config)
+    plt.plot(index + 0.18, median_reach_c, 'ro', color='darkmagenta', label = 'Median Value')
 
     plt.xticks(index + bar_width / 2, ('RL', 'RR', 'OL', 'OR', 'IL', 'IR', 'ML', 'MR'))
     plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
     plt.ylim([0, 50])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=10)
     plot9.set_title("Reach Center", fontsize=12)
 
     plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
@@ -1272,49 +1430,49 @@ def EMG_values_hitogram(EMG):
         fig.suptitle(str(i) + " - Mean Value of normalized EMG", fontsize=21)
 
         plot1 = plt.subplot2grid((4, 2), (0, 0))
-        plt.hist(EMG[i]["Rectus_L"])
+        plt.hist(EMG[i]["Rectus_L"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot1.set_title("Rectus Left", fontsize=12)
 
         plot2 = plt.subplot2grid((4, 2), (0, 1))
-        plt.hist(EMG[i]["Rectus_R"])
+        plt.hist(EMG[i]["Rectus_R"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot2.set_title("Rectus Right", fontsize=12)
 
         plot3 = plt.subplot2grid((4, 2), (1, 0))
-        plt.hist(EMG[i]["Obliques_L"])
+        plt.hist(EMG[i]["Obliques_L"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot3.set_title("Obliques Left", fontsize=12)
 
         plot4 = plt.subplot2grid((4, 2), (1, 1))
-        plt.hist(EMG[i]["Obliques_R"])
+        plt.hist(EMG[i]["Obliques_R"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot4.set_title("Obliques Right", fontsize=12)
 
         plot5 = plt.subplot2grid((4, 2), (2, 0))
-        plt.hist(EMG[i]["Ilicostalis_L"])
+        plt.hist(EMG[i]["Ilicostalis_L"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot5.set_title("Iliocostalis Left", fontsize=12)
 
         plot6 = plt.subplot2grid((4, 2), (2, 1))
-        plt.hist(EMG[i]["Ilicostalis_R"])
+        plt.hist(EMG[i]["Ilicostalis_R"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot6.set_title("Iliocostalis Right", fontsize=12)
 
         plot7 = plt.subplot2grid((4, 2), (3, 0))
-        plt.hist(EMG[i]["Multifidus_L"])
+        plt.hist(EMG[i]["Multifidus_L"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot7.set_title("Multifidus Left", fontsize=12)
 
         plot8 = plt.subplot2grid((4, 2), (3, 1))
-        plt.hist(EMG[i]["Multifidus_R"])
+        plt.hist(EMG[i]["Multifidus_R"], bins = 30)
         plt.ylabel("Frequency", fontsize=8)
         plt.xlabel("Percentage from MVC (%)", fontsize=8)
         plot8.set_title("Multifidus Right", fontsize=12)
@@ -1323,3 +1481,53 @@ def EMG_values_hitogram(EMG):
         plt.show()
         #pp.savefig(fig)
     #pp.close()
+
+
+def cop_parameters_same_parameter(COP_mean, COP_std, COP_median):
+    n_groups = 9
+
+    fig = plt.figure()
+    fig.suptitle("Bar Error represention for COP's amplitude - X direction", fontsize=21)
+
+    index = np.arange(n_groups)
+    bar_width = 0.35
+    opacity = 0.4
+    error_config = {'ecolor': '0.3'}
+
+    mean = [COP_mean["Standing_EO"]["Area"], COP_mean["Standing_EC"]["Area"],
+                          COP_mean["OneFootStanding_R_EO"]["Area"],
+                          COP_mean["OneFootStanding_R_EC"]["Area"],
+                          COP_mean["OneFootStanding_L_EO"]["Area"],
+                          COP_mean["OneFootStanding_L_EC"]["Area"],
+                          COP_mean["Reach_R"]["Area"], COP_mean["Reach_L"]["Area"],
+                          COP_mean["Reach_C"]["Area"]]
+
+    std = [COP_std["Standing_EO"]["Area"], COP_std["Standing_EC"]["Area"],
+           COP_std["OneFootStanding_R_EO"]["Area"],
+           COP_std["OneFootStanding_R_EC"]["Area"],
+           COP_std["OneFootStanding_L_EO"]["Area"],
+           COP_std["OneFootStanding_L_EC"]["Area"],
+           COP_std["Reach_R"]["Area"], COP_std["Reach_L"]["Area"],
+           COP_std["Reach_C"]["Area"]]
+
+    median = [COP_median["Standing_EO"]["Area"], COP_median["Standing_EC"]["Area"],
+              COP_median["OneFootStanding_R_EO"]["Area"],
+              COP_median["OneFootStanding_R_EC"]["Area"],
+              COP_median["OneFootStanding_L_EO"]["Area"],
+              COP_median["OneFootStanding_L_EC"]["Area"],
+              COP_median["Reach_R"]["Area"], COP_median["Reach_L"]["Area"],
+              COP_median["Reach_C"]["Area"]]
+
+    rects1 = plt.bar(index, mean, bar_width,
+                     alpha=opacity,
+                     color='r',
+                     yerr=std,
+                     error_kw=error_config)
+
+    plt.plot(index + bar_width / 2, median, 'ro', color='r', label='Median Value')
+    plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize = 13)
+    plt.ylabel("Amplitude x direction (mm)", fontsize=15)
+    #plt.ylim([0, 40])
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=20)
+    plt.show()
+
