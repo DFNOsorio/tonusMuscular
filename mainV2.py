@@ -95,11 +95,11 @@ print '\033[93m' + "VELOCITY_END" + '\033[0m'
 # patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
 # print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
-# patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
-# print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
+patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
+print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
 #
-# patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
-# print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
+patient1.EMG_evolution = evolution_EMG(patient1.EMG_max_values, patient1.EMG_normalization)
+print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 
 
@@ -144,5 +144,71 @@ healthy_cop_parameters = append_arrays_healthy(male_cop, female_cop, over30_cop)
 
 mean, std, median = mean_std_values_EMG(healthy_cop_parameters)
 
+# print "SEO"
+# print mean["Standing_EO"]["STD_Y"]
+# print std["Standing_EO"]["STD_Y"]
+# print median["Standing_EO"]["STD_Y"]
+#
+# print "SEC"
+# print mean["Standing_EC"]["STD_Y"]
+# print std["Standing_EC"]["STD_Y"]
+# print median["Standing_EC"]["STD_Y"]
+#
+# print "RFEO"
+# print mean["OneFootStanding_R_EO"]["STD_Y"]
+# print std["OneFootStanding_R_EO"]["STD_Y"]
+# print median["OneFootStanding_R_EO"]["STD_Y"]
+#
+# print "RFEC"
+# print mean["OneFootStanding_R_EC"]["STD_Y"]
+# print std["OneFootStanding_R_EC"]["STD_Y"]
+# print median["OneFootStanding_R_EC"]["STD_Y"]
+#
+# print "LFEO"
+# print mean["OneFootStanding_L_EO"]["STD_Y"]
+# print std["OneFootStanding_L_EO"]["STD_Y"]
+# print median["OneFootStanding_L_EO"]["STD_Y"]
+#
+# print "LFEC"
+# print mean["OneFootStanding_L_EC"]["STD_Y"]
+# print std["OneFootStanding_L_EC"]["STD_Y"]
+# print median["OneFootStanding_L_EC"]["STD_Y"]
+#
 
-cop_parameters_same_parameter(mean, std, median)
+over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG = get_EMG_evolution(patient1.EMG_evolution)
+
+over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP = get_COP_evolution(patient1.area_e)
+
+over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolution_area(patient1.area_e)
+
+# print over30_EMG
+# print over30_COP
+# print over30_area
+
+
+
+#cop_parameters_same_parameter(mean, std, median)
+
+#box_plot_sameparameter_diferent_task(healthy_cop_parameters)
+
+IMC_healthy = []
+age_healthy = []
+
+over30_pdata, male_pdata, female_pdata, EA_over30_pdata, EA_more_pdata = get_IMC()
+
+over30_IMC, male_IMC, IMC_female, IMC_over30_EA, IMC_moreEA = IMC_calculater(over30_pdata, male_pdata, female_pdata, EA_over30_pdata, EA_more_pdata)
+
+IMC_healthy.extend(male_IMC)
+IMC_healthy.extend(IMC_female)
+IMC_healthy.extend(over30_IMC)
+
+for i in healthy_cop_parameters:
+    print i
+    ro_ampx, p_ampx = stats.spearmanr(IMC_healthy, healthy_cop_parameters[i]["Area"])
+    #ro_ampy, p_ampy = stats.spearmanr(IMC_healthy, healthy_cop_parameters[i]["Velocity_Y"])
+    print "Area"
+    print ro_ampx
+    print p_ampx
+    #print "VY"
+    #print ro_ampy
+    #print p_ampy

@@ -1487,47 +1487,68 @@ def cop_parameters_same_parameter(COP_mean, COP_std, COP_median):
     n_groups = 9
 
     fig = plt.figure()
-    fig.suptitle("Bar Error represention for COP's amplitude - X direction", fontsize=21)
+    fig.suptitle("Bar Error represention for COP's \n Standard Deviation - Y direction", fontsize=15)
 
     index = np.arange(n_groups)
     bar_width = 0.35
     opacity = 0.4
     error_config = {'ecolor': '0.3'}
 
-    mean = [COP_mean["Standing_EO"]["Area"], COP_mean["Standing_EC"]["Area"],
-                          COP_mean["OneFootStanding_R_EO"]["Area"],
-                          COP_mean["OneFootStanding_R_EC"]["Area"],
-                          COP_mean["OneFootStanding_L_EO"]["Area"],
-                          COP_mean["OneFootStanding_L_EC"]["Area"],
-                          COP_mean["Reach_R"]["Area"], COP_mean["Reach_L"]["Area"],
-                          COP_mean["Reach_C"]["Area"]]
+    mean = [COP_mean["Standing_EO"]["STD_Y"], COP_mean["Standing_EC"]["STD_Y"],
+                          COP_mean["OneFootStanding_R_EO"]["STD_Y"],
+                          COP_mean["OneFootStanding_R_EC"]["STD_Y"],
+                          COP_mean["OneFootStanding_L_EO"]["STD_Y"],
+                          COP_mean["OneFootStanding_L_EC"]["STD_Y"],
+                          COP_mean["Reach_R"]["STD_Y"], COP_mean["Reach_L"]["STD_Y"],
+                          COP_mean["Reach_C"]["STD_Y"]]
 
-    std = [COP_std["Standing_EO"]["Area"], COP_std["Standing_EC"]["Area"],
-           COP_std["OneFootStanding_R_EO"]["Area"],
-           COP_std["OneFootStanding_R_EC"]["Area"],
-           COP_std["OneFootStanding_L_EO"]["Area"],
-           COP_std["OneFootStanding_L_EC"]["Area"],
-           COP_std["Reach_R"]["Area"], COP_std["Reach_L"]["Area"],
-           COP_std["Reach_C"]["Area"]]
+    std = [COP_std["Standing_EO"]["STD_Y"], COP_std["Standing_EC"]["STD_Y"],
+           COP_std["OneFootStanding_R_EO"]["STD_Y"],
+           COP_std["OneFootStanding_R_EC"]["STD_Y"],
+           COP_std["OneFootStanding_L_EO"]["STD_Y"],
+           COP_std["OneFootStanding_L_EC"]["STD_Y"],
+           COP_std["Reach_R"]["STD_Y"], COP_std["Reach_L"]["STD_Y"],
+           COP_std["Reach_C"]["STD_Y"]]
 
-    median = [COP_median["Standing_EO"]["Area"], COP_median["Standing_EC"]["Area"],
-              COP_median["OneFootStanding_R_EO"]["Area"],
-              COP_median["OneFootStanding_R_EC"]["Area"],
-              COP_median["OneFootStanding_L_EO"]["Area"],
-              COP_median["OneFootStanding_L_EC"]["Area"],
-              COP_median["Reach_R"]["Area"], COP_median["Reach_L"]["Area"],
-              COP_median["Reach_C"]["Area"]]
+    median = [COP_median["Standing_EO"]["STD_Y"], COP_median["Standing_EC"]["STD_Y"],
+              COP_median["OneFootStanding_R_EO"]["STD_Y"],
+              COP_median["OneFootStanding_R_EC"]["STD_Y"],
+              COP_median["OneFootStanding_L_EO"]["STD_Y"],
+              COP_median["OneFootStanding_L_EC"]["STD_Y"],
+              COP_median["Reach_R"]["STD_Y"], COP_median["Reach_L"]["STD_Y"],
+              COP_median["Reach_C"]["STD_Y"]]
 
     rects1 = plt.bar(index, mean, bar_width,
                      alpha=opacity,
-                     color='r',
+                     color='b',
                      yerr=std,
                      error_kw=error_config)
 
-    plt.plot(index + bar_width / 2, median, 'ro', color='r', label='Median Value')
+    plt.plot(index + bar_width / 2, median, 'ro', color='b', label='Median Value')
     plt.xticks(index + bar_width / 2, ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize = 13)
-    plt.ylabel("Amplitude x direction (mm)", fontsize=15)
+    plt.ylabel("Standard Deviation of COP signals \n y direction (mm)", fontsize=15)
     #plt.ylim([0, 40])
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=20)
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=13)
     plt.show()
 
+def box_plot_sameparameter_diferent_task(healthy):
+    fig = plt.figure()
+    fig.suptitle("Total area of COP displacement \n Boxplot - Y Direction", fontsize=15)
+    data = [[healthy["Standing_EO"]["Area"]], [healthy["Standing_EC"]["Area"]],
+                       [healthy["OneFootStanding_R_EO"]["Area"]], [healthy["OneFootStanding_R_EC"]["Area"]],
+                       [healthy["OneFootStanding_L_EO"]["Area"]], [healthy["OneFootStanding_L_EC"]["Area"]],
+                       [healthy["Reach_R"]["Area"]], [healthy["Reach_L"]["Area"]],
+                       [healthy["Reach_C"]["Area"]]]
+    bp = plt.boxplot(data, positions=[1, 2, 3, 4, 5, 6, 7, 8, 9], widths=0.6,  showfliers=True, showmeans = True)
+    for flier in bp['fliers']:
+        flier.set(marker='o', color='#e7298a', alpha=0.5, label = 'Outliers')
+
+    for flier in bp['means']:
+        flier.set(marker='o', color='b', alpha=0.5, label = 'Mean Value')
+
+    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9],
+               ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'),
+               fontsize=13)
+    plt.ylabel("Total area of \n COP displacement(mm2)", fontsize=15)
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=13)
+    plt.show()
