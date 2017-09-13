@@ -6,6 +6,7 @@ from scipy import integrate
 import novainstrumentation as ni
 import numpy as np
 from tools import *
+import scipy.stats as stats
 
 def append_arrays_healthy(male, female, over30):
 
@@ -141,72 +142,136 @@ def EMG_values_boxplot_healthy_vs_EA(EMG_healthy, EMG_EA):
 
         plot1 = plt.subplot2grid((4, 2), (0, 0))
         data_rectus_l = [[EMG_healthy[i]["Rectus_L"]], [EMG_EA[i]["Rectus_L"]]]
-        plt.boxplot(data_rectus_l, positions = [1,2], widths = 0.6)
+        bp = plt.boxplot(data_rectus_l, positions = [1,2], widths = 0.6, showmeans = True, showfliers= True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Rectus_L"], EMG_EA[i]["Rectus_L"])
         plt.xticks([1,2], ("Healthy", "SA"), fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1,2]) + 0.3 * len([1,2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot1.set_title("Rectus Left", fontsize=12)
 
         plot2 = plt.subplot2grid((4, 2), (0, 1))
         data_rectus_R = [[EMG_healthy[i]["Rectus_R"]], [EMG_EA[i]["Rectus_R"]]]
-        plt.boxplot(data_rectus_R, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_rectus_R, positions = [1,2], widths=0.6, showmeans = True, showfliers= True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Rectus_R"], EMG_EA[i]["Rectus_R"])
         plt.xticks([1, 2], ("Healthy", "SA"),fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot2.set_title("Rectus Right", fontsize=12)
 
         plot3 = plt.subplot2grid((4, 2), (1, 0))
         data_obliques_l = [[EMG_healthy[i]["Obliques_L"]], [EMG_EA[i]["Obliques_L"]]]
-        plt.boxplot(data_obliques_l, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_obliques_l, positions = [1,2], widths=0.6, showmeans = True, showfliers=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Obliques_L"], EMG_EA[i]["Obliques_L"])
         plt.xticks([1, 2], ("Healthy", "SA"),fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot3.set_title("Obliques Left", fontsize=12)
 
         plot4 = plt.subplot2grid((4, 2), (1, 1))
         data_obliques_r = [[EMG_healthy[i]["Obliques_R"]], [EMG_EA[i]["Obliques_R"]]]
-        plt.boxplot(data_obliques_r, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_obliques_r, positions = [1,2], widths=0.6, showmeans = True, showfliers=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Obliques_R"], EMG_EA[i]["Obliques_R"])
         plt.xticks([1, 2], ("Healthy", "SA"),fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot4.set_title("Obliques Right", fontsize=12)
 
         plot5 = plt.subplot2grid((4, 2), (2, 0))
         data_ilicostalis_l = [[EMG_healthy[i]["Ilicostalis_L"]], [EMG_EA[i]["Ilicostalis_L"]]]
-        plt.boxplot(data_ilicostalis_l, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_ilicostalis_l, positions = [1,2], widths=0.6, showmeans = True, showfliers=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Ilicostalis_L"], EMG_EA[i]["Ilicostalis_L"])
         plt.xticks([1, 2], ("Healthy", "SA"), fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot5.set_title("Iliocostalis Left", fontsize=12)
 
         plot6 = plt.subplot2grid((4, 2), (2, 1))
         data_ilicostalis_r = [[EMG_healthy[i]["Ilicostalis_R"]], [EMG_EA[i]["Ilicostalis_R"]]]
-        plt.boxplot(data_ilicostalis_r, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_ilicostalis_r, positions = [1,2], widths=0.6, showmeans = True, showfliers=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Ilicostalis_R"], EMG_EA[i]["Ilicostalis_R"])
         plt.xticks([1, 2], ("Healthy", "SA"), fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot6.set_title("Iliocostalis Right", fontsize=12)
 
         plot7 = plt.subplot2grid((4, 2), (3, 0))
         data_multi_l = [[EMG_healthy[i]["Multifidus_L"]], [EMG_EA[i]["Multifidus_L"]]]
-        plt.boxplot(data_multi_l, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_multi_l, positions = [1,2], widths=0.6, showmeans = True, showfliers=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Multifidus_L"], EMG_EA[i]["Multifidus_L"])
         plt.xticks([1, 2], ("Healthy", "SA"),fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot7.set_title("Multifidus Left", fontsize=12)
 
         plot8 = plt.subplot2grid((4, 2), (3, 1))
         data_multi_r = [[EMG_healthy[i]["Multifidus_R"]], [EMG_EA[i]["Multifidus_R"]]]
-        plt.boxplot(data_multi_r, positions = [1,2], widths=0.6)
+        bp = plt.boxplot(data_multi_r, positions = [1,2], widths=0.6, showmeans = True, showfliers=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(EMG_healthy[i]["Multifidus_R"], EMG_EA[i]["Multifidus_R"])
         plt.xticks([1, 2], ("Healthy", "SA"),fontsize=8)
         plt.ylabel("Percentage from\n MVC maximum.(%)", fontsize=8)
-        plt.ylim([0, 140])
+        #plt.ylim([0, 35])
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, -1,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
         plot8.set_title("Multifidus Right", fontsize=12)
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
         plt.show()
-        pp.savefig(fig)
-    pp.close()
+        #pp.savefig(fig)
+    #pp.close()
 
 def EMG_freq_front_boxplot_HealthyvsSA(freqEMG_healthy, freqEMG_SA):
     l = 0
@@ -244,20 +309,38 @@ def EMG_freq_front_boxplot_HealthyvsSA(freqEMG_healthy, freqEMG_SA):
                     if muscle == "Rectus_L" or muscle == "Obliques_L":
                         plot = plt.subplot2grid((4, 4), (row_l, col_l))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],freqEMG_SA[i][muscle][freq])
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
+
                         plot.set_title(str(muscle), fontsize=12, style = 'italic')
                         row_l = row_l + 1
 
                     if muscle == "Rectus_R" or muscle == "Obliques_R":
                         plot = plt.subplot2grid((4, 4), (row_r, col_r))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showmeans=True, showfliers=True)
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
                         plot.set_title(str(muscle), fontsize=12, style='italic')
                         row_r = row_r + 1
 
@@ -274,20 +357,38 @@ def EMG_freq_front_boxplot_HealthyvsSA(freqEMG_healthy, freqEMG_SA):
                     if muscle == "Rectus_L" or muscle == "Obliques_L":
                         plot = plt.subplot2grid((4, 4), (row_l, col_l))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
                         plot.set_title(str(muscle), fontsize=12, style='italic')
                         row_l = row_l + 1
 
                     if muscle == "Rectus_R" or muscle == "Obliques_R":
                         plot = plt.subplot2grid((4, 4), (row_r, col_r))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
                         plot.set_title(str(muscle), fontsize=12, style='italic')
                         row_r = row_r + 1
 
@@ -335,20 +436,39 @@ def EMG_freq_back_boxplot_HealthyvsSA(freqEMG_healthy, freqEMG_SA):
                     if muscle == "Ilicostalis_L" or muscle == "Multi_L":
                         plot = plt.subplot2grid((4, 4), (row_l, col_l))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
+                        plot.set_title(str(muscle), fontsize=12, style='italic')
                         plot.set_title(str(muscle), fontsize=12, style = 'italic')
                         row_l = row_l + 1
 
                     if muscle == "Ilicostalis_R" or muscle == "Multi_R":
                         plot = plt.subplot2grid((4, 4), (row_r, col_r))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
                         plot.set_title(str(muscle), fontsize=12, style='italic')
                         row_r = row_r + 1
 
@@ -365,20 +485,38 @@ def EMG_freq_back_boxplot_HealthyvsSA(freqEMG_healthy, freqEMG_SA):
                     if muscle == "Ilicostalis_L" or muscle == "Multi_L":
                         plot = plt.subplot2grid((4, 4), (row_l, col_l))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
                         plot.set_title(str(muscle), fontsize=12, style='italic')
                         row_l = row_l + 1
 
                     if muscle == "Ilicostalis_R" or muscle == "Multi_R":
                         plot = plt.subplot2grid((4, 4), (row_r, col_r))
                         data = [[freqEMG_healthy[i][muscle][freq]], [freqEMG_SA[i][muscle][freq]]]
-                        box = plt.boxplot(data, positions=[1, 2], widths=0.6)
+                        box = plt.boxplot(data, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+                        stat_RL, p_valueRL = stats.mannwhitneyu(freqEMG_healthy[i][muscle][freq],
+                                                                freqEMG_SA[i][muscle][freq])
                         plt.xticks([1, 2],
                                    ("Healthy", "SA"),
                                    fontsize=7)
+                        x1 = len([1, 2]) + 0.3 * len([1, 2])
+                        plt.text(x1, -1,
+                                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                                 fontsize=9,
+                                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+                        for flier in box['fliers']:
+                            flier.set(marker='o', color='#e7298a', alpha=0.5)
                         plot.set_title(str(muscle), fontsize=12, style='italic')
                         row_r = row_r + 1
 
@@ -401,69 +539,141 @@ def COP_freq_boxplot_HealthyvsSA(healthy_freqsCOP, SA_freqsCOP):
 
         plot1 = plt.subplot2grid((2, 4), (0, 0))
         data_peak_x = [[healthy_freqsCOP[i]["Peak_X"]], [SA_freqsCOP[i]["Peak_X"]]]
-        plt.boxplot(data_peak_x, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_peak_x, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["Peak_X"], SA_freqsCOP[i]["Peak_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot1.set_title("Peak Frequency - COP X", fontsize=12)
 
         plot2 = plt.subplot2grid((2, 4), (0, 1))
         data_peak_y = [[healthy_freqsCOP[i]["Peak_Y"]], [SA_freqsCOP[i]["Peak_Y"]]]
-        plt.boxplot(data_peak_y, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_peak_y, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["Peak_Y"], SA_freqsCOP[i]["Peak_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot2.set_title("Peak Frequency - COP Y", fontsize=12)
 
         plot3 = plt.subplot2grid((2, 4), (0, 2))
         data_mean_x = [[healthy_freqsCOP[i]["Mean_X"]], [SA_freqsCOP[i]["Mean_X"]]]
-        plt.boxplot(data_mean_x, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_mean_x, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["Mean_X"], SA_freqsCOP[i]["Mean_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot3.set_title("Mean Frequency - COP X", fontsize=12)
 
         plot4 = plt.subplot2grid((2, 4), (0, 3))
         data_mean_y = [[healthy_freqsCOP[i]["Mean_Y"]], [SA_freqsCOP[i]["Mean_Y"]]]
-        plt.boxplot(data_mean_y, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_mean_y, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["Mean_Y"], SA_freqsCOP[i]["Mean_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot4.set_title("Mean Frequency - COP Y", fontsize=12)
 
         plot5 = plt.subplot2grid((2, 4), (1, 0))
         data_median_x = [[healthy_freqsCOP[i]["Median_X"]], [SA_freqsCOP[i]["Median_X"]]]
-        plt.boxplot(data_median_x,positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_median_x, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["Median_X"], SA_freqsCOP[i]["Median_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot5.set_title("Median Frequency - COP X", fontsize=12)
 
         plot6 = plt.subplot2grid((2, 4), (1, 1))
         data_median_y = [[healthy_freqsCOP[i]["Median_Y"]], [SA_freqsCOP[i]["Median_Y"]]]
-        plt.boxplot(data_median_x, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_median_y, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["Median_Y"], SA_freqsCOP[i]["Median_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
-        plot6.set_title("Median Frequency - COP Y", fontsize=12)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
+        plot6.set_title("Median Frequency - COP X", fontsize=12)
 
         plot7 = plt.subplot2grid((2, 4), (1, 2))
         data_80_X = [[healthy_freqsCOP[i]["80_X"]], [SA_freqsCOP[i]["80_X"]]]
-        plt.boxplot(data_80_X, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_80_X, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["80_X"], SA_freqsCOP[i]["80_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot7.set_title("80% Frequency - COP X", fontsize=12)
 
         plot8 = plt.subplot2grid((2, 4), (1, 3))
         data_80_Y = [[healthy_freqsCOP[i]["80_Y"]], [SA_freqsCOP[i]["80_Y"]]]
-        plt.boxplot(data_80_Y, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_80_Y, positions=[1, 2], widths=0.6, showfliers=True, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_freqsCOP[i]["80_Y"], SA_freqsCOP[i]["80_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
         plot8.set_title("80% Frequency - COP Y", fontsize=12)
 
-        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.31, hspace=0.27)
+        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.51, hspace=0.37)
         plt.show()
         pp.savefig(fig)
     pp.close()
@@ -479,58 +689,121 @@ def COP_parameters_boxplot_HealthyvsSA(healthy_cop, SA_cop):
 
         plot1 = plt.subplot2grid((3, 3), (0, 0))
         data_velocity_x = [[healthy_cop[i]["Velocity_X"]], [SA_cop[i]["Velocity_X"]]]
-        plt.boxplot(data_velocity_x, positions=[1, 2], widths=0.6)
+        box=  plt.boxplot(data_velocity_x, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["Velocity_X"], SA_cop[i]["Velocity_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Velocity (mm/s)", fontsize=8)
         plot1.set_title("Velocity COP X", fontsize=12)
 
         plot2 = plt.subplot2grid((3, 3), (0, 1))
         data_velocity_y = [[healthy_cop[i]["Velocity_Y"]], [SA_cop[i]["Velocity_Y"]]]
-        plt.boxplot(data_velocity_y, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_velocity_y, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["Velocity_Y"], SA_cop[i]["Velocity_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Velocity (mm/s)", fontsize=8)
         plot2.set_title("Velocity COP Y", fontsize=12)
 
         plot3 = plt.subplot2grid((3, 3), (1, 0))
         data_std_x = [[healthy_cop[i]["STD_X"]], [SA_cop[i]["STD_X"]]]
-        plt.boxplot(data_std_x, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_std_x, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["STD_X"], SA_cop[i]["STD_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Standard Deviation (mm)", fontsize=8)
         plot3.set_title("STD COP X", fontsize=12)
 
         plot4 = plt.subplot2grid((3, 3), (1, 1))
         data_std_y = [[healthy_cop[i]["STD_Y"]], [SA_cop[i]["STD_Y"]]]
-        plt.boxplot(data_std_y, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_std_y, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["STD_Y"], SA_cop[i]["STD_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Standard Deviation (mm)", fontsize=8)
         plot4.set_title("STD COP Y", fontsize=12)
 
         plot5 = plt.subplot2grid((3, 3), (2, 0))
         data_amp_x = [[healthy_cop[i]["Amp_X"]], [SA_cop[i]["Amp_X"]]]
-        plt.boxplot(data_amp_x, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_amp_x, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["Amp_X"], SA_cop[i]["Amp_X"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Amplitude (mm)", fontsize=8)
         plot5.set_title("Amplitude COP X", fontsize=12)
 
         plot6 = plt.subplot2grid((3, 3), (2, 1))
         data_amp_y = [[healthy_cop[i]["Amp_Y"]], [SA_cop[i]["Amp_Y"]]]
-        plt.boxplot(data_amp_y, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_amp_y, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["Amp_Y"], SA_cop[i]["Amp_Y"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Amplitude (mm)", fontsize=8)
         plot6.set_title("Amplitude COP Y", fontsize=12)
 
         plot7 = plt.subplot2grid((3, 3), (1, 2))
         data_area = [[healthy_cop[i]["Area"]], [SA_cop[i]["Area"]]]
-        plt.boxplot(data_area, positions=[1, 2], widths=0.6)
+        box = plt.boxplot(data_area, positions=[1, 2], widths=0.6, showmeans=True)
+        stat_RL, p_valueRL = stats.mannwhitneyu(healthy_cop[i]["Area"], SA_cop[i]["Area"])
         plt.xticks([1, 2],
                    ("Healthy", "SA"),
-                   fontsize=7)
+                   fontsize=8)
+        x1 = len([1, 2]) + 0.3 * len([1, 2])
+        plt.text(x1, 0,
+                 'P-Value: ' + '\n' + '%.4f' % p_valueRL,
+                 fontsize=9,
+                 bbox={'facecolor': 'white', 'alpha': 0.6, 'pad': 10})
+        for flier in box['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5)
+        plt.ylabel("Area (mm2)", fontsize=8)
         plot7.set_title("Area", fontsize=12)
 
         plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.31, hspace=0.27)
@@ -1531,14 +1804,14 @@ def cop_parameters_same_parameter(COP_mean, COP_std, COP_median):
     plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=13)
     plt.show()
 
-def box_plot_sameparameter_diferent_task(healthy):
+def box_plot_sameparameter_diferent_task(healthy, parameter):
     fig = plt.figure()
-    fig.suptitle("Total area of COP displacement \n Boxplot - Y Direction", fontsize=15)
-    data = [[healthy["Standing_EO"]["Area"]], [healthy["Standing_EC"]["Area"]],
-                       [healthy["OneFootStanding_R_EO"]["Area"]], [healthy["OneFootStanding_R_EC"]["Area"]],
-                       [healthy["OneFootStanding_L_EO"]["Area"]], [healthy["OneFootStanding_L_EC"]["Area"]],
-                       [healthy["Reach_R"]["Area"]], [healthy["Reach_L"]["Area"]],
-                       [healthy["Reach_C"]["Area"]]]
+    fig.suptitle("COP's Amplitude \n Boxplot - Y Direction", fontsize=15)
+    data = [[healthy["Standing_EO"][parameter]], [healthy["Standing_EC"][parameter]],
+                       [healthy["OneFootStanding_R_EO"][parameter]], [healthy["OneFootStanding_R_EC"][parameter]],
+                       [healthy["OneFootStanding_L_EO"][parameter]], [healthy["OneFootStanding_L_EC"][parameter]],
+                       [healthy["Reach_R"][parameter]], [healthy["Reach_L"][parameter]],
+                       [healthy["Reach_C"][parameter]]]
     bp = plt.boxplot(data, positions=[1, 2, 3, 4, 5, 6, 7, 8, 9], widths=0.6,  showfliers=True, showmeans = True)
     for flier in bp['fliers']:
         flier.set(marker='o', color='#e7298a', alpha=0.5, label = 'Outliers')
@@ -1549,6 +1822,289 @@ def box_plot_sameparameter_diferent_task(healthy):
     plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9],
                ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'),
                fontsize=13)
-    plt.ylabel("Total area of \n COP displacement(mm2)", fontsize=15)
+    plt.ylabel("COP's Amplitude(mm)", fontsize=15)
     plt.legend(bbox_to_anchor=(1.0, 1.0), loc=2, borderaxespad=0., fontsize=13)
     plt.show()
+
+
+
+def table_cop_parameters_wilcoxon(COP_array, parameter):
+
+    task1 = {}
+
+    for i in COP_array:
+        stat_value = {}
+        p_value = {}
+        for n in COP_array:
+            stat_value[n], p_value[n] = stats.wilcoxon(COP_array[i][parameter], COP_array[n][parameter])
+
+        task1[i] = {"STAT": stat_value, "P": p_value}
+
+    return task1
+
+def table_freqs_EMG_parameters_wilcoxon(array):
+    values_muscle = {}
+    for muscle in array["Standing_EO"]:
+        values_freqs = {}
+        for freqs in array["Standing_EO"][muscle]:
+            values_first_task = {}
+            for task1 in array:
+                stat_value = {}
+                p_value = {}
+                for task2 in array:
+                    stat_value[task2], p_value[task2] = stats.wilcoxon(array[task1][muscle][freqs],array[task2][muscle][freqs])
+
+                values_first_task[task1] = {"STAT": stat_value, "P": p_value}
+            values_freqs[freqs] = values_first_task
+        values_muscle[muscle] = values_freqs
+
+    return values_muscle
+
+
+def same_muscle_different_tasks_freqs(EMG_healthy, EMG_rest):
+    l = 0
+    #pp = PdfPages('EMG_Mean-Healthy_vs_SA.pdf')
+
+    for muscle in EMG_healthy["Standing_EO"]:
+        fig = plt.figure(l)
+
+        fig.suptitle("Frequencies along the tasks - " + str(muscle), fontsize=21)
+
+        plot1 = plt.subplot2grid((2, 2), (0, 0))
+        data_rectus_l = [[EMG_healthy["Standing_EO"][muscle]["Peak"]], [EMG_healthy["Standing_EC"][muscle]["Peak"]],
+                         [EMG_healthy["OneFootStanding_R_EO"][muscle]["Peak"]], [EMG_healthy["OneFootStanding_R_EC"][muscle]["Peak"]],
+                         [EMG_healthy["OneFootStanding_L_EO"][muscle]["Peak"]], [EMG_healthy["OneFootStanding_L_EC"][muscle]["Peak"]],
+                         [EMG_healthy["Reach_R"][muscle]["Peak"]], [EMG_healthy["Reach_L"][muscle]["Peak"]],
+                         [EMG_healthy["Reach_C"][muscle]["Peak"]], EMG_rest[muscle]["Peak"]]
+        bp = plt.boxplot(data_rectus_l, positions = [1,2,3,4,5,6,7,8,9,10], widths = 0.6, showfliers=True, showmeans = True)
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5, label='Outliers')
+
+        for flier in bp['means']:
+            flier.set(marker='o', color='b', alpha=0.5, label='Mean Value')
+        plt.xticks([1,2,3,4,5,6,7,8,9,10], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC', "REST"), fontsize=8)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
+        plot1.set_title("Peak Frequency", fontsize=12)
+
+        plot2 = plt.subplot2grid((2, 2), (0, 1))
+        data_rectus_r = [[EMG_healthy["Standing_EO"][muscle]["Mean"]], [EMG_healthy["Standing_EC"][muscle]["Mean"]],
+                         [EMG_healthy["OneFootStanding_R_EO"][muscle]["Mean"]], [EMG_healthy["OneFootStanding_R_EC"][muscle]["Mean"]],
+                         [EMG_healthy["OneFootStanding_L_EO"][muscle]["Mean"]], [EMG_healthy["OneFootStanding_L_EC"][muscle]["Mean"]],
+                         [EMG_healthy["Reach_R"][muscle]["Mean"]], [EMG_healthy["Reach_L"][muscle]["Mean"]],
+                         [EMG_healthy["Reach_C"][muscle]["Mean"]], EMG_rest[muscle]["Mean"]]
+        bp = plt.boxplot(data_rectus_r, positions = [1,2,3,4,5,6,7,8,9,10], widths = 0.6, showfliers=True, showmeans = True)
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5, label='Outliers')
+
+        for flier in bp['means']:
+            flier.set(marker='o', color='b', alpha=0.5, label='Mean Value')
+        plt.xticks([1,2,3,4,5,6,7,8,9,10], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC', 'REST'), fontsize=8)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
+        plot2.set_title("Mean Frequency", fontsize=12)
+
+        plot3 = plt.subplot2grid((2, 2), (1, 0))
+        data_obliques_l = [[EMG_healthy["Standing_EO"][muscle]["Median"]], [EMG_healthy["Standing_EC"][muscle]["Median"]],
+                         [EMG_healthy["OneFootStanding_R_EO"][muscle]["Median"]], [EMG_healthy["OneFootStanding_R_EC"][muscle]["Median"]],
+                         [EMG_healthy["OneFootStanding_L_EO"][muscle]["Median"]], [EMG_healthy["OneFootStanding_L_EC"][muscle]["Median"]],
+                         [EMG_healthy["Reach_R"][muscle]["Median"]], [EMG_healthy["Reach_L"][muscle]["Median"]],
+                         [EMG_healthy["Reach_C"][muscle]["Median"]], EMG_rest[muscle]["Median"]]
+        bp = plt.boxplot(data_obliques_l, positions = [1,2,3,4,5,6,7,8,9, 10], widths = 0.6, showfliers=True, showmeans = True)
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5, label='Outliers')
+
+        for flier in bp['means']:
+            flier.set(marker='o', color='b', alpha=0.5, label='Mean Value')
+        plt.xticks([1,2,3,4,5,6,7,8,9,10], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC', 'REST'), fontsize=8)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
+        plot3.set_title("Median Frequency", fontsize=12)
+
+        plot4 = plt.subplot2grid((2, 2), (1, 1))
+        data_obliques_r = [[EMG_healthy["Standing_EO"][muscle]["80_freq"]], [EMG_healthy["Standing_EC"][muscle]["80_freq"]],
+                         [EMG_healthy["OneFootStanding_R_EO"][muscle]["80_freq"]], [EMG_healthy["OneFootStanding_R_EC"][muscle]["80_freq"]],
+                         [EMG_healthy["OneFootStanding_L_EO"][muscle]["80_freq"]], [EMG_healthy["OneFootStanding_L_EC"][muscle]["80_freq"]],
+                         [EMG_healthy["Reach_R"][muscle]["80_freq"]], [EMG_healthy["Reach_L"][muscle]["80_freq"]],
+                         [EMG_healthy["Reach_C"][muscle]["80_freq"]], EMG_rest[muscle]["80_freq"]]
+        bp = plt.boxplot(data_obliques_r, positions = [1,2,3,4,5,6,7,8,9,10], widths = 0.6, showfliers=True, showmeans = True)
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5, label='Outliers')
+
+        for flier in bp['means']:
+            flier.set(marker='o', color='b', alpha=0.5, label='Mean Value')
+        plt.xticks([1,2,3,4,5,6,7,8,9,10], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC','REST'), fontsize=8)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
+        plot4.set_title("Frequency at 80% of power spectrum", fontsize=12)
+
+
+
+
+        plt.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.90, wspace=0.44, hspace=0.45)
+        plt.show()
+
+def tables_freq_wilcoxon(stat_values):
+    l=0
+    for muscle in stat_values:
+        for freq in stat_values[muscle]:
+            fig = plt.figure(l)
+
+            fig.suptitle("Frequencies along the tasks - " + str(muscle) + "and" + str(freq), fontsize=21)
+            plt.axis('off')
+            col_labels = ['SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC']
+            row_labels = ['SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC']
+            table_values = [['--', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["Standing_EC"], '--', ' ', ' ', ' ', ' ',
+                             ' ', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["OneFootStanding_R_EO"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["OneFootStanding_R_EO"], '--', ' ', ' ',
+                             ' ', ' ', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["OneFootStanding_R_EC"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["OneFootStanding_R_EC"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EO"]["P"]["OneFootStanding_R_EC"], '--',
+                             ' ', ' ', ' ', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["OneFootStanding_L_EO"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["OneFootStanding_L_EO"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EO"]["P"]["OneFootStanding_L_EO"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EC"]["P"]["OneFootStanding_L_EO"], '--',
+                             ' ', ' ', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EO"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EC"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EO"]["P"]["OneFootStanding_L_EC"], '--',
+                             ' ', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["Reach_R"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["Reach_R"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EO"]["P"]["Reach_R"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EC"]["P"]["Reach_R"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EO"]["P"]["Reach_R"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EC"]["P"]["Reach_R"], '--', ' ', ' '], \
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["Reach_L"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["Reach_L"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EO"]["P"]["Reach_L"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EC"]["P"]["Reach_L"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EO"]["P"]["Reach_L"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EC"]["P"]["Reach_L"],
+                             stat_values[muscle][freq]["Reach_R"]["P"]["Reach_L"], '--', ' '],
+                            [stat_values[muscle][freq]["Standing_EO"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["Standing_EC"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EO"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["OneFootStanding_R_EC"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EO"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["OneFootStanding_L_EC"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["Reach_R"]["P"]["Reach_C"],
+                             stat_values[muscle][freq]["Reach_L"]["P"]["Reach_C"], '--']]
+            freqs_table = plt.table(cellText=table_values,
+                                    colWidths=[0.11] * 10,
+                                    rowLabels=row_labels,
+                                    colLabels=col_labels,
+                                    loc='upper center', )
+            freqs_table.auto_set_font_size(False)
+            freqs_table.set_fontsize(11)
+            freqs_table.scale(1.1, 1.1)
+            plt.text(30, 25, 'Table Title', size=30)
+
+            plt.show()
+
+def same_direction_different_tasks_freqs(EMG_healthy):
+    l = 0
+    #pp = PdfPages('EMG_Mean-Healthy_vs_SA.pdf')
+
+    for direction in EMG_healthy["Standing_EO"]:
+        fig = plt.figure(l)
+
+        fig.suptitle("Frequencies along the tasks - " + str(direction), fontsize=21)
+
+        #plot1 = plt.subplot2grid((2, 2), (0, 0))
+        data_rectus_l = [[EMG_healthy["Standing_EO"][direction]], [EMG_healthy["Standing_EC"][direction]],
+                         [EMG_healthy["OneFootStanding_R_EO"][direction]], [EMG_healthy["OneFootStanding_R_EC"][direction]],
+                         [EMG_healthy["OneFootStanding_L_EO"][direction]], [EMG_healthy["OneFootStanding_L_EC"][direction]],
+                         [EMG_healthy["Reach_R"][direction]], [EMG_healthy["Reach_L"][direction]],
+                         [EMG_healthy["Reach_C"][direction]]]
+        bp = plt.boxplot(data_rectus_l, positions = [1,2,3,4,5,6,7,8,9], widths = 0.6, showfliers=True, showmeans = True)
+        for flier in bp['fliers']:
+            flier.set(marker='o', color='#e7298a', alpha=0.5, label='Outliers')
+
+        for flier in bp['means']:
+            flier.set(marker='o', color='b', alpha=0.5, label='Mean Value')
+        plt.xticks([1,2,3,4,5,6,7,8,9], ('SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC'), fontsize=8)
+        plt.ylabel("Frequency (Hz)", fontsize=8)
+        #plt.set_title("Peak Frequency", fontsize=12)
+
+        plt.show()
+
+def table_freqs_COP_parameters_wilcoxon(array):
+    values_freq = {}
+    for freq in array["Standing_EO"]:
+        values_first_task = {}
+        for task1 in array:
+            stat_value = {}
+            p_value = {}
+            for task2 in array:
+                stat_value[task2], p_value[task2] = stats.wilcoxon(array[task1][freq],array[task2][freq])
+
+            values_first_task[task1] = {"STAT": stat_value, "P": p_value}
+        values_freq[freq] = values_first_task
+
+    return values_freq
+
+def tables_freq_cop_wilcoxon(stat_values):
+    l=0
+    for freq in stat_values:
+        fig = plt.figure(l)
+
+        fig.suptitle("Frequencies along the tasks - "  + str(freq), fontsize=21)
+        plt.axis('off')
+        col_labels = ['SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC']
+        row_labels = ['SEO', 'SEC', 'RFEO', 'RFEC', 'LFEO', 'LFEC', 'RR', 'RL', 'RC']
+        table_values = [['--', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["Standing_EC"], '--', ' ', ' ', ' ', ' ',
+                             ' ', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["OneFootStanding_R_EO"],
+                             stat_values[freq]["Standing_EC"]["P"]["OneFootStanding_R_EO"], '--', ' ', ' ',
+                             ' ', ' ', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["OneFootStanding_R_EC"],
+                             stat_values[freq]["Standing_EC"]["P"]["OneFootStanding_R_EC"],
+                             stat_values[freq]["OneFootStanding_R_EO"]["P"]["OneFootStanding_R_EC"], '--',
+                             ' ', ' ', ' ', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["OneFootStanding_L_EO"],
+                             stat_values[freq]["Standing_EC"]["P"]["OneFootStanding_L_EO"],
+                             stat_values[freq]["OneFootStanding_R_EO"]["P"]["OneFootStanding_L_EO"],
+                             stat_values[freq]["OneFootStanding_R_EC"]["P"]["OneFootStanding_L_EO"], '--',
+                             ' ', ' ', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[freq]["Standing_EC"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[freq]["OneFootStanding_R_EO"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[freq]["OneFootStanding_R_EC"]["P"]["OneFootStanding_L_EC"],
+                             stat_values[freq]["OneFootStanding_L_EO"]["P"]["OneFootStanding_L_EC"], '--',
+                             ' ', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["Reach_R"],
+                             stat_values[freq]["Standing_EC"]["P"]["Reach_R"],
+                             stat_values[freq]["OneFootStanding_R_EO"]["P"]["Reach_R"],
+                             stat_values[freq]["OneFootStanding_R_EC"]["P"]["Reach_R"],
+                             stat_values[freq]["OneFootStanding_L_EO"]["P"]["Reach_R"],
+                             stat_values[freq]["OneFootStanding_L_EC"]["P"]["Reach_R"], '--', ' ', ' '], \
+                            [stat_values[freq]["Standing_EO"]["P"]["Reach_L"],
+                             stat_values[freq]["Standing_EC"]["P"]["Reach_L"],
+                             stat_values[freq]["OneFootStanding_R_EO"]["P"]["Reach_L"],
+                             stat_values[freq]["OneFootStanding_R_EC"]["P"]["Reach_L"],
+                             stat_values[freq]["OneFootStanding_L_EO"]["P"]["Reach_L"],
+                             stat_values[freq]["OneFootStanding_L_EC"]["P"]["Reach_L"],
+                             stat_values[freq]["Reach_R"]["P"]["Reach_L"], '--', ' '],
+                            [stat_values[freq]["Standing_EO"]["P"]["Reach_C"],
+                             stat_values[freq]["Standing_EC"]["P"]["Reach_C"],
+                             stat_values[freq]["OneFootStanding_R_EO"]["P"]["Reach_C"],
+                             stat_values[freq]["OneFootStanding_R_EC"]["P"]["Reach_C"],
+                             stat_values[freq]["OneFootStanding_L_EO"]["P"]["Reach_C"],
+                             stat_values[freq]["OneFootStanding_L_EC"]["P"]["Reach_C"],
+                             stat_values[freq]["Reach_R"]["P"]["Reach_C"],
+                             stat_values[freq]["Reach_L"]["P"]["Reach_C"], '--']]
+        freqs_table = plt.table(cellText=table_values,
+                                    colWidths=[0.11] * 10,
+                                    rowLabels=row_labels,
+                                    colLabels=col_labels,
+                                    loc='upper center', )
+        freqs_table.auto_set_font_size(False)
+        freqs_table.set_fontsize(11)
+        freqs_table.scale(1.1, 1.1)
+        plt.text(30, 25, 'Table Title', size=30)
+
+        plt.show()

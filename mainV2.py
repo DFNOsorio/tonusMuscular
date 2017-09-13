@@ -77,11 +77,11 @@ print '\033[93m' + "VELOCITY_END" + '\033[0m'
 # patient1.simple_corr = simple_correlation(patient1.EMG_normalization, patient1.COP)
 # print '\033[93m' + "CORR_END" + '\033[0m'
 
-# patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
-# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-#
-# patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
-# print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
+patient1.fre_EMG, patient1.pxx_EMG = fourier_EMG(patient1.EMG_avg)
+print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+
+patient1.peak_EMG, patient1.meanf_EMG, patient1.f_80_EMG, patient1.f_50_EMG = parameters_fourier_EMG(patient1.fre_EMG, patient1.pxx_EMG)
+print '\033[93m' + "FOURRIER_EMG_PARAMETERS_END" + '\033[0m'
 #
 # patient1.fre_EMG_rest, patient1.pxx_EMG_rest = fourier_EMG(patient1.static_normalization)
 # print '\033[93m' + "FOURRIER_REST_END" + '\033[0m'
@@ -89,11 +89,11 @@ print '\033[93m' + "VELOCITY_END" + '\033[0m'
 # patient1.peak_EMG_rest, patient1.meanf_EMG_rest, patient1.f_80_EMG_rest, patient1.f_50_EMG_rest = parameters_fourier_EMG(patient1.fre_EMG_rest, patient1.pxx_EMG_rest)
 # print '\033[93m' + "FOURRIER_EMG_REST_PARAMETERS_END" + '\033[0m'
 #
-# patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
-# print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
-#
-# patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
-# print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
+patient1.freq_COP, patient1.pxx_COP = fourier_COP(patient1.COP)
+print '\033[93m' + "FOURRIER_EMG_END" + '\033[0m'
+
+patient1.peak_COP, patient1.meanf_COP, patient1.f_80_COP, patient1.f_50_COP = parameters_fourrier_COP(patient1.freq_COP, patient1.pxx_COP)
+print '\033[93m' + "FOURRIER_COP_PARAMETERS_END" + '\033[0m'
 
 patient1.std_evolution, patient1.velocity_evolution, patient1.area_e = evolution_parameters(patient1.COP, patient1.velocity)
 print '\033[93m' + "EVOLUTION_COP_PARAMETERS" + '\033[0m'
@@ -140,75 +140,82 @@ print '\033[93m' + "EVOLUTION_EMG" + '\033[0m'
 
 over30_cop, male_cop, female_cop, EA_over30_cop, EA_more_cop = get_values_COP(patient1.mean)
 
+EA_cop_parameters = append_arrays_EA(EA_over30_cop, EA_more_cop)
+
 healthy_cop_parameters = append_arrays_healthy(male_cop, female_cop, over30_cop)
+
+COP_parameters_boxplot_HealthyvsSA(healthy_cop_parameters,EA_cop_parameters)
 
 mean, std, median = mean_std_values_EMG(healthy_cop_parameters)
 
-# print "SEO"
-# print mean["Standing_EO"]["STD_Y"]
-# print std["Standing_EO"]["STD_Y"]
-# print median["Standing_EO"]["STD_Y"]
+# over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG = get_EMG_evolution(patient1.EMG_evolution)
 #
-# print "SEC"
-# print mean["Standing_EC"]["STD_Y"]
-# print std["Standing_EC"]["STD_Y"]
-# print median["Standing_EC"]["STD_Y"]
+# over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP = get_COP_evolution(patient1.area_e)
 #
-# print "RFEO"
-# print mean["OneFootStanding_R_EO"]["STD_Y"]
-# print std["OneFootStanding_R_EO"]["STD_Y"]
-# print median["OneFootStanding_R_EO"]["STD_Y"]
+# over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolution_area(patient1.area_e)
 #
-# print "RFEC"
-# print mean["OneFootStanding_R_EC"]["STD_Y"]
-# print std["OneFootStanding_R_EC"]["STD_Y"]
-# print median["OneFootStanding_R_EC"]["STD_Y"]
+over30_cop_freq, male_cop_freq, female_cop_freq, EA_over30_cop_freq, EA_more_cop_freq = get_values_COP_freq(patient1.peak_COP)
 #
-# print "LFEO"
-# print mean["OneFootStanding_L_EO"]["STD_Y"]
-# print std["OneFootStanding_L_EO"]["STD_Y"]
-# print median["OneFootStanding_L_EO"]["STD_Y"]
+healthy_cop_freqs = append_arrays_healthy(male_cop_freq, female_cop_freq,over30_cop_freq)
+
+EA_cop_freqs = append_arrays_EA(EA_over30_cop_freq, EA_more_cop_freq)
+#COP_freq_boxplot_HealthyvsSA(healthy_cop_freqs,EA_cop_freqs)
+
+
+over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean = get_value_mean_tonus(patient1.EMG_normalization)
+
+over30_mean_tonus_new, male_mean_tonus_new, female_mean_tonus_new, EA_over30_mean_tonus_new, EA_more_mean_tonus_new = delete_EMG_values_tonus(over30_tonus_mean, male_tonus_mean, female_tonus_mean, EA_over30_tonus_mean, EA_more_tonus_mean)
+
+healthy_EMG = append_arrays_healthy(male_tonus_mean, female_tonus_mean,over30_tonus_mean)
+EA_EMG = append_arrays_EA(EA_over30_mean_tonus_new, EA_more_mean_tonus_new)
+
+# print healthy_cop_freqs
 #
-# print "LFEC"
-# print mean["OneFootStanding_L_EC"]["STD_Y"]
-# print std["OneFootStanding_L_EC"]["STD_Y"]
-# print median["OneFootStanding_L_EC"]["STD_Y"]
-#
+# print np.std(healthy_cop_freqs["Standing_EO"]["80_X"])
+# print np.std(healthy_cop_freqs["Standing_EO"]["80_Y"])
+# print "\n"
+# print np.std(healthy_cop_freqs["Standing_EC"]["80_X"])
+# print np.std(healthy_cop_freqs["Standing_EC"]["80_Y"])
+# print "\n"
+# print np.std(healthy_cop_freqs["OneFootStanding_R_EO"]["80_X"])
+# print np.std(healthy_cop_freqs["OneFootStanding_R_EO"]["80_Y"])
+# print "\n"
+# print np.std(healthy_cop_freqs["OneFootStanding_R_EC"]["80_X"])
+# print np.std(healthy_cop_freqs["OneFootStanding_R_EC"]["80_Y"])
+# print "\n"
+# print np.std(healthy_cop_freqs["OneFootStanding_L_EO"]["80_X"])
+# print np.std(healthy_cop_freqs["OneFootStanding_L_EO"]["80_Y"])
+# print "\n"
+# print np.std(healthy_cop_freqs["OneFootStanding_L_EC"]["80_X"])
+# print np.std(healthy_cop_freqs["OneFootStanding_L_EC"]["80_Y"])
 
-over30_EMG, male_EMG, female_EMG, EA_over30_EMG, EA_more_EMG = get_EMG_evolution(patient1.EMG_evolution)
-
-over30_COP, male_COP, female_COP, EA_over30_COP, EA_more_COP = get_COP_evolution(patient1.area_e)
-
-over30_area, male_area, female_area, EA_over30_area, EA_more_area = get_evolution_area(patient1.area_e)
-
-# print over30_EMG
-# print over30_COP
-# print over30_area
+#same_direction_different_tasks_freqs(healthy_cop_freqs)
+#stats_values = table_freqs_COP_parameters_wilcoxon(healthy_cop_freqs)
+#tables_freq_cop_wilcoxon(stats_values)
 
 
+#box_plot_sameparameter_diferent_task(healthy_cop_parameters, "Area")
 
-#cop_parameters_same_parameter(mean, std, median)
+#array = table_cop_parameters_wilcoxon(healthy_cop_parameters, "Amp_Y")
+#print array
 
-#box_plot_sameparameter_diferent_task(healthy_cop_parameters)
+#EMG_values_boxplot_healthy_vs_EA(healthy_EMG, EA_EMG)
+#EMG_freq_back_boxplot_HealthyvsSA(healthy_freqs_muscles, EA_freqs_muscles)
 
-IMC_healthy = []
-age_healthy = []
 
-over30_pdata, male_pdata, female_pdata, EA_over30_pdata, EA_more_pdata = get_IMC()
+over30_freq, male_freq, female_freq, EA_over30_freq, EA_more_freq = get_value_freq(patient1.peak_EMG)
+healthy_freqs_muscles = append_arrays_freqEMG_healthy(male_freq, female_freq,over30_freq)
 
-over30_IMC, male_IMC, IMC_female, IMC_over30_EA, IMC_moreEA = IMC_calculater(over30_pdata, male_pdata, female_pdata, EA_over30_pdata, EA_more_pdata)
+EA_freqs_muscles = append_arrays_freqEMG_EA(EA_over30_freq, EA_more_freq)
 
-IMC_healthy.extend(male_IMC)
-IMC_healthy.extend(IMC_female)
-IMC_healthy.extend(over30_IMC)
 
-for i in healthy_cop_parameters:
-    print i
-    ro_ampx, p_ampx = stats.spearmanr(IMC_healthy, healthy_cop_parameters[i]["Area"])
-    #ro_ampy, p_ampy = stats.spearmanr(IMC_healthy, healthy_cop_parameters[i]["Velocity_Y"])
-    print "Area"
-    print ro_ampx
-    print p_ampx
-    #print "VY"
-    #print ro_ampy
-    #print p_ampy
+# over30_freq_rest, male_freq_rest, female_freq_rest, EA_over30_freq_rest, EA_more_freq_rest = get_value_freq_rest()
+# over30_freqs_rest_e, male_freqs_rest_e, female_freqs_rest_e, EAover30_freqs_rest_e, EAmore_freqs_rest_e = eliminate_rest_freqs(over30_freq_rest, male_freq_rest, female_freq_rest, EA_over30_freq_rest, EA_more_freq_rest)
+# over30_freqs_rest_new, male_freqs_rest_new, female_freqs_rest_new, EAover30_freqs_rest_new, EAmore_freqs_rest_new = eliminate_none_freqs(over30_freqs_rest_e, male_freqs_rest_e, female_freqs_rest_e, EAover30_freqs_rest_e, EAmore_freqs_rest_e)
+# healthy_freqs_rest = append_arrays_healthy(male_freqs_rest_new, female_freqs_rest_new,over30_freqs_rest_new)
+# print healthy_freqs_rest
+# array_freqs_wil = table_freqs_EMG_parameters_wilcoxon(healthy_freqs_muscles)
+# print array_freqs_wil
+# same_muscle_different_tasks_freqs(healthy_freqs_muscles, healthy_freqs_rest)
+# tables_freq_wilcoxon(array_freqs_wil)
+
